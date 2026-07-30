@@ -1,4 +1,4 @@
-const CACHE_NAME = "rest-autoroute-v1";
+const CACHE_NAME = "rest-autoroute-v2";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -30,16 +30,22 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   if (event.request.method !== "GET") return;
+  if (url.origin !== self.location.origin) return;
+
+  // Network-first for our own app files: the app is actively changing, so a
+  // visitor should always see the latest deployed version when online. The
+  // cache only kicks in as a fallback when there's no network (offline use),
+  // not as the default source -- a cache-first strategy here is exactly what
+  // caused an old version to keep showing after an update.
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((resp) => {
-        if (resp.ok && url.origin === self.location.origin) {
+    fetch(event.request)
+      .then((resp) => {
+        if (resp.ok) {
           const copy = resp.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
         }
         return resp;
-      });
-    }).catch(() => caches.match("./index.html"))
+      })
+      .catch(() => caches.match(event.request).then((cached) => cached || caches.match("./index.html")))
   );
 });
