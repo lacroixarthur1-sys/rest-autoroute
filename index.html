@@ -344,7 +344,7 @@
     gap: 14px 18px;
     align-items: end;
   }
-  .trip-panel input[type="text"] {
+  .trip-panel input[type="text"], .trip-panel input[type="time"] {
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.35);
     color: #fff;
@@ -353,6 +353,7 @@
     font-size: 14.5px;
     font-family: var(--font-body);
     width: 100%;
+    color-scheme: dark;
   }
   .trip-panel input[type="text"]::placeholder { color: rgba(255,255,255,0.55); }
   .trip-summary {
@@ -658,6 +659,10 @@
         <input type="text" id="tripTo" placeholder="ex : Montpellier" autocomplete="off">
       </div>
       <div class="console-field">
+        <label class="console-label" for="tripDeparture">Heure de départ (optionnel)</label>
+        <input type="time" id="tripDeparture">
+      </div>
+      <div class="console-field">
         <label class="console-label">&nbsp;</label>
         <button class="locate-btn" id="tripGoBtn" type="button">Calculer l'itinéraire</button>
       </div>
@@ -678,10 +683,6 @@
           <button id="dirForwardBtn" type="button"></button>
           <button id="dirReverseBtn" type="button"></button>
         </div>
-      </div>
-      <div class="console-field">
-        <label class="console-label" for="speedInput">Vitesse (km/h)</label>
-        <input type="number" id="speedInput" min="60" max="150" step="5" value="120">
       </div>
       <div class="console-field">
         <label class="console-label">&nbsp;</label>
@@ -5299,11 +5300,12 @@
     mode: "route", // "route" | "trip"
     routeId: ROUTES[0].id,
     forward: true,
-    speed: 120,
+    speed: 125, // fixed cruising speed assumption used for all time estimates
     position: 0,
     activeCuisines: [],
     tripResults: null, // array of {aire, route, distKm, etaMin} once a trip is computed
-    tripLabel: null
+    tripLabel: null,
+    tripDepartureTime: null // "HH:MM" if the user filled in a departure time, else null
   };
 
   function currentRoute() {
@@ -5320,7 +5322,7 @@
   var routeSelect = document.getElementById("routeSelect");
   var dirForwardBtn = document.getElementById("dirForwardBtn");
   var dirReverseBtn = document.getElementById("dirReverseBtn");
-  var speedInput = document.getElementById("speedInput");
+  var tripDeparture = document.getElementById("tripDeparture");
   var locateBtn = document.getElementById("locateBtn");
   var locateStatus = document.getElementById("locateStatus");
   var citySearch = document.getElementById("citySearch");
@@ -5406,11 +5408,6 @@
     render();
   });
 
-  speedInput.addEventListener("input", function () {
-    var v = parseFloat(speedInput.value);
-    state.speed = (isFinite(v) && v > 0) ? v : 120;
-    render();
-  });
 
   positionSlider.addEventListener("input", function () {
     state.position = parseFloat(positionSlider.value);
@@ -5552,28 +5549,41 @@
   }
 
   // Flatten every step's own geometry into one array of points, each carrying
-  // its cumulative distance/duration from the departure and the ref of the
-  // road it's on -- this is what lets us say "this aire is X km into the trip".
+  // its cumulative distance from the departure and the ref of the road it's
+  // on -- this is what lets us say "this aire is X km into the trip". Time
+  // estimates all come from that distance at the app's fixed cruising speed
+  // (state.speed), not from OSRM's own duration -- one predictable number
+  // instead of two different "time" figures on screen.
   function buildRoutePoints(leg) {
     var points = [];
-    var cumDist = 0, cumDur = 0;
+    var cumDist = 0;
     leg.steps.forEach(function (step) {
       var ref = normalizeRef(step.ref);
       var coords = (step.geometry && step.geometry.coordinates) || [];
-      var segDist = step.distance, segDur = step.duration;
+      var segDist = step.distance;
       for (var i = 0; i < coords.length; i++) {
         var frac = coords.length > 1 ? i / (coords.length - 1) : 0;
         points.push({
           lon: coords[i][0], lat: coords[i][1],
           cumKm: (cumDist + segDist * frac) / 1000,
-          cumMin: (cumDur + segDur * frac) / 60,
           ref: ref
         });
       }
       cumDist += segDist;
-      cumDur += segDur;
     });
     return points;
+  }
+
+  function formatClockTime(departureHHMM, etaMinutes) {
+    var parts = departureHHMM.split(":");
+    var totalMin = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10) + etaMinutes;
+    var dayOffset = Math.floor(totalMin / 1440);
+    var minInDay = Math.round(((totalMin % 1440) + 1440) % 1440);
+    var hh = Math.floor(minInDay / 60) % 24;
+    var mm = minInDay % 60;
+    var hhStr = (hh < 10 ? "0" : "") + hh;
+    var mmStr = (mm < 10 ? "0" : "") + mm;
+    return hhStr + ":" + mmStr + (dayOffset > 0 ? " (+" + dayOffset + "j)" : "");
   }
 
   function computeTrip() {
@@ -5613,10 +5623,10 @@
             var best = null;
             samePoints.forEach(function (p) {
               var d = haversineKm(aire.lat, aire.lng, p.lat, p.lon);
-              if (!best || d < best.d) best = { d: d, cumKm: p.cumKm, cumMin: p.cumMin };
+              if (!best || d < best.d) best = { d: d, cumKm: p.cumKm };
             });
             if (best && best.d <= 2.5) {
-              matches.push({ aire: aire, route: route, matchDist: best.d, distKm: best.cumKm, etaMin: best.cumMin });
+              matches.push({ aire: aire, route: route, matchDist: best.d, distKm: best.cumKm, etaMin: (best.cumKm / state.speed) * 60 });
             }
           });
         });
@@ -5637,10 +5647,11 @@
         kept.sort(function (a, b) { return a.distKm - b.distKm; });
 
         state.tripResults = kept;
+        state.tripDepartureTime = tripDeparture.value || null;
         state.tripLabel = fromPos.label + " → " + toPos.label + " · " + coveredRoutes.map(function (r) { return r.id; }).join(", ");
         var totalKm = Math.round(leg.distance / 1000);
-        var totalMin = Math.round(leg.duration / 60);
-        tripSummary.innerHTML = "Trajet réel : <b>" + totalKm + " km</b>, environ <b>" + formatEta(totalMin) + "</b> de route. " +
+        var totalMin = Math.round((totalKm / state.speed) * 60);
+        tripSummary.innerHTML = "Trajet réel : <b>" + totalKm + " km</b>, environ <b>" + formatEta(totalMin) + "</b> de route à " + state.speed + " km/h. " +
           (coveredRoutes.length
             ? coveredRoutes.length + " autoroute(s) couverte(s) par cette collecte sur ce trajet : " + coveredRoutes.map(function (r) { return r.id; }).join(", ") + "."
             : "Aucune des autoroutes de ce trajet n'est couverte par cette collecte — aucune aire ne peut être listée.");
@@ -5761,7 +5772,7 @@
     return h + " h" + (m ? " " + (m < 10 ? "0" + m : m) : "");
   }
 
-  function buildAireCard(a, routeLabel, distKm, etaMin, isNext) {
+  function buildAireCard(a, routeLabel, distKm, etaMin, isNext, clockTime) {
     var card = document.createElement("div");
     card.className = "card" + (isNext ? " next" : "");
 
@@ -5777,7 +5788,10 @@
     statRow.className = "stat-row";
     statRow.innerHTML =
       '<div class="stat"><span class="stat-num tabular">' + formatKm(distKm) + '<small>km</small></span><span class="stat-num-label">Distance</span></div>' +
-      '<div class="stat"><span class="stat-num tabular">' + formatEta(etaMin) + '</span><span class="stat-num-label">Temps estimé</span></div>';
+      '<div class="stat"><span class="stat-num tabular">' + formatEta(etaMin) + '</span><span class="stat-num-label">Temps estimé</span></div>' +
+      (clockTime
+        ? '<div class="stat"><span class="stat-num tabular">' + clockTime + '</span><span class="stat-num-label">Heure de passage</span></div>'
+        : "");
     card.appendChild(statRow);
 
     var restWrap = document.createElement("div");
@@ -5888,7 +5902,8 @@
     }
 
     results.forEach(function (item, idx) {
-      cardGrid.appendChild(buildAireCard(item.aire, item.route.name + " · ~" + Math.round(item.distKm) + " km du départ", item.distKm, item.etaMin, idx === 0));
+      var clockTime = state.tripDepartureTime ? formatClockTime(state.tripDepartureTime, item.etaMin) : null;
+      cardGrid.appendChild(buildAireCard(item.aire, item.route.name + " · ~" + Math.round(item.distKm) + " km du départ", item.distKm, item.etaMin, idx === 0, clockTime));
     });
   }
 
