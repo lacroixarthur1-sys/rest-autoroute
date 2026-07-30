@@ -1,0 +1,5912 @@
+<title>Rest'Autoroute — restos sur autoroute</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Trouvez les restaurants des prochaines aires d'autoroute avant de manquer la sortie.">
+<meta name="theme-color" content="#1d4e89">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Rest'Autoroute">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  :root {
+    --ink: #12151a;
+    --surface-1: #ffffff;
+    --surface-2: #eef0f4;
+    --surface-3: #e2e6ec;
+    --sign-blue: #1d4e89;
+    --sign-blue-deep: #123a68;
+    --sign-blue-pale: #e7eef7;
+    --amber: #e08a1e;
+    --amber-deep: #a8630f;
+    --amber-pale: #fdf1de;
+    --paper: #f5f2ea;
+    --line: #ccd1da;
+    --text: #1b2028;
+    --text-dim: #5b6675;
+    --good: #2f7d4f;
+    --good-pale: #e5f3ea;
+    --radius: 12px;
+    --shadow: 0 6px 18px rgba(18, 21, 26, 0.09);
+    --font-display: 'Arial Narrow', 'Roboto Condensed', 'Helvetica Neue Condensed', 'Liberation Sans Narrow', sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Roboto Mono', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #eef1f5;
+      --surface-1: #1a1f27;
+      --surface-2: #20262f;
+      --surface-3: #262d38;
+      --sign-blue: #4a86c9;
+      --sign-blue-deep: #2c5d95;
+      --sign-blue-pale: #1c2c40;
+      --amber: #f0a63f;
+      --amber-deep: #f5b25c;
+      --amber-pale: #35291a;
+      --paper: #0f1216;
+      --line: #333b46;
+      --text: #eef1f5;
+      --text-dim: #99a3b1;
+      --good: #6fce93;
+      --good-pale: #16281d;
+      --shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eef1f5;
+    --surface-1: #1a1f27;
+    --surface-2: #20262f;
+    --surface-3: #262d38;
+    --sign-blue: #4a86c9;
+    --sign-blue-deep: #2c5d95;
+    --sign-blue-pale: #1c2c40;
+    --amber: #f0a63f;
+    --amber-deep: #f5b25c;
+    --amber-pale: #35291a;
+    --paper: #0f1216;
+    --line: #333b46;
+    --text: #eef1f5;
+    --text-dim: #99a3b1;
+    --good: #6fce93;
+    --good-pale: #16281d;
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+  :root[data-theme="light"] {
+    --ink: #12151a;
+    --surface-1: #ffffff;
+    --surface-2: #eef0f4;
+    --surface-3: #e2e6ec;
+    --sign-blue: #1d4e89;
+    --sign-blue-deep: #123a68;
+    --sign-blue-pale: #e7eef7;
+    --amber: #e08a1e;
+    --amber-deep: #a8630f;
+    --amber-pale: #fdf1de;
+    --paper: #f5f2ea;
+    --line: #ccd1da;
+    --text: #1b2028;
+    --text-dim: #5b6675;
+    --good: #2f7d4f;
+    --good-pale: #e5f3ea;
+    --shadow: 0 6px 18px rgba(18, 21, 26, 0.09);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.45;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .eyebrow, .btn, .chip, .aire-name, .stat-num-label, .console-label {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+  }
+  h1, h2, h3 { text-wrap: balance; }
+  .tabular { font-variant-numeric: tabular-nums; }
+  svg { display: block; }
+  button { font: inherit; }
+  a { color: inherit; }
+
+  /* ---------- layout shell ---------- */
+  .page { max-width: 1180px; margin: 0 auto; padding: 0 20px 64px; }
+
+  .hero {
+    padding: 30px 20px 22px;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-mark {
+    width: 46px; height: 46px; border-radius: 8px;
+    background: linear-gradient(155deg, var(--sign-blue), var(--sign-blue-deep));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow);
+    flex: none;
+  }
+  .brand-mark svg { width: 26px; height: 26px; stroke: #fff; fill: none; }
+  h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  h1 span { color: var(--amber); }
+  .tagline {
+    margin: 4px 0 0;
+    font-size: 14.5px;
+    color: var(--text-dim);
+    text-transform: none;
+    font-family: var(--font-body);
+    max-width: 46ch;
+  }
+  .theme-note {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: right;
+  }
+
+  /* ---------- disclaimer ---------- */
+  .notice {
+    margin: 0 auto 22px;
+    max-width: 1180px;
+    padding: 0 20px;
+  }
+  .notice-box {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--amber-pale);
+    border: 1px solid color-mix(in srgb, var(--amber) 45%, transparent);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 13.5px;
+    color: var(--text);
+  }
+  .notice-box svg { flex: none; width: 18px; height: 18px; stroke: var(--amber-deep); fill: none; margin-top: 2px; }
+  .notice-box b { color: var(--amber-deep); }
+  .notice-box details { margin-top: 4px; color: var(--text-dim); }
+  .notice-box summary { cursor: pointer; color: var(--sign-blue); font-weight: 600; }
+  .notice-box summary:focus-visible, button:focus-visible, input:focus-visible, .chip:focus-visible {
+    outline: 2px solid var(--amber); outline-offset: 2px;
+  }
+
+  /* ---------- console (controls) ---------- */
+  .console {
+    background: linear-gradient(160deg, var(--sign-blue-deep), var(--sign-blue));
+    border-radius: var(--radius);
+    padding: 18px 20px 22px;
+    box-shadow: var(--shadow);
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  .console-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px 18px;
+    align-items: end;
+  }
+  .console-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .console-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.75);
+    font-weight: 700;
+  }
+  .console select, .console input[type="number"] {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    border-radius: 8px;
+    padding: 9px 10px;
+    font-size: 14.5px;
+    font-family: var(--font-body);
+    width: 100%;
+  }
+  .console select option { color: #111; }
+  .console input[type="number"] { font-family: var(--font-mono); }
+  .direction-toggle {
+    display: flex;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .direction-toggle button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.8);
+    padding: 9px 6px;
+    font-size: 13px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .direction-toggle button.active { background: rgba(255,255,255,0.92); color: var(--sign-blue-deep); font-weight: 700; }
+
+  .locate-btn {
+    background: var(--amber);
+    color: #241703;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-weight: 700;
+    font-size: 13.5px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .locate-btn:hover { background: var(--amber-deep); }
+  .locate-btn:active { transform: scale(0.97); }
+  .locate-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background: var(--surface-1);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    z-index: 20;
+    display: none;
+  }
+  .search-results.open { display: block; }
+  .search-result-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 9px 12px;
+    font-size: 13px;
+    color: var(--text);
+    font-family: var(--font-body);
+    cursor: pointer;
+    border-bottom: 1px solid var(--line);
+  }
+  .search-result-item:last-child { border-bottom: none; }
+  .search-result-item:hover, .search-result-item:focus-visible { background: var(--surface-2); }
+  .search-result-item .route-tag {
+    color: var(--sign-blue);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 11px;
+    margin-left: 6px;
+  }
+  .search-result-empty {
+    padding: 9px 12px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+    font-family: var(--font-body);
+  }
+
+  /* ---------- mode tabs + trip panel ---------- */
+  .mode-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .mode-tab {
+    flex: 1;
+    background: var(--surface-1);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .mode-tab.active {
+    background: var(--sign-blue);
+    border-color: var(--sign-blue);
+    color: #fff;
+  }
+  .trip-panel {
+    background: linear-gradient(160deg, var(--sign-blue-deep), var(--sign-blue));
+    border-radius: var(--radius);
+    padding: 18px 20px 20px;
+    box-shadow: var(--shadow);
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  .trip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px 18px;
+    align-items: end;
+  }
+  .trip-panel input[type="text"] {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    border-radius: 8px;
+    padding: 9px 10px;
+    font-size: 14.5px;
+    font-family: var(--font-body);
+    width: 100%;
+  }
+  .trip-panel input[type="text"]::placeholder { color: rgba(255,255,255,0.55); }
+  .trip-summary {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(255,255,255,0.25);
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    display: none;
+  }
+  .trip-summary.show { display: block; }
+  .trip-summary b { color: var(--amber); font-family: var(--font-mono); }
+  .locate-status {
+    grid-column: 1 / -1;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.85);
+    min-height: 16px;
+  }
+
+  /* ---------- route ruler ---------- */
+  .ruler-wrap { margin-top: 20px; }
+  .ruler-caption {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 6px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+  }
+  .ruler-track-holder { position: relative; padding-top: 6px; padding-bottom: 74px; }
+  input[type="range"].ruler {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 6px;
+    background: var(--ruler-gradient, rgba(255,255,255,0.25));
+    cursor: pointer;
+    margin: 0;
+  }
+  input[type="range"].ruler::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0; height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 16px solid var(--amber);
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
+    margin-top: -2px;
+    cursor: grab;
+  }
+  input[type="range"].ruler::-moz-range-thumb {
+    width: 0; height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 16px solid var(--amber);
+    border-radius: 0;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
+    cursor: grab;
+  }
+  .ruler-ticks { position: relative; height: 0; }
+  .ruler-tick {
+    position: absolute;
+    top: 4px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    width: 64px;
+    transition: top 0.1s ease;
+  }
+  .ruler-tick .lbl-connector {
+    width: 1px;
+    background: rgba(255,255,255,0.3);
+    margin: 0 auto;
+  }
+  .ruler-tick .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+  }
+  .ruler-tick.passed .dot { background: rgba(255,255,255,0.3); }
+  .ruler-tick .lbl {
+    font-size: 10px;
+    color: rgba(255,255,255,0.65);
+    text-align: center;
+    line-height: 1.15;
+    max-width: 64px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ---------- filters ---------- */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 4px 0 20px;
+  }
+  .filters .filters-label {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    margin-right: 4px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface-1);
+    color: var(--text-dim);
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .chip svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
+  .chip.active {
+    background: var(--sign-blue);
+    border-color: var(--sign-blue);
+    color: #fff;
+  }
+  .chip.reset { color: var(--amber-deep); border-color: color-mix(in srgb, var(--amber) 50%, transparent); }
+
+  /* ---------- results meta ---------- */
+  .results-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .results-meta h2 { font-size: 15px; margin: 0; letter-spacing: 0.04em; color: var(--text-dim); }
+  .results-meta .count { color: var(--sign-blue); }
+
+  /* ---------- cards ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .card.next { border-color: var(--amber); box-shadow: 0 0 0 2px color-mix(in srgb, var(--amber) 35%, transparent), var(--shadow); }
+  .card-head {
+    background: var(--sign-blue-pale);
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .aire-name { font-size: 16px; font-weight: 700; color: var(--sign-blue-deep); line-height: 1.15; margin: 0; }
+  .aire-route { font-size: 11px; color: var(--text-dim); text-transform: none; font-family: var(--font-body); margin-top: 2px; }
+  .aire-source { font-size: 10px; color: var(--text-dim); text-transform: none; font-family: var(--font-body); margin-top: 3px; opacity: 0.75; }
+  .aire-source { font-size: 10px; color: var(--text-dim); text-transform: none; font-family: var(--font-body); margin-top: 3px; opacity: 0.75; }
+  .aire-source { font-size: 10px; color: var(--text-dim); text-transform: none; font-family: var(--font-body); margin-top: 3px; opacity: 0.75; }
+  .aire-source { font-size: 10px; color: var(--text-dim); text-transform: none; font-family: var(--font-body); margin-top: 3px; opacity: 0.75; }
+  .aire-source { font-size: 10px; color: var(--text-dim); text-transform: none; font-family: var(--font-body); margin-top: 3px; opacity: 0.75; }
+  .aire-source { font-size: 10px; color: var(--text-dim); text-transform: none; font-family: var(--font-body); margin-top: 3px; opacity: 0.75; }
+  .aire-source { font-size: 10px; color: var(--text-dim); text-transform: none; font-family: var(--font-body); margin-top: 3px; opacity: 0.75; }
+  .next-badge {
+    background: var(--amber);
+    color: #241703;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 3px 7px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-family: var(--font-display);
+  }
+  .stat-row { display: flex; gap: 18px; padding: 12px 16px 4px; }
+  .stat { display: flex; flex-direction: column; }
+  .stat-num { font-family: var(--font-mono); font-size: 22px; font-weight: 700; line-height: 1; }
+  .stat-num small { font-size: 12px; font-weight: 500; margin-left: 2px; font-family: var(--font-body); }
+  .stat-num-label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.06em; margin-top: 3px; }
+
+  .restaurants { padding: 10px 16px 4px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .r-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    padding: 5px 9px 5px 6px;
+    font-size: 12.5px;
+    font-family: var(--font-body);
+  }
+  .r-chip .icon-badge {
+    width: 20px; height: 20px; border-radius: 5px;
+    background: var(--sign-blue);
+    display: flex; align-items: center; justify-content: center;
+    flex: none;
+  }
+  .r-chip .icon-badge svg { width: 12px; height: 12px; stroke: #fff; fill: none; }
+  .r-chip.dim { opacity: 0.35; }
+
+  .services { padding: 10px 16px 14px; display: flex; gap: 14px; margin-top: auto; border-top: 1px dashed var(--line); }
+  .service {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; color: var(--text-dim);
+  }
+  .service svg { width: 15px; height: 15px; stroke: var(--text-dim); fill: none; }
+
+  .empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-dim);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    font-size: 14px;
+  }
+
+  footer.legal {
+    max-width: 1180px;
+    margin: 34px auto 0;
+    padding: 16px 20px 0;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: none;
+    font-family: var(--font-body);
+  }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 24px; }
+    .stat-row { gap: 12px; }
+    .ruler-tick { width: 44px; }
+    .ruler-tick .lbl { max-width: 44px; }
+  }
+</style>
+
+<svg style="position:absolute; width:0; height:0; overflow:hidden;" aria-hidden="true">
+  <defs>
+    <symbol id="i-road" viewBox="0 0 24 24"><path d="M4 20 L9 4 M20 20 L15 4" stroke-width="2" stroke-linecap="round"/><path d="M12 6 L12 9 M12 12.5 L12 15.5" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-burger" viewBox="0 0 24 24"><path d="M4 9 h16 M4 12 h16 M4 15 h16" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-bakery" viewBox="0 0 24 24"><path d="M4 15c0-5 4-9 9-9-1 3-1 6 1 9-3 2-7 2-10 0z" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pizza" viewBox="0 0 24 24"><path d="M12 4 L21 19 H3 Z" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="15.5" r="1.2" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M5 9h11v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V9z" stroke-width="2"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16" stroke-width="2"/><path d="M8 5c0 1-1 1-1 2 M12 5c0 1-1 1-1 2" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-self" viewBox="0 0 24 24"><path d="M6 3v8M6 3c-1.5 0-2 1.2-2 2.5S4.5 8 6 8" stroke-width="2" stroke-linecap="round"/><path d="M6 11v10" stroke-width="2" stroke-linecap="round"/><path d="M17 3c-2 0-3 2-3 5s1 3 3 3v9" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-veggie" viewBox="0 0 24 24"><path d="M12 20c-6-1-8-7-6-13 6 0 10 3 10 8" stroke-width="2" stroke-linejoin="round"/><path d="M6 7c3 2 5 6 6 13" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-fuel" viewBox="0 0 24 24"><rect x="4" y="4" width="10" height="16" rx="1" stroke-width="2"/><path d="M6 8h6" stroke-width="2"/><path d="M14 10h2l3 3v5a1.5 1.5 0 0 1-3 0v-1a1 1 0 0 0-1-1h-1" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-wc" viewBox="0 0 24 24"><circle cx="9" cy="5" r="2" stroke-width="2"/><path d="M9 8v6M6 10l3-2 3 2M7 14l-1 6M11 14l1 6" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="5" r="2" stroke-width="2"/><path d="M15 20l1.5-7h3L21 20M15.5 13h5" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M12 3v18M6 7l6-4 6 4M6 17l6 4 6-4M4 12h16" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-ev" viewBox="0 0 24 24"><path d="M13 2 5 13h5l-1 9 8-13h-5l1-7z" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shop" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z" stroke-width="2" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke-width="2"/></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke-width="2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path d="M12 11v5M12 8v.01" stroke-width="2" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<div class="hero">
+  <div class="brand">
+    <div class="brand-mark"><svg viewBox="0 0 24 24"><use href="#i-road"/></svg></div>
+    <div>
+      <h1>Rest'<span>Autoroute</span></h1>
+      <p class="tagline">Repérez les restaurants des prochaines aires avant de manquer la sortie.</p>
+    </div>
+  </div>
+  <div class="theme-note">Prototype v1 · 6 axes couverts</div>
+</div>
+
+<div class="notice">
+  <div class="notice-box">
+    <svg viewBox="0 0 24 24"><use href="#i-info"/></svg>
+    <div>
+      <div><b>Données réelles, collecte partielle.</b> Les aires et enseignes listées ici sont vérifiées via <a href="https://www.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap</a> (aire + commerces à proximité) et, quand disponible, la fiche de l'exploitant. Seules les aires avec au moins un restaurant confirmé sont affichées — beaucoup d'aires réelles sont donc absentes faute de données suffisamment précises dans OpenStreetMap. Les enseignes peuvent avoir changé depuis la collecte (2026-07-29). Vérifiez sur place.</div><details><summary>Méthodologie</summary>Aires identifiées via l'API Overpass (tag <code>highway=services</code>), rattachées à une autoroute via le tronçon <code>highway=motorway</code> le plus proche, avec leurs commerces réels à moins de 500 m (restauration, boulangerie, carburant, bornes de recharge, aires de jeux). La position le long de la route ('PK') est une distance à vol d'oiseau approximative depuis une extrémité du groupe, pas un point kilométrique officiel. Chaque aire n'est accessible que depuis un seul sens de circulation (impossible de traverser le terre-plein central) : son sens est déterminé à partir de la géométrie réelle de la chaussée la plus proche dans OpenStreetMap (tracé + tag <code>oneway</code>), pas par simple proximité entre deux aires. C'est le cas pour 176 des 179 aires (98%) ; les 3 restantes, faute de chaussée exploitable à proximité, sont affichées dans les deux sens par défaut.</details>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="mode-tabs" role="tablist">
+    <button class="mode-tab active" id="modeRouteBtn" type="button" role="tab" aria-selected="true">Par autoroute</button>
+    <button class="mode-tab" id="modeTripBtn" type="button" role="tab" aria-selected="false">Trajet complet (adresses)</button>
+  </div>
+
+  <div class="trip-panel" id="tripPanel" style="display:none;">
+    <div class="trip-grid">
+      <div class="console-field">
+        <label class="console-label" for="tripFrom">Départ</label>
+        <input type="text" id="tripFrom" placeholder="ex : Paris" autocomplete="off">
+      </div>
+      <div class="console-field">
+        <label class="console-label" for="tripTo">Arrivée</label>
+        <input type="text" id="tripTo" placeholder="ex : Montpellier" autocomplete="off">
+      </div>
+      <div class="console-field">
+        <label class="console-label">&nbsp;</label>
+        <button class="locate-btn" id="tripGoBtn" type="button">Calculer l'itinéraire</button>
+      </div>
+    </div>
+    <div class="locate-status" id="tripStatus"></div>
+    <div class="trip-summary" id="tripSummary"></div>
+  </div>
+
+  <div class="console" id="routeConsole">
+    <div class="console-grid">
+      <div class="console-field" style="grid-column: span 2;">
+        <label class="console-label" for="routeSelect">Autoroute</label>
+        <select id="routeSelect"></select>
+      </div>
+      <div class="console-field" style="grid-column: span 2;">
+        <label class="console-label" id="dirLabel">Sens de circulation</label>
+        <div class="direction-toggle" role="group" aria-labelledby="dirLabel">
+          <button id="dirForwardBtn" type="button"></button>
+          <button id="dirReverseBtn" type="button"></button>
+        </div>
+      </div>
+      <div class="console-field">
+        <label class="console-label" for="speedInput">Vitesse (km/h)</label>
+        <input type="number" id="speedInput" min="60" max="150" step="5" value="120">
+      </div>
+      <div class="console-field">
+        <label class="console-label">&nbsp;</label>
+        <button class="locate-btn" id="locateBtn" type="button">
+          <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
+          Me localiser
+        </button>
+      </div>
+      <div class="console-field" style="grid-column: span 2; position: relative;">
+        <label class="console-label" for="citySearch">Ou tapez une ville / une aire</label>
+        <input type="text" id="citySearch" placeholder="ex : Montpellier, Beaune, Narbonne…" autocomplete="off">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <div class="locate-status" id="locateStatus"></div>
+    </div>
+
+    <div class="ruler-wrap">
+      <div class="ruler-caption">
+        <span id="rulerFrom"></span>
+        <span>Vous êtes ici — glissez le curseur ▸</span>
+        <span id="rulerTo"></span>
+      </div>
+      <div class="ruler-track-holder">
+        <input type="range" class="ruler" id="positionSlider" min="0" max="100" value="0" step="1">
+        <div class="ruler-ticks" id="rulerTicks"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters" id="filters">
+    <span class="filters-label">Filtrer par cuisine :</span>
+  </div>
+
+  <div class="results-meta">
+    <h2>Prochaines aires <span class="count tabular" id="resultCount"></span></h2>
+    <h2 id="routeSummary" style="color:var(--text-dim); font-weight:500; text-transform:none; font-family:var(--font-body); font-size:13px;"></h2>
+  </div>
+
+  <div class="grid" id="cardGrid"></div>
+
+  <footer class="legal">
+    Rest'Autoroute — prototype v1. Distances et temps de trajet calculés à vol d'oiseau à partir de repères kilométriques approximatifs, à titre indicatif uniquement. Ne remplace pas la signalisation routière ni les applis officielles des sociétés d'autoroutes. Ne consultez pas cette application en conduisant.
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------------------------------------------------------------------
+  // Data: 6 major French motorway axes, sample rest-area dataset.
+  // pk = approximate cumulative km from the "from" city, along the route.
+  // lat/lng = approximate coordinates (used only for the locate-me demo).
+  // ---------------------------------------------------------------------
+  var CUISINE = {
+    burger:  { label: "Burger",        icon: "i-burger" },
+    bakery:  { label: "Boulangerie",   icon: "i-bakery" },
+    pizza:   { label: "Pizza",         icon: "i-pizza" },
+    coffee:  { label: "Café",          icon: "i-coffee" },
+    self:    { label: "Self-service",  icon: "i-self" },
+    veggie:  { label: "Bio / Veggie",  icon: "i-veggie" }
+  };
+
+  var ROUTES = [
+  {
+    "id": "A6",
+    "name": "A6 — L'Autoroute du Soleil (Nord)",
+    "from": "Lyon",
+    "to": "Auxerre",
+    "aires": [
+      {
+        "name": "Aire de Dardilly",
+        "pk": 0.0,
+        "lat": 45.8034959,
+        "lng": 4.7705492,
+        "restaurants": [
+          {
+            "n": "Minute Papillon",
+            "t": "self"
+          },
+          {
+            "n": "Les Marches",
+            "t": "self"
+          },
+          {
+            "n": "Green sur mesure",
+            "t": "burger"
+          },
+          {
+            "n": "Boulangerie Louise",
+            "t": "bakery"
+          },
+          {
+            "n": "Les Oliviers",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel"
+        ],
+        "direction": null,
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire des Bruyères - Paisy",
+        "pk": 0.6,
+        "lat": 45.8089787,
+        "lng": 4.7695213,
+        "restaurants": [
+          {
+            "n": "Le Patio",
+            "t": "self"
+          },
+          {
+            "n": "My Comptoir",
+            "t": "self"
+          },
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": null,
+        "source": "OpenStreetMap · https://voyage.aprr.fr/carte-itineraires?poi=service_area;3795"
+      },
+      {
+        "name": "Aire de Taponas",
+        "pk": 37.0,
+        "lat": 46.1359496,
+        "lng": 4.7675794,
+        "restaurants": [
+          {
+            "n": "Autogrill",
+            "t": "self"
+          },
+          {
+            "n": "Burger King",
+            "t": "burger"
+          },
+          {
+            "n": "Ciao Restaurant",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Dracé",
+        "pk": 37.7,
+        "lat": 46.1423765,
+        "lng": 4.7671056,
+        "restaurants": [
+          {
+            "n": "Autogrill",
+            "t": "self"
+          },
+          {
+            "n": "Bistrot Drace Beaujolais - Boulangerie Café",
+            "t": "bakery"
+          },
+          {
+            "n": "Burger King",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Mâcon-La Salle",
+        "pk": 68.9,
+        "lat": 46.4196393,
+        "lng": 4.866389,
+        "restaurants": [
+          {
+            "n": "À Table",
+            "t": "self"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          },
+          {
+            "n": "Starbucks",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-macon-la-salle"
+      },
+      {
+        "name": "Aire de Mâcon-Saint-Albain",
+        "pk": 68.9,
+        "lat": 46.4199256,
+        "lng": 4.8642644,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-macon-saint-albain"
+      },
+      {
+        "name": "Aire de La Ferté",
+        "pk": 98.9,
+        "lat": 46.6917619,
+        "lng": 4.8427427,
+        "restaurants": [
+          {
+            "n": "L'Arche",
+            "t": "self"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-la-ferte"
+      },
+      {
+        "name": "Aire de Saint-Ambreuil",
+        "pk": 99.0,
+        "lat": 46.6924444,
+        "lng": 4.844691,
+        "restaurants": [
+          {
+            "n": "Paul",
+            "t": "bakery"
+          },
+          {
+            "n": "Hippopotamus",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-saint-ambreuil"
+      },
+      {
+        "name": "Aire de Beaune-Merceuil",
+        "pk": 129.1,
+        "lat": 46.9634348,
+        "lng": 4.8383829,
+        "restaurants": [
+          {
+            "n": "Burger King",
+            "t": "burger"
+          },
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Exki",
+            "t": "veggie"
+          },
+          {
+            "n": "Starbucks",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Forêt",
+        "pk": 144.8,
+        "lat": 47.1050355,
+        "lng": 4.7136568,
+        "restaurants": [
+          {
+            "n": "Philéas",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-bligny-sur-ouche"
+      },
+      {
+        "name": "Aire du Creux Moreau",
+        "pk": 145.7,
+        "lat": 47.1130793,
+        "lng": 4.7118496,
+        "restaurants": [
+          {
+            "n": "L'Atelier Charal",
+            "t": "burger"
+          },
+          {
+            "n": "Tasty",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire des Lochères",
+        "pk": 168.9,
+        "lat": 47.3114128,
+        "lng": 4.5005512,
+        "restaurants": [
+          {
+            "n": "Ciao",
+            "t": "self"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Chien Blanc",
+        "pk": 169.4,
+        "lat": 47.3150334,
+        "lng": 4.4960168,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Stratto",
+            "t": "self"
+          },
+          {
+            "n": "Crep'Eat",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Chaponne",
+        "pk": 197.1,
+        "lat": 47.5027797,
+        "lng": 4.0360752,
+        "restaurants": [
+          {
+            "n": "Columbus Café & Co",
+            "t": "coffee"
+          },
+          {
+            "n": "Hippopotamus",
+            "t": "self"
+          },
+          {
+            "n": "L'Arche",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-la-chaponne"
+      },
+      {
+        "name": "Aire de Maison-Dieu",
+        "pk": 197.3,
+        "lat": 47.5045025,
+        "lng": 4.0357122,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://voyage.aprr.fr/carte-itineraires?poi=service_area;3780"
+      },
+      {
+        "name": "Aire de Venoy-Soleil Levant",
+        "pk": 236.1,
+        "lat": 47.789311,
+        "lng": 3.6715328,
+        "restaurants": [
+          {
+            "n": "Columbus Café & Co",
+            "t": "coffee"
+          },
+          {
+            "n": "Go Fresh",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-venoy-soleil-levant"
+      }
+    ]
+  },
+  {
+    "id": "A7",
+    "name": "A7 — L'Autoroute du Soleil (Sud)",
+    "from": "Vitrolles",
+    "to": "Lyon",
+    "aires": [
+      {
+        "name": "Aire de Vitrolles",
+        "pk": 0.0,
+        "lat": 43.4467353,
+        "lng": 5.242477,
+        "restaurants": [
+          {
+            "n": "Via Italia",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Lançon de Provence Ouest",
+        "pk": 16.3,
+        "lat": 43.5884254,
+        "lng": 5.1898629,
+        "restaurants": [
+          {
+            "n": "Super Wild Coffee",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-lancon-de-provence-ouest"
+      },
+      {
+        "name": "Aire de Lançon de Provence Est",
+        "pk": 16.4,
+        "lat": 43.5899249,
+        "lng": 5.1915052,
+        "restaurants": [
+          {
+            "n": "A table",
+            "t": "self"
+          },
+          {
+            "n": "Burger King",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-lancon-de-provence-est"
+      },
+      {
+        "name": "Aire de Morières",
+        "pk": 59.3,
+        "lat": 43.9231325,
+        "lng": 4.9123452,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Sorgues",
+        "pk": 70.1,
+        "lat": 44.0234052,
+        "lng": 4.8899076,
+        "restaurants": [
+          {
+            "n": "KFC",
+            "t": "burger"
+          },
+          {
+            "n": "Marie Blachère",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Mornas Village",
+        "pk": 92.8,
+        "lat": 44.1955677,
+        "lng": 4.7319965,
+        "restaurants": [
+          {
+            "n": "Paul",
+            "t": "bakery"
+          },
+          {
+            "n": "Pizza Hut Express",
+            "t": "pizza"
+          },
+          {
+            "n": "À Table!",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-mornas-village"
+      },
+      {
+        "name": "Aire de Mornas-Les Adrets",
+        "pk": 95.1,
+        "lat": 44.215116,
+        "lng": 4.7232357,
+        "restaurants": [
+          {
+            "n": "La Cascade",
+            "t": "self"
+          },
+          {
+            "n": "Subway",
+            "t": "burger"
+          },
+          {
+            "n": "L'atelier Papilles",
+            "t": "bakery"
+          },
+          {
+            "n": "Origin’R",
+            "t": "burger"
+          },
+          {
+            "n": "Louise",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire de Montélimar Est",
+        "pk": 124.3,
+        "lat": 44.5144698,
+        "lng": 4.782618,
+        "restaurants": [
+          {
+            "n": "Territoires de France",
+            "t": "self"
+          },
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Montélimar Ouest",
+        "pk": 124.5,
+        "lat": 44.5156722,
+        "lng": 4.780824,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Starbucks",
+            "t": "coffee"
+          },
+          {
+            "n": "Autogrill",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Saulce",
+        "pk": 146.4,
+        "lat": 44.72171,
+        "lng": 4.7871949,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "La Mie Câline",
+            "t": "bakery"
+          },
+          {
+            "n": "Cook Mie Grill",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Portes-lès-Valence Ouest",
+        "pk": 160.6,
+        "lat": 44.8657717,
+        "lng": 4.8650722,
+        "restaurants": [
+          {
+            "n": "Bistronome",
+            "t": "self"
+          },
+          {
+            "n": "Café Marie Blachère",
+            "t": "bakery"
+          },
+          {
+            "n": "Café de Marie",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire de Portes-lès-Valence Est",
+        "pk": 160.7,
+        "lat": 44.8661498,
+        "lng": 4.8666544,
+        "restaurants": [
+          {
+            "n": "Mezzo Di Pasta",
+            "t": "self"
+          },
+          {
+            "n": "Bistro Régent",
+            "t": "self"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Bonjour",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire de Pont-de-l'Isère-Les Vinays",
+        "pk": 177.0,
+        "lat": 45.016882,
+        "lng": 4.8747226,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "McCafé",
+            "t": "coffee"
+          },
+          {
+            "n": "Bonjour",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire de la Latitude 45",
+        "pk": 177.6,
+        "lat": 45.0218211,
+        "lng": 4.876313,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Saint-Rambert-d'Albon Ouest",
+        "pk": 206.1,
+        "lat": 45.2762285,
+        "lng": 4.8259996,
+        "restaurants": [
+          {
+            "n": "Boulangerie, Patisserie",
+            "t": "bakery"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          },
+          {
+            "n": "Subway",
+            "t": "burger"
+          },
+          {
+            "n": "Hippopotamus",
+            "t": "self"
+          },
+          {
+            "n": "L'arche Comptoir",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-saint-rambert-d-albon-ouest"
+      },
+      {
+        "name": "Aire de Saint-Rambert-d'Albon Est",
+        "pk": 206.1,
+        "lat": 45.2764943,
+        "lng": 4.8281408,
+        "restaurants": [
+          {
+            "n": "La Boîte à Pizza",
+            "t": "pizza"
+          },
+          {
+            "n": "Columbus Café & Co",
+            "t": "coffee"
+          },
+          {
+            "n": "Go Johny go",
+            "t": "burger"
+          },
+          {
+            "n": "PAUL",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-saint-rambert-d-albon-est"
+      }
+    ]
+  },
+  {
+    "id": "A8",
+    "name": "A8 — La Provençale",
+    "from": "Vidauban",
+    "to": "Beausoleil",
+    "aires": [
+      {
+        "name": "Aire de Vidauban Sud",
+        "pk": 0.0,
+        "lat": 43.4144213,
+        "lng": 6.4533448,
+        "restaurants": [
+          {
+            "n": "Tasty & Co",
+            "t": "burger"
+          },
+          {
+            "n": "Courtepaille",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Provence Verdon",
+        "pk": 0.2,
+        "lat": 43.4156738,
+        "lng": 6.4522645,
+        "restaurants": [
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          },
+          {
+            "n": "Stratto",
+            "t": "self"
+          },
+          {
+            "n": "Mezzoday",
+            "t": "self"
+          },
+          {
+            "n": "Simone Burger",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "fuel",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Canaver",
+        "pk": 18.6,
+        "lat": 43.4670723,
+        "lng": 6.6722745,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de l'Estérel",
+        "pk": 30.4,
+        "lat": 43.5422263,
+        "lng": 6.7863847,
+        "restaurants": [
+          {
+            "n": "Marie Blachère",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Cambarette",
+        "pk": 37.3,
+        "lat": 43.4237136,
+        "lng": 5.9913994,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire des Terrasses de Provence Centre VL",
+        "pk": 37.3,
+        "lat": 43.4223554,
+        "lng": 5.9918771,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Cote d'Azur",
+        "pk": 50.8,
+        "lat": 43.5891252,
+        "lng": 7.0348007,
+        "restaurants": [
+          {
+            "n": "Maison Pradier",
+            "t": "self"
+          },
+          {
+            "n": "L'atelier Charal",
+            "t": "self"
+          },
+          {
+            "n": "La Panetière",
+            "t": "bakery"
+          },
+          {
+            "n": "Pizza Ciccio",
+            "t": "pizza"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Mougins",
+        "pk": 50.9,
+        "lat": 43.5914225,
+        "lng": 7.0349543,
+        "restaurants": [
+          {
+            "n": "Starbucks",
+            "t": "coffee"
+          },
+          {
+            "n": "Pizza Hut",
+            "t": "pizza"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Sainte Victoire",
+        "pk": 64.8,
+        "lat": 43.468721,
+        "lng": 5.654591,
+        "restaurants": [
+          {
+            "n": "Roberta Café",
+            "t": "coffee"
+          },
+          {
+            "n": "BChef",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Rousset",
+        "pk": 65.6,
+        "lat": 43.4716183,
+        "lng": 5.644233,
+        "restaurants": [
+          {
+            "n": "L'Atelier Charal",
+            "t": "self"
+          },
+          {
+            "n": "Tasty & Co",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Via Julia Augusta",
+        "pk": 85.0,
+        "lat": 43.7549272,
+        "lng": 7.3977838,
+        "restaurants": [
+          {
+            "n": "Columbus Café & Co",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a8/aire-scoperta"
+      },
+      {
+        "name": "Aire de la Riviera Française",
+        "pk": 86.4,
+        "lat": 43.7533131,
+        "lng": 7.4192792,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A9",
+    "name": "A9 — La Languedocienne",
+    "from": "Céret",
+    "to": "Nîmes",
+    "aires": [
+      {
+        "name": "Aire du Village Catalan",
+        "pk": 0.0,
+        "lat": 42.5799287,
+        "lng": 2.8461309,
+        "restaurants": [
+          {
+            "n": "Les Comptoirs Casino",
+            "t": "self"
+          },
+          {
+            "n": "Coeur de Blé",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Palme Ouest",
+        "pk": 42.4,
+        "lat": 42.9501282,
+        "lng": 2.9683058,
+        "restaurants": [
+          {
+            "n": "Pizza Hut",
+            "t": "pizza"
+          },
+          {
+            "n": "Go Johnny Go",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "fuel",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Palme Est",
+        "pk": 42.5,
+        "lat": 42.9505062,
+        "lng": 2.9722458,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Lunch Grill",
+            "t": "self"
+          },
+          {
+            "n": "Les Tables",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Narbonne-Vinassan Nord",
+        "pk": 73.3,
+        "lat": 43.2146009,
+        "lng": 3.0890668,
+        "restaurants": [
+          {
+            "n": "Burger King",
+            "t": "burger"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Lunch Grill",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Narbonne-Vinassan Sud",
+        "pk": 73.5,
+        "lat": 43.2155697,
+        "lng": 3.0930789,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Caffé Del Arte",
+            "t": "self"
+          },
+          {
+            "n": "Bonjour",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire de Béziers-Montblanc Sud Boby Lapointe",
+        "pk": 95.7,
+        "lat": 43.3590753,
+        "lng": 3.3463513,
+        "restaurants": [
+          {
+            "n": "Pizza Hut",
+            "t": "pizza"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Béziers-Montblanc Nord Boby Lapointe",
+        "pk": 95.8,
+        "lat": 43.360313,
+        "lng": 3.3446041,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Buffalo Grill",
+            "t": "self"
+          },
+          {
+            "n": "Ciao",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Montpellier-Fabrègues Nord",
+        "pk": 132.4,
+        "lat": 43.547657,
+        "lng": 3.7956372,
+        "restaurants": [
+          {
+            "n": "Léo O Resto",
+            "t": "self"
+          },
+          {
+            "n": "La Mie Câline",
+            "t": "bakery"
+          },
+          {
+            "n": "Steak 'n Shake",
+            "t": "self"
+          },
+          {
+            "n": "Origin'R",
+            "t": "self"
+          },
+          {
+            "n": "Bonjour",
+            "t": "coffee"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire d'Ambrussum Sud",
+        "pk": 163.5,
+        "lat": 43.7124317,
+        "lng": 4.1318951,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Ciao",
+            "t": "self"
+          },
+          {
+            "n": "CIAO Café",
+            "t": "coffee"
+          },
+          {
+            "n": "Bonjour",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire d'Ambrussum Nord",
+        "pk": 163.8,
+        "lat": 43.7150046,
+        "lng": 4.132862,
+        "restaurants": [
+          {
+            "n": "Stratto",
+            "t": "burger"
+          },
+          {
+            "n": "Starbucks",
+            "t": "coffee"
+          },
+          {
+            "n": "Burger King",
+            "t": "burger"
+          },
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Marguerittes Sud",
+        "pk": 192.9,
+        "lat": 43.8690919,
+        "lng": 4.4401637,
+        "restaurants": [
+          {
+            "n": "La Paline",
+            "t": "bakery"
+          },
+          {
+            "n": "Tasty",
+            "t": "self"
+          },
+          {
+            "n": "L'Olivado",
+            "t": "self"
+          },
+          {
+            "n": "Le Chaudron",
+            "t": "self"
+          },
+          {
+            "n": "L'atelier Charal",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Marguerittes Nord",
+        "pk": 194.0,
+        "lat": 43.875641,
+        "lng": 4.4496738,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Bonjour",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire de Tavel-Sud",
+        "pk": 217.9,
+        "lat": 44.0005583,
+        "lng": 4.7014284,
+        "restaurants": [
+          {
+            "n": "Léo O Resto",
+            "t": "self"
+          },
+          {
+            "n": "Via Italia",
+            "t": "self"
+          },
+          {
+            "n": "Origin'R",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Tavel-Nord",
+        "pk": 218.2,
+        "lat": 44.0031625,
+        "lng": 4.7020427,
+        "restaurants": [
+          {
+            "n": "Lunch Grill",
+            "t": "self"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A10",
+    "name": "A10 — L'Aquitaine",
+    "from": "Blaye",
+    "to": "Blois",
+    "aires": [
+      {
+        "name": "Aire de l'Estalot",
+        "pk": 0.0,
+        "lat": 44.9785096,
+        "lng": -0.4324178,
+        "restaurants": [
+          {
+            "n": "Lunch Grill",
+            "t": "self"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Marie Blachère",
+            "t": "bakery"
+          },
+          {
+            "n": "KFC",
+            "t": "burger"
+          },
+          {
+            "n": "Crep'Eat",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Saugon Est",
+        "pk": 23.8,
+        "lat": 45.1885916,
+        "lng": -0.4903998,
+        "restaurants": [
+          {
+            "n": "Steak N' Shake",
+            "t": "self"
+          },
+          {
+            "n": "Nature Gourmande",
+            "t": "self"
+          },
+          {
+            "n": "L'Authentique",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-saugon-est"
+      },
+      {
+        "name": "Aire de Saugon Ouest",
+        "pk": 23.9,
+        "lat": 45.1891363,
+        "lng": -0.4938845,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Saint-Léger Est",
+        "pk": 71.6,
+        "lat": 45.6117033,
+        "lng": -0.6002118,
+        "restaurants": [
+          {
+            "n": "Burger King",
+            "t": "burger"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          },
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-saint-leger"
+      },
+      {
+        "name": "Aire de Fenioux",
+        "pk": 102.6,
+        "lat": 45.893413100000004,
+        "lng": -0.60334825,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Mezzoday",
+            "t": "burger"
+          },
+          {
+            "n": "Leo Resto",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire du Poitou-Charentes Nord",
+        "pk": 146.6,
+        "lat": 46.2963819,
+        "lng": -0.3768364,
+        "restaurants": [
+          {
+            "n": "Cafétéria L'Arche",
+            "t": "coffee"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          },
+          {
+            "n": "Les Ruralies",
+            "t": "self"
+          },
+          {
+            "n": "L'Arche Comptoir",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitou-charentes-nord"
+      },
+      {
+        "name": "Aire du Poitou-Charentes Sud",
+        "pk": 146.8,
+        "lat": 46.2977013,
+        "lng": -0.3710252,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Mezzo Di Pasta",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitou-charentes-sud"
+      },
+      {
+        "name": "Aire de Rouillé - Pamproux Sud",
+        "pk": 167.0,
+        "lat": 46.452126,
+        "lng": -0.0163622,
+        "restaurants": [
+          {
+            "n": "La Mie Câline",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Rouillé - Pamproux Nord",
+        "pk": 167.1,
+        "lat": 46.4533661,
+        "lng": -0.0165974,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Poitiers Jaunay-Clan",
+        "pk": 201.3,
+        "lat": 46.7015273,
+        "lng": 0.366654,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Poitiers-Chincé",
+        "pk": 201.5,
+        "lat": 46.7021285,
+        "lng": 0.371552,
+        "restaurants": [
+          {
+            "n": "Paul",
+            "t": "bakery"
+          },
+          {
+            "n": "Courtepaille",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitiers-chince"
+      },
+      {
+        "name": "Aire de Châtellerault-Usseau",
+        "pk": 226.7,
+        "lat": 46.9058684,
+        "lng": 0.5239171,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Châtellerault-Antran",
+        "pk": 226.8,
+        "lat": 46.906913,
+        "lng": 0.5220422,
+        "restaurants": [
+          {
+            "n": "Columbus Café & Co",
+            "t": "coffee"
+          },
+          {
+            "n": "Go Johnny Go",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-chatellerault-ouest-antran"
+      },
+      {
+        "name": "Aire de La Fontaine Colette",
+        "pk": 256.7,
+        "lat": 47.1656308,
+        "lng": 0.6319109,
+        "restaurants": [
+          {
+            "n": "Stratto",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Sainte-Maure de Touraine",
+        "pk": 256.8,
+        "lat": 47.1668948,
+        "lng": 0.6307367,
+        "restaurants": [
+          {
+            "n": "La Crossanterie",
+            "t": "burger"
+          },
+          {
+            "n": "Launch Grill",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Tours-Val de Loire",
+        "pk": 292.6,
+        "lat": 47.4737863,
+        "lng": 0.776599,
+        "restaurants": [
+          {
+            "n": "Les Comptoirs Casino",
+            "t": "self"
+          },
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Tours-La Longue Vue",
+        "pk": 292.8,
+        "lat": 47.4754018,
+        "lng": 0.775603,
+        "restaurants": [
+          {
+            "n": "Léo",
+            "t": "self"
+          },
+          {
+            "n": "Courtepaille",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Blois-Villerbon",
+        "pk": 329.7,
+        "lat": 47.6648886,
+        "lng": 1.3867503,
+        "restaurants": [
+          {
+            "n": "Burger King",
+            "t": "burger"
+          },
+          {
+            "n": "Territoires de France",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Blois-Ménars",
+        "pk": 329.7,
+        "lat": 47.6637643,
+        "lng": 1.3880613,
+        "restaurants": [
+          {
+            "n": "Costa",
+            "t": "coffee"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A11",
+    "name": "A11 — L'Océane",
+    "from": "Loireauxence",
+    "to": "Verrières-en-Anjou",
+    "aires": [
+      {
+        "name": "Aire de Varades - Pays d'Ancenis",
+        "pk": 0.0,
+        "lat": 47.4181658,
+        "lng": -1.0176125,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire des Portes d'Angers Sud",
+        "pk": 40.7,
+        "lat": 47.4999089,
+        "lng": -0.4900964,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Starbucks",
+            "t": "coffee"
+          },
+          {
+            "n": "Stratto",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A20",
+    "name": "A20 — L'Occitane",
+    "from": "Cœur de Causse",
+    "to": "Issoudun",
+    "aires": [
+      {
+        "name": "Aire-Jardin des Causses du Lot",
+        "pk": 0.0,
+        "lat": 44.657952,
+        "lng": 1.5682756,
+        "restaurants": [
+          {
+            "n": "Pains à la Ligne",
+            "t": "coffee"
+          },
+          {
+            "n": "Steak 'n Shake",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Pech-Montat",
+        "pk": 41.8,
+        "lat": 45.0325162,
+        "lng": 1.525978,
+        "restaurants": [
+          {
+            "n": "Leo Resto",
+            "t": "burger"
+          },
+          {
+            "n": "Origin'R",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire Porte de Corrèze",
+        "pk": 98.3,
+        "lat": 45.5410647,
+        "lng": 1.509614,
+        "restaurants": [
+          {
+            "n": "Porte de Corrèze",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Limoges-Est",
+        "pk": 140.7,
+        "lat": 45.9084888,
+        "lng": 1.2928017,
+        "restaurants": [
+          {
+            "n": "Le garge",
+            "t": "coffee"
+          },
+          {
+            "n": "L'Épi Gourmand",
+            "t": "bakery"
+          },
+          {
+            "n": "Don bernado",
+            "t": "self"
+          },
+          {
+            "n": "Donner Kebab",
+            "t": "burger"
+          },
+          {
+            "n": "Subway",
+            "t": "burger"
+          },
+          {
+            "n": "Au cœur du café",
+            "t": "coffee"
+          },
+          {
+            "n": "Les tendres à cuire",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Limoges-Ouest",
+        "pk": 141.3,
+        "lat": 45.9134572,
+        "lng": 1.292527,
+        "restaurants": [
+          {
+            "n": "Philéas Grill",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-limoges-ouest"
+      },
+      {
+        "name": "Aire de Boismandé",
+        "pk": 184.5,
+        "lat": 46.3139742,
+        "lng": 1.4198857,
+        "restaurants": [
+          {
+            "n": "Paul",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-bois-mande-est"
+      },
+      {
+        "name": "Aire des Champs d'Amour",
+        "pk": 271.3,
+        "lat": 47.089907,
+        "lng": 1.8451403,
+        "restaurants": [
+          {
+            "n": "Phileas",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-champs-d-amour-vatan"
+      }
+    ]
+  },
+  {
+    "id": "A31",
+    "name": "A31 — L'Autoroute de l'Est",
+    "from": "Beaune",
+    "to": "Dijon",
+    "aires": [
+      {
+        "name": "Aire de Gevrey-Chambertin Ouest",
+        "pk": 0.0,
+        "lat": 47.2171677,
+        "lng": 5.002323,
+        "restaurants": [
+          {
+            "n": "Paul",
+            "t": "bakery"
+          },
+          {
+            "n": "L'Arche Café",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a31/aire-gevrey-ouest"
+      },
+      {
+        "name": "Aire de Gevrey-Chambertin Est",
+        "pk": 0.9,
+        "lat": 47.2229109,
+        "lng": 5.0102563,
+        "restaurants": [
+          {
+            "n": "Le Mirabellier",
+            "t": "self"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a31/aire-gevrey-est"
+      },
+      {
+        "name": "Aire de Dijon-Brognon",
+        "pk": 26.1,
+        "lat": 47.4224906,
+        "lng": 5.1704524,
+        "restaurants": [
+          {
+            "n": "Sorebo",
+            "t": "self"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Burger King",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A36",
+    "name": "Autoroute A36",
+    "from": "Beaune",
+    "to": "Marchaux-Chaudefontaine",
+    "aires": [
+      {
+        "name": "Aire de Glanon",
+        "pk": 0.0,
+        "lat": 47.0321883,
+        "lng": 5.1091663,
+        "restaurants": [
+          {
+            "n": "Les Comptoirs Casino",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Dole Audelange",
+        "pk": 38.0,
+        "lat": 47.1473919,
+        "lng": 5.5820922,
+        "restaurants": [
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Dole Romange",
+        "pk": 38.2,
+        "lat": 47.1489927,
+        "lng": 5.5833221,
+        "restaurants": [
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Besançon Marchaux",
+        "pk": 83.5,
+        "lat": 47.3274056,
+        "lng": 6.1247487,
+        "restaurants": [
+          {
+            "n": "McDonald's Original",
+            "t": "burger"
+          },
+          {
+            "n": "Super Wild Coffee",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a36/aire-besancon-marchaux"
+      },
+      {
+        "name": "Aire de Besançon Champoux",
+        "pk": 83.7,
+        "lat": 47.3285337,
+        "lng": 6.1266505,
+        "restaurants": [
+          {
+            "n": "Roberta Caffe",
+            "t": "burger"
+          },
+          {
+            "n": "deli By Shell",
+            "t": "burger"
+          },
+          {
+            "n": "Philéas",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      }
+    ]
+  },
+  {
+    "id": "A39",
+    "name": "Autoroute A39",
+    "from": "Dijon",
+    "to": "Dijon",
+    "aires": [
+      {
+        "name": "Aire de Pont Chêne d’Argent",
+        "pk": 0.0,
+        "lat": 47.1803298,
+        "lng": 5.3337742,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Pont Val de Saône",
+        "pk": 0.5,
+        "lat": 47.1846259,
+        "lng": 5.3326233,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A40",
+    "name": "Autoroute A40",
+    "from": "Saint-Julien-en-Genevois",
+    "to": "Bourg-en-Bresse",
+    "aires": [
+      {
+        "name": "Aire de Valleiry Sud",
+        "pk": 0.0,
+        "lat": 46.0961391,
+        "lng": 5.9629908,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Valleiry Nord",
+        "pk": 0.1,
+        "lat": 46.0972987,
+        "lng": 5.962765,
+        "restaurants": [
+          {
+            "n": "Flunch",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Ceignes-Cerdon",
+        "pk": 36.4,
+        "lat": 46.1166204,
+        "lng": 5.4918173,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Ceignes Haut-Bugey",
+        "pk": 36.5,
+        "lat": 46.1180811,
+        "lng": 5.4903156,
+        "restaurants": [
+          {
+            "n": "Stratto",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Bourg Jasseron",
+        "pk": 52.7,
+        "lat": 46.2044812,
+        "lng": 5.2966284,
+        "restaurants": [
+          {
+            "n": "Columbus café&co",
+            "t": "coffee"
+          },
+          {
+            "n": "Courtepaille",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire de Bourg Teyssonge",
+        "pk": 52.9,
+        "lat": 46.2040047,
+        "lng": 5.2942952,
+        "restaurants": [
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          },
+          {
+            "n": "Starbucks",
+            "t": "coffee"
+          },
+          {
+            "n": "14 Bis",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A42",
+    "name": "Autoroute A42",
+    "from": "Bourg-en-Bresse",
+    "to": "Bourg-en-Bresse",
+    "aires": [
+      {
+        "name": "Aire de Lyon-Dagneux",
+        "pk": 0.0,
+        "lat": 45.8432875,
+        "lng": 5.0703097,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+      },
+      {
+        "name": "Aire de Lyon-Montluel",
+        "pk": 0.2,
+        "lat": 45.845207,
+        "lng": 5.0700154,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Corner Café",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A43",
+    "name": "Autoroute A43",
+    "from": "Saint-Jean-de-Maurienne",
+    "to": "Saint-Priest",
+    "aires": [
+      {
+        "name": "Aire de Saint-Julien-Mont-Denis",
+        "pk": 0.0,
+        "lat": 45.2462936,
+        "lng": 6.4236246,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Val Gelon",
+        "pk": 39.5,
+        "lat": 45.5476791,
+        "lng": 6.1567108,
+        "restaurants": [
+          {
+            "n": "La Mie Câline",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Granier",
+        "pk": 46.9,
+        "lat": 45.5264047,
+        "lng": 5.9742398,
+        "restaurants": [
+          {
+            "n": "Autogrill",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Guiers",
+        "pk": 71.9,
+        "lat": 45.57811,
+        "lng": 5.6334721,
+        "restaurants": [
+          {
+            "n": "Courtepaille",
+            "t": "self"
+          },
+          {
+            "n": "Philéas",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de l'Isle d'Abeau Sud",
+        "pk": 103.1,
+        "lat": 45.6120907,
+        "lng": 5.209818,
+        "restaurants": [
+          {
+            "n": "Bistrot",
+            "t": "self"
+          },
+          {
+            "n": "Autogrill",
+            "t": "self"
+          },
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Manissieux",
+        "pk": 123.5,
+        "lat": 45.6983513,
+        "lng": 4.9766717,
+        "restaurants": [
+          {
+            "n": "L'Estanquet",
+            "t": "self"
+          },
+          {
+            "n": "L'Adresse",
+            "t": "self"
+          },
+          {
+            "n": "Le QG des Gourmets",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Saint-Priest",
+        "pk": 123.5,
+        "lat": 45.6976916,
+        "lng": 4.9761726,
+        "restaurants": [
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A46",
+    "name": "Autoroute A46",
+    "from": "Lyon",
+    "to": "Bourg-en-Bresse",
+    "aires": [
+      {
+        "name": "Aire de Communay-Nord",
+        "pk": 0.0,
+        "lat": 45.5909585,
+        "lng": 4.8267298,
+        "restaurants": [
+          {
+            "n": "Cafétéria La Rocade",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Mionnay",
+        "pk": 33.4,
+        "lat": 45.8880179,
+        "lng": 4.8944189,
+        "restaurants": [
+          {
+            "n": "À table !",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a46/aire-mionnay"
+      }
+    ]
+  },
+  {
+    "id": "A48",
+    "name": "Autoroute A48",
+    "from": "Grenoble",
+    "to": "Grenoble",
+    "aires": [
+      {
+        "name": "Aire de l'Île Rose",
+        "pk": 0.0,
+        "lat": 45.2763954,
+        "lng": 5.6232926,
+        "restaurants": [
+          {
+            "n": "Leo O Resto Bistrot",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Voreppe",
+        "pk": 0.2,
+        "lat": 45.2783723,
+        "lng": 5.6239836,
+        "restaurants": [
+          {
+            "n": "Speed Rabbit Pizza",
+            "t": "pizza"
+          },
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A49",
+    "name": "Autoroute A49",
+    "from": "Valence",
+    "to": "Valence",
+    "aires": [
+      {
+        "name": "Aire de Royans-Vercors",
+        "pk": 0.0,
+        "lat": 45.072264,
+        "lng": 5.2112775,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire Porte de la Drôme",
+        "pk": 0.2,
+        "lat": 45.0741434,
+        "lng": 5.2098869,
+        "restaurants": [
+          {
+            "n": "Ciao",
+            "t": "self"
+          },
+          {
+            "n": "Starbucks",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A50",
+    "name": "Autoroute A50",
+    "from": "La Ciotat",
+    "to": "Marseille",
+    "aires": [
+      {
+        "name": "Aire des Frères Lumière",
+        "pk": 0.0,
+        "lat": 43.192475,
+        "lng": 5.6679114,
+        "restaurants": [
+          {
+            "n": "Stratto",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "fuel"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Baie de La Ciotat",
+        "pk": 0.2,
+        "lat": 43.1938076,
+        "lng": 5.6686387,
+        "restaurants": [
+          {
+            "n": "Pasta Bella",
+            "t": "burger"
+          },
+          {
+            "n": "Pomme de Pain",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Pomme",
+        "pk": 20.6,
+        "lat": 43.2920095,
+        "lng": 5.4538858,
+        "restaurants": [
+          {
+            "n": "Street Pizz'",
+            "t": "self"
+          },
+          {
+            "n": "Master Café",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A51",
+    "name": "Autoroute A51",
+    "from": "Bouc-Bel-Air",
+    "to": "Aix-en-Provence",
+    "aires": [
+      {
+        "name": "Aire des Chabauds",
+        "pk": 0.0,
+        "lat": 43.4334779,
+        "lng": 5.3952313,
+        "restaurants": [
+          {
+            "n": "Philéas",
+            "t": "burger"
+          },
+          {
+            "n": "La Terrasse",
+            "t": "self"
+          },
+          {
+            "n": "C'zen",
+            "t": "coffee"
+          },
+          {
+            "n": "Columbus Café & Co",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a51/aire-chabauds-cabries"
+      },
+      {
+        "name": "Aire de la Champouse",
+        "pk": 0.8,
+        "lat": 43.4409988,
+        "lng": 5.3953935,
+        "restaurants": [
+          {
+            "n": "Restaurant des Muriers",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Meyrargues-Fontbelle",
+        "pk": 23.5,
+        "lat": 43.6326537,
+        "lng": 5.4932176,
+        "restaurants": [
+          {
+            "n": "La Table d'Isa",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A61",
+    "name": "Autoroute A61",
+    "from": "Carcassonne",
+    "to": "Toulouse",
+    "aires": [
+      {
+        "name": "Aire de service des Corbières (Nord)",
+        "pk": 0.0,
+        "lat": 43.1787249,
+        "lng": 2.5426885,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Baguettes & Friends",
+            "t": "burger"
+          },
+          {
+            "n": "Storie Di Caffé",
+            "t": "coffee"
+          },
+          {
+            "n": "Territoires de France",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a61/aire-corbieres-nord"
+      },
+      {
+        "name": "Aire de service de Carcassonne-Arzens (Sud)",
+        "pk": 26.4,
+        "lat": 43.2166211,
+        "lng": 2.22105,
+        "restaurants": [
+          {
+            "n": "Stratto",
+            "t": "burger"
+          },
+          {
+            "n": "KFC",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service de Carcassonne-Arzens (Nord)",
+        "pk": 26.8,
+        "lat": 43.2200537,
+        "lng": 2.2171991,
+        "restaurants": [
+          {
+            "n": "Stratto",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service de Port-Lauragais (Nord)",
+        "pk": 62.7,
+        "lat": 43.3543016,
+        "lng": 1.8074152,
+        "restaurants": [
+          {
+            "n": "La Dinée",
+            "t": "self"
+          },
+          {
+            "n": "Midi Pile",
+            "t": "self"
+          },
+          {
+            "n": "Comptoir du Lauragais",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": null,
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service de Port-Lauragais (Sud)",
+        "pk": 62.8,
+        "lat": 43.3525004,
+        "lng": 1.804524,
+        "restaurants": [
+          {
+            "n": "La Dinée",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service de Toulouse Sud (Sud)",
+        "pk": 87.2,
+        "lat": 43.4834106,
+        "lng": 1.5495253,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Mezzoday",
+            "t": "self"
+          },
+          {
+            "n": "Crep'Eat",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service de Toulouse Sud (Nord)",
+        "pk": 87.3,
+        "lat": 43.4858505,
+        "lng": 1.5491378,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Mezzoday",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A62",
+    "name": "Autoroute A62",
+    "from": "Toulouse",
+    "to": "Marmande",
+    "aires": [
+      {
+        "name": "Aire du Frontonnais Nord",
+        "pk": 0.0,
+        "lat": 43.8120045,
+        "lng": 1.3622511,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Les Cantines",
+            "t": "self"
+          },
+          {
+            "n": "Café Bacquie",
+            "t": "coffee"
+          },
+          {
+            "n": "Croque Croque",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a62/aire-toulouse-frontonnais"
+      },
+      {
+        "name": "Aire de Garonne",
+        "pk": 38.4,
+        "lat": 44.0411441,
+        "lng": 1.0040018,
+        "restaurants": [
+          {
+            "n": "Subway",
+            "t": "burger"
+          },
+          {
+            "n": "L'Authentique",
+            "t": "self"
+          },
+          {
+            "n": "Nature Gourmande",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Mas d'Agenais",
+        "pk": 114.7,
+        "lat": 44.4049997,
+        "lng": 0.1868036,
+        "restaurants": [
+          {
+            "n": "Origin'R",
+            "t": "burger"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Comptoir Café",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A63",
+    "name": "A63 — L'Aquitaine (Sud)",
+    "from": "Bayonne",
+    "to": "Saugnac-et-Muret",
+    "aires": [
+      {
+        "name": "Aire de service de Bidart (Est)",
+        "pk": 0.0,
+        "lat": 43.4223452,
+        "lng": -1.5973648,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Manhattan Hot Dog",
+            "t": "burger"
+          },
+          {
+            "n": "La Table des Frères Ibarboure",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service de Bidart (Ouest)",
+        "pk": 0.1,
+        "lat": 43.4230227,
+        "lng": -1.5984363,
+        "restaurants": [
+          {
+            "n": "bonjour",
+            "t": "coffee"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Corner Café",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Labenne",
+        "pk": 23.1,
+        "lat": 43.58587335,
+        "lng": -1.4203364,
+        "restaurants": [
+          {
+            "n": "Boulangerie Pains d'Epoque",
+            "t": "bakery"
+          },
+          {
+            "n": "Philéas",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a63/aire-labenne-est"
+      },
+      {
+        "name": "Aire de la Porte des Landes-Ouest",
+        "pk": 120.3,
+        "lat": 44.3618601,
+        "lng": -0.8523309,
+        "restaurants": [
+          {
+            "n": "Flunch",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Porte des Landes-Est",
+        "pk": 120.3,
+        "lat": 44.3608952,
+        "lng": -0.8500405,
+        "restaurants": [
+          {
+            "n": "Flunch",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A64",
+    "name": "A64 — La Pyrénéenne",
+    "from": "Saint-Gaudens",
+    "to": "Dax",
+    "aires": [
+      {
+        "name": "Aire de service du Comminges",
+        "pk": 0.0,
+        "lat": 43.110224,
+        "lng": 0.6155508,
+        "restaurants": [
+          {
+            "n": "L'Arche Comptoir",
+            "t": "self"
+          },
+          {
+            "n": "Philéas",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a64/aire-comminges"
+      },
+      {
+        "name": "Aire de service des Pyrénées",
+        "pk": 57.9,
+        "lat": 43.229543,
+        "lng": -0.0788891,
+        "restaurants": [
+          {
+            "n": "Mezzo Di Pasta",
+            "t": "self"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Lunch Grill",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service de Lacq-Audéjos (Sud)",
+        "pk": 104.2,
+        "lat": 43.4215377,
+        "lng": -0.5987574,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service d'Hastingues",
+        "pk": 150.4,
+        "lat": 43.5292269,
+        "lng": -1.1515692,
+        "restaurants": [
+          {
+            "n": "Lunch Grill",
+            "t": "burger"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A71",
+    "name": "A71 — L'Autoroute de l'Arverne",
+    "from": "Riom",
+    "to": "Romorantin-Lanthenay",
+    "aires": [
+      {
+        "name": "Aire des Volcans d'Auvergne",
+        "pk": 0.0,
+        "lat": 46.057364,
+        "lng": 3.113463,
+        "restaurants": [
+          {
+            "n": "Autogrill",
+            "t": "self"
+          },
+          {
+            "n": "Le Grill",
+            "t": "self"
+          },
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Paul Le Café",
+            "t": "bakery"
+          },
+          {
+            "n": "Burger King",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de l'Allier (Doyet)",
+        "pk": 40.8,
+        "lat": 46.3547429,
+        "lng": 2.8030765,
+        "restaurants": [
+          {
+            "n": "L'Atelier Charal",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de l'Allier (Saulzet)",
+        "pk": 40.9,
+        "lat": 46.3560437,
+        "lng": 2.8042532,
+        "restaurants": [
+          {
+            "n": "Coffeeshop",
+            "t": "burger"
+          },
+          {
+            "n": "L'Atelier Charal",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Bourges-Sainte-Thorette",
+        "pk": 133.2,
+        "lat": 47.0948139,
+        "lng": 2.2412049,
+        "restaurants": [
+          {
+            "n": "Columbus Café & Co",
+            "t": "coffee"
+          },
+          {
+            "n": "Go Johnny Go",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a71/aire-bourges-sainte-thorette"
+      },
+      {
+        "name": "Aire de Bourges-Marmagne",
+        "pk": 133.3,
+        "lat": 47.0954845,
+        "lng": 2.2419003,
+        "restaurants": [
+          {
+            "n": "Paul",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a71/aire-bourges-marmagne"
+      },
+      {
+        "name": "Aire de Salbris La Loge",
+        "pk": 164.9,
+        "lat": 47.3486887,
+        "lng": 2.0503725,
+        "restaurants": [
+          {
+            "n": "Honiby Café",
+            "t": "coffee"
+          },
+          {
+            "n": "Caffé del Arte",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Salbris-Theillay",
+        "pk": 164.9,
+        "lat": 47.3483405,
+        "lng": 2.048272,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de La Ferté-Saint-Aubin",
+        "pk": 200.0,
+        "lat": 47.6634984,
+        "lng": 1.929097,
+        "restaurants": [
+          {
+            "n": "Columbus Café & Co",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Cœur de Sologne",
+        "pk": 200.3,
+        "lat": 47.6653833,
+        "lng": 1.9259593,
+        "restaurants": [
+          {
+            "n": "Maison Pradier",
+            "t": "bakery"
+          },
+          {
+            "n": "La Table de Sologne",
+            "t": "self"
+          },
+          {
+            "n": "Leo Resto",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A72",
+    "name": "Autoroute A72",
+    "from": "Montbrison",
+    "to": "Montbrison",
+    "aires": [
+      {
+        "name": "Aire de la Plaine du Forez Est",
+        "pk": 0.0,
+        "lat": 45.6803827,
+        "lng": 4.1565855,
+        "restaurants": [
+          {
+            "n": "Tasty",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Plaine du Forez Ouest",
+        "pk": 0.2,
+        "lat": 45.6820008,
+        "lng": 4.1545255,
+        "restaurants": [
+          {
+            "n": "Deli by Shell",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A75",
+    "name": "A75 — La Méridienne",
+    "from": "Lodève",
+    "to": "Clermont-Ferrand",
+    "aires": [
+      {
+        "name": "Aire du Caylar",
+        "pk": 0.0,
+        "lat": 43.8637563,
+        "lng": 3.3126314,
+        "restaurants": [
+          {
+            "n": "Les Délices du Caylar",
+            "t": "bakery"
+          },
+          {
+            "n": "Café de la Place",
+            "t": "coffee"
+          },
+          {
+            "n": "Le Rockastel",
+            "t": "self"
+          },
+          {
+            "n": "Les Comptoirs Casino",
+            "t": "coffee"
+          },
+          {
+            "n": "Berger & Burger",
+            "t": "self"
+          },
+          {
+            "n": "La Terrasse du Larzac",
+            "t": "self"
+          },
+          {
+            "n": "O'Resto",
+            "t": "self"
+          },
+          {
+            "n": "La Casa d'Italia",
+            "t": "self"
+          },
+          {
+            "n": "Freshfood",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de l'Aveyron",
+        "pk": 55.2,
+        "lat": 44.3308572,
+        "lng": 3.0797602,
+        "restaurants": [
+          {
+            "n": "Léo Resto",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Lozère",
+        "pk": 112.0,
+        "lat": 44.8699799,
+        "lng": 3.2482239,
+        "restaurants": [
+          {
+            "n": "Cafeteria",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Garde",
+        "pk": 112.1,
+        "lat": 44.8712309,
+        "lng": 3.2516163,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Toutatis",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de La Fayette-Lorlanges",
+        "pk": 163.8,
+        "lat": 45.3364751,
+        "lng": 3.2729893,
+        "restaurants": [
+          {
+            "n": "Tasty",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire d'Authezat",
+        "pk": 198.0,
+        "lat": 45.6423578,
+        "lng": 3.1841954,
+        "restaurants": [
+          {
+            "n": "Philéas",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a75/aire-authezat"
+      },
+      {
+        "name": "Aire de Veyre",
+        "pk": 200.1,
+        "lat": 45.6601591,
+        "lng": 3.1529233,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A81",
+    "name": "Autoroute A81",
+    "from": "La Flèche",
+    "to": "Laval",
+    "aires": [
+      {
+        "name": "Aire de Saint-Denis-d'Orques",
+        "pk": 0.0,
+        "lat": 48.0234764,
+        "lng": -0.3254887,
+        "restaurants": [
+          {
+            "n": "Paul",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a81/aire-st-denis-d-orques"
+      },
+      {
+        "name": "Aire de la Vallée de l'Erve",
+        "pk": 1.3,
+        "lat": 48.0268605,
+        "lng": -0.3420434,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Brioche Dorée Grill",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Mayenne",
+        "pk": 28.7,
+        "lat": 48.0957035,
+        "lng": -0.6967916,
+        "restaurants": [
+          {
+            "n": "Les Comptoirs Casino",
+            "t": "self"
+          },
+          {
+            "n": "Stratto",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A84",
+    "name": "Autoroute A84",
+    "from": "Avranches",
+    "to": "Saint-Lô",
+    "aires": [
+      {
+        "name": "Aire du Mont-Saint-Michel",
+        "pk": 0.0,
+        "lat": 48.5856828,
+        "lng": -1.3267027,
+        "restaurants": [
+          {
+            "n": "Les Comptoirs Casino",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Vallée de la Vire Gouvets",
+        "pk": 39.3,
+        "lat": 48.9075346,
+        "lng": -1.1049165,
+        "restaurants": [
+          {
+            "n": "Les Bruyères",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A85",
+    "name": "Autoroute A85",
+    "from": "Loches",
+    "to": "Romorantin-Lanthenay",
+    "aires": [
+      {
+        "name": "Aire du Val de Cher",
+        "pk": 0.0,
+        "lat": 47.3016312,
+        "lng": 0.8887691,
+        "restaurants": [
+          {
+            "n": "Leo Resto",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "fuel",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire des Jardins de Villandry",
+        "pk": 28.6,
+        "lat": 47.3108797,
+        "lng": 0.5101701,
+        "restaurants": [
+          {
+            "n": "Jour de Marché",
+            "t": "self"
+          },
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Romorantin",
+        "pk": 58.8,
+        "lat": 47.338354,
+        "lng": 1.6664655,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          },
+          {
+            "n": "Mezzo Di Pasta",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A89",
+    "name": "Autoroute A89",
+    "from": "Libourne",
+    "to": "Montbrison",
+    "aires": [
+      {
+        "name": "Aire des Palombières",
+        "pk": 0.0,
+        "lat": 45.0019191,
+        "lng": 0.034738,
+        "restaurants": [
+          {
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Manoire",
+        "pk": 62.3,
+        "lat": 45.1494928,
+        "lng": 0.7996573,
+        "restaurants": [
+          {
+            "n": "Philéas",
+            "t": "burger"
+          },
+          {
+            "n": "L'Arche Cafétéria",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a89/aire-perigueux-manoire"
+      },
+      {
+        "name": "Aire du Pays de Brive",
+        "pk": 111.8,
+        "lat": 45.161336,
+        "lng": 1.4406775,
+        "restaurants": [
+          {
+            "n": "Léo",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de la Corrèze",
+        "pk": 154.3,
+        "lat": 45.3594085,
+        "lng": 1.9374452,
+        "restaurants": [
+          {
+            "n": "Le Boeuf Jardinier",
+            "t": "self"
+          },
+          {
+            "n": "Paul",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a89/aire-correze-vitrac"
+      },
+      {
+        "name": "Aire du Chavanon",
+        "pk": 201.6,
+        "lat": 45.6222439,
+        "lng": 2.4570595,
+        "restaurants": [
+          {
+            "n": "Jour de Marché",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Manzat",
+        "pk": 253.5,
+        "lat": 45.9563692,
+        "lng": 2.9878025,
+        "restaurants": [
+          {
+            "n": "Leo",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de Limagne",
+        "pk": 279.5,
+        "lat": 45.8508573,
+        "lng": 3.4056466,
+        "restaurants": [
+          {
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "fuel",
+          "playground",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Haut-Forez Sud",
+        "pk": 309.5,
+        "lat": 45.8544359,
+        "lng": 3.8110224,
+        "restaurants": [
+          {
+            "n": "McDonald's",
+            "t": "burger"
+          },
+          {
+            "n": "Roberta Café",
+            "t": "coffee"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire du Haut-Forez Nord",
+        "pk": 309.7,
+        "lat": 45.8561057,
+        "lng": 3.8123075,
+        "restaurants": [
+          {
+            "n": "Deli by Shell",
+            "t": "burger"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "playground",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      }
+    ]
+  },
+  {
+    "id": "A620",
+    "name": "Autoroute A620",
+    "from": "Toulouse",
+    "to": "Toulouse",
+    "aires": [
+      {
+        "name": "Aire de service de Purpan (Extérieur)",
+        "pk": 0.0,
+        "lat": 43.5942116,
+        "lng": 1.3972141,
+        "restaurants": [
+          {
+            "n": "Les 4 petits cochons",
+            "t": "self"
+          }
+        ],
+        "services": [],
+        "direction": "reverse",
+        "source": "OpenStreetMap"
+      },
+      {
+        "name": "Aire de service de Purpan (Intérieur)",
+        "pk": 0.7,
+        "lat": 43.6005876,
+        "lng": 1.3985275,
+        "restaurants": [
+          {
+            "n": "Biergarten Purpan",
+            "t": "self"
+          }
+        ],
+        "services": [
+          "ev",
+          "playground",
+          "wc"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap"
+      }
+    ]
+  }
+];
+
+  var SERVICE_META = {
+    fuel: { label: "Carburant", icon: "i-fuel" },
+    wc: { label: "Toilettes", icon: "i-wc" },
+    shop: { label: "Boutique", icon: "i-shop" },
+    playground: { label: "Aire de jeux", icon: "i-play" },
+    ev: { label: "Borne électrique", icon: "i-ev" }
+  };
+
+  // ---------------------------------------------------------------------
+  // State
+  // ---------------------------------------------------------------------
+  var state = {
+    mode: "route", // "route" | "trip"
+    routeId: ROUTES[0].id,
+    forward: true,
+    speed: 120,
+    position: 0,
+    activeCuisines: [],
+    tripResults: null, // array of {aire, route, distKm, etaMin} once a trip is computed
+    tripLabel: null
+  };
+
+  function currentRoute() {
+    for (var i = 0; i < ROUTES.length; i++) if (ROUTES[i].id === state.routeId) return ROUTES[i];
+    return ROUTES[0];
+  }
+  function maxPk(route) {
+    return route.aires[route.aires.length - 1].pk;
+  }
+
+  // ---------------------------------------------------------------------
+  // DOM refs
+  // ---------------------------------------------------------------------
+  var routeSelect = document.getElementById("routeSelect");
+  var dirForwardBtn = document.getElementById("dirForwardBtn");
+  var dirReverseBtn = document.getElementById("dirReverseBtn");
+  var speedInput = document.getElementById("speedInput");
+  var locateBtn = document.getElementById("locateBtn");
+  var locateStatus = document.getElementById("locateStatus");
+  var citySearch = document.getElementById("citySearch");
+  var searchResults = document.getElementById("searchResults");
+  var positionSlider = document.getElementById("positionSlider");
+  var modeRouteBtn = document.getElementById("modeRouteBtn");
+  var modeTripBtn = document.getElementById("modeTripBtn");
+  var routeConsole = document.getElementById("routeConsole");
+  var tripPanel = document.getElementById("tripPanel");
+  var tripFrom = document.getElementById("tripFrom");
+  var tripTo = document.getElementById("tripTo");
+  var tripGoBtn = document.getElementById("tripGoBtn");
+  var tripStatus = document.getElementById("tripStatus");
+  var tripSummary = document.getElementById("tripSummary");
+  var rulerTicks = document.getElementById("rulerTicks");
+  var rulerFrom = document.getElementById("rulerFrom");
+  var rulerTo = document.getElementById("rulerTo");
+  var filtersEl = document.getElementById("filters");
+  var cardGrid = document.getElementById("cardGrid");
+  var resultCount = document.getElementById("resultCount");
+  var routeSummary = document.getElementById("routeSummary");
+
+  // ---------------------------------------------------------------------
+  // Init: route select
+  // ---------------------------------------------------------------------
+  ROUTES.forEach(function (r) {
+    var opt = document.createElement("option");
+    opt.value = r.id;
+    opt.textContent = r.name + " (" + r.from + " → " + r.to + ")";
+    routeSelect.appendChild(opt);
+  });
+  routeSelect.value = state.routeId;
+
+  // ---------------------------------------------------------------------
+  // Init: cuisine filter chips
+  // ---------------------------------------------------------------------
+  Object.keys(CUISINE).forEach(function (key) {
+    var meta = CUISINE[key];
+    var chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "chip";
+    chip.dataset.type = key;
+    chip.innerHTML = '<svg viewBox="0 0 24 24"><use href="#' + meta.icon + '"/></svg><span>' + meta.label + "</span>";
+    chip.addEventListener("click", function () {
+      var idx = state.activeCuisines.indexOf(key);
+      if (idx === -1) state.activeCuisines.push(key); else state.activeCuisines.splice(idx, 1);
+      render();
+    });
+    filtersEl.appendChild(chip);
+  });
+  var resetChip = document.createElement("button");
+  resetChip.type = "button";
+  resetChip.className = "chip reset";
+  resetChip.textContent = "Réinitialiser";
+  resetChip.addEventListener("click", function () {
+    state.activeCuisines = [];
+    render();
+  });
+  filtersEl.appendChild(resetChip);
+
+  // ---------------------------------------------------------------------
+  // Direction buttons
+  // ---------------------------------------------------------------------
+  function updateDirButtons() {
+    var r = currentRoute();
+    dirForwardBtn.textContent = r.from + " → " + r.to;
+    dirReverseBtn.textContent = r.to + " → " + r.from;
+    dirForwardBtn.classList.toggle("active", state.forward);
+    dirReverseBtn.classList.toggle("active", !state.forward);
+  }
+  dirForwardBtn.addEventListener("click", function () {
+    if (!state.forward) { state.forward = true; state.position = 0; setupSlider(); render(); }
+  });
+  dirReverseBtn.addEventListener("click", function () {
+    if (state.forward) { state.forward = false; state.position = maxPk(currentRoute()); setupSlider(); render(); }
+  });
+
+  routeSelect.addEventListener("change", function () {
+    state.routeId = routeSelect.value;
+    state.forward = true;
+    state.position = 0;
+    setupSlider();
+    render();
+  });
+
+  speedInput.addEventListener("input", function () {
+    var v = parseFloat(speedInput.value);
+    state.speed = (isFinite(v) && v > 0) ? v : 120;
+    render();
+  });
+
+  positionSlider.addEventListener("input", function () {
+    state.position = parseFloat(positionSlider.value);
+    render();
+  });
+
+  // ---------------------------------------------------------------------
+  // Slider setup: range + gradient ticks + labels
+  // ---------------------------------------------------------------------
+  function setupSlider() {
+    var r = currentRoute();
+    var max = maxPk(r);
+    positionSlider.min = 0;
+    positionSlider.max = max;
+    positionSlider.value = state.position;
+
+    // Only draw aires reachable in the currently selected travel direction --
+    // an aire tagged for the opposite carriageway can't be shown as a waypoint here.
+    var wantedSide = state.forward ? "forward" : "reverse";
+    var sideAires = r.aires.filter(function (a) { return !a.direction || a.direction === wantedSide; });
+
+    var stops = ["rgba(255,255,255,0.25) 0%"];
+    sideAires.forEach(function (a) {
+      var pct = (a.pk / max) * 100;
+      stops.push("rgba(255,255,255,0.25) " + (pct - 0.4) + "%");
+      stops.push("rgba(255,255,255,0.9) " + pct + "%");
+      stops.push("rgba(255,255,255,0.25) " + (pct + 0.4) + "%");
+    });
+    stops.push("rgba(255,255,255,0.25) 100%");
+    positionSlider.style.setProperty("--ruler-gradient", "linear-gradient(to right, " + stops.join(", ") + ")");
+    positionSlider.style.background = "linear-gradient(to right, " + stops.join(", ") + ")";
+
+    rulerTicks.innerHTML = "";
+    // Labels are ~64px wide; when two aires sit close together on the scale their
+    // labels would overlap and become unreadable. Greedily assign each tick to the
+    // first row (top offset) whose last-placed label doesn't collide with it.
+    var containerWidth = rulerTicks.getBoundingClientRect().width || rulerTicks.offsetWidth || 600;
+    var labelHalfWidth = 34; // ~64px label width / 2, plus a little breathing room
+    var rowRightEdge = [-Infinity, -Infinity, -Infinity];
+    var rowConnector = [0, 12, 24]; // extra vertical offset so the label stays tied to its dot
+
+    sideAires.forEach(function (a) {
+      var pct = (a.pk / max) * 100;
+      var leftPx = (pct / 100) * containerWidth;
+      var row = rowRightEdge.findIndex(function (edge) { return leftPx - labelHalfWidth > edge; });
+      if (row === -1) row = rowRightEdge.length - 1; // last resort: stack on the bottom row anyway
+      rowRightEdge[row] = leftPx + labelHalfWidth;
+
+      var tick = document.createElement("div");
+      tick.className = "ruler-tick"; // top always stays at the track line; only the label drops down
+      tick.style.left = pct + "%";
+      var connector = rowConnector[row]
+        ? '<span class="lbl-connector" style="height:' + rowConnector[row] + 'px"></span>'
+        : "";
+      tick.innerHTML = '<span class="dot"></span>' + connector + '<span class="lbl">' + a.name + "</span>";
+      rulerTicks.appendChild(tick);
+    });
+
+    rulerFrom.textContent = r.from;
+    rulerTo.textContent = r.to;
+    updateDirButtons();
+  }
+
+  // ---------------------------------------------------------------------
+  // Geolocation: snap to nearest aire across all routes
+  // ---------------------------------------------------------------------
+  function haversineKm(lat1, lng1, lat2, lng2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLng = (lng2 - lng1) * Math.PI / 180;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
+
+  // Jump the console to a given aire: pick its route, its own real direction
+  // (from road geometry) when known, and its position along the route.
+  function jumpToAire(route, aire, statusText) {
+    if (state.mode !== "route") setMode("route");
+    state.routeId = route.id;
+    routeSelect.value = route.id;
+    state.forward = aire.direction === "reverse" ? false : true;
+    state.position = aire.pk;
+    setupSlider();
+    positionSlider.value = state.position;
+    render();
+    locateStatus.textContent = statusText +
+      (aire.direction ? " Sens détecté automatiquement." : " Vérifiez le sens de circulation ci-dessus.");
+  }
+
+  // ---------------------------------------------------------------------
+  // Mode switch: "par autoroute" (manual route/slider) vs "trajet complet"
+  // (real address-to-address routing).
+  // ---------------------------------------------------------------------
+  function setMode(mode) {
+    state.mode = mode;
+    modeRouteBtn.classList.toggle("active", mode === "route");
+    modeTripBtn.classList.toggle("active", mode === "trip");
+    modeRouteBtn.setAttribute("aria-selected", mode === "route");
+    modeTripBtn.setAttribute("aria-selected", mode === "trip");
+    routeConsole.style.display = mode === "route" ? "" : "none";
+    tripPanel.style.display = mode === "trip" ? "" : "none";
+    render();
+  }
+  modeRouteBtn.addEventListener("click", function () { setMode("route"); });
+  modeTripBtn.addEventListener("click", function () { setMode("trip"); });
+
+  // ---------------------------------------------------------------------
+  // Real trip routing: geocode two addresses (Nominatim) then route between
+  // them (OSRM), extract which of our covered autoroutes are actually used,
+  // and list the real aires that sit on that real driving path.
+  // Both are free public OSM-based services -- fine for personal use, but
+  // NOT something this app could call from inside a sandboxed Claude
+  // Artifact preview (blocked network access); it works once hosted as a
+  // normal website.
+  // ---------------------------------------------------------------------
+  var NOMINATIM_URL = "https://nominatim.openstreetmap.org/search";
+  var OSRM_URL = "https://router.project-osrm.org/route/v1/driving/";
+
+  function normalizeRef(ref) {
+    return (ref || "").toUpperCase().replace(/\s+/g, "");
+  }
+
+  function geocode(query) {
+    var url = NOMINATIM_URL + "?format=json&limit=1&countrycodes=fr&q=" + encodeURIComponent(query);
+    return fetch(url, { headers: { "Accept-Language": "fr" } })
+      .then(function (r) { return r.json(); })
+      .then(function (results) {
+        if (!results || !results.length) return null;
+        return { lat: parseFloat(results[0].lat), lon: parseFloat(results[0].lon), label: results[0].display_name.split(",")[0] };
+      });
+  }
+
+  function fetchOsrmRoute(from, to) {
+    var url = OSRM_URL + from.lon + "," + from.lat + ";" + to.lon + "," + to.lat +
+      "?steps=true&overview=false&geometries=geojson";
+    return fetch(url).then(function (r) { return r.json(); });
+  }
+
+  // Flatten every step's own geometry into one array of points, each carrying
+  // its cumulative distance/duration from the departure and the ref of the
+  // road it's on -- this is what lets us say "this aire is X km into the trip".
+  function buildRoutePoints(leg) {
+    var points = [];
+    var cumDist = 0, cumDur = 0;
+    leg.steps.forEach(function (step) {
+      var ref = normalizeRef(step.ref);
+      var coords = (step.geometry && step.geometry.coordinates) || [];
+      var segDist = step.distance, segDur = step.duration;
+      for (var i = 0; i < coords.length; i++) {
+        var frac = coords.length > 1 ? i / (coords.length - 1) : 0;
+        points.push({
+          lon: coords[i][0], lat: coords[i][1],
+          cumKm: (cumDist + segDist * frac) / 1000,
+          cumMin: (cumDur + segDur * frac) / 60,
+          ref: ref
+        });
+      }
+      cumDist += segDist;
+      cumDur += segDur;
+    });
+    return points;
+  }
+
+  function computeTrip() {
+    var fromQuery = tripFrom.value.trim();
+    var toQuery = tripTo.value.trim();
+    if (!fromQuery || !toQuery) {
+      tripStatus.textContent = "Indiquez une ville ou adresse de départ et d'arrivée.";
+      return;
+    }
+    tripSummary.classList.remove("show");
+    tripStatus.textContent = "Recherche des adresses…";
+
+    Promise.all([geocode(fromQuery), geocode(toQuery)]).then(function (geo) {
+      var fromPos = geo[0], toPos = geo[1];
+      if (!fromPos) { tripStatus.textContent = "Adresse de départ introuvable : « " + fromQuery + " »."; throw new Error("stop"); }
+      if (!toPos) { tripStatus.textContent = "Adresse d'arrivée introuvable : « " + toQuery + " »."; throw new Error("stop"); }
+
+      tripStatus.textContent = "Calcul de l'itinéraire (" + fromPos.label + " → " + toPos.label + ")…";
+      return fetchOsrmRoute(fromPos, toPos).then(function (osrm) {
+        if (osrm.code !== "Ok" || !osrm.routes || !osrm.routes.length) {
+          tripStatus.textContent = "Impossible de calculer un itinéraire entre ces deux points.";
+          throw new Error("stop");
+        }
+        var leg = osrm.routes[0].legs[0];
+        var points = buildRoutePoints(leg);
+
+        var usedRefs = {};
+        points.forEach(function (p) { if (p.ref) usedRefs[p.ref] = true; });
+        var coveredRoutes = ROUTES.filter(function (r) { return usedRefs[normalizeRef(r.id)]; });
+
+        var matches = [];
+        coveredRoutes.forEach(function (route) {
+          var routeRef = normalizeRef(route.id);
+          var samePoints = points.filter(function (p) { return p.ref === routeRef; });
+          if (!samePoints.length) return;
+          route.aires.forEach(function (aire) {
+            var best = null;
+            samePoints.forEach(function (p) {
+              var d = haversineKm(aire.lat, aire.lng, p.lat, p.lon);
+              if (!best || d < best.d) best = { d: d, cumKm: p.cumKm, cumMin: p.cumMin };
+            });
+            if (best && best.d <= 2.5) {
+              matches.push({ aire: aire, route: route, matchDist: best.d, distKm: best.cumKm, etaMin: best.cumMin });
+            }
+          });
+        });
+
+        // Two aires can both sit close to the same stretch of road (a Nord/Sud
+        // pair straddling the route) -- keep only the one actually nearest to
+        // the real path OSRM gave us, per cluster of nearby same-route matches.
+        matches.sort(function (a, b) { return a.distKm - b.distKm; });
+        var kept = [];
+        matches.forEach(function (m) {
+          var conflict = kept.find(function (k) {
+            return k.route.id === m.route.id && Math.abs(k.distKm - m.distKm) < 3 &&
+              haversineKm(k.aire.lat, k.aire.lng, m.aire.lat, m.aire.lng) < 1.5;
+          });
+          if (!conflict) kept.push(m);
+          else if (m.matchDist < conflict.matchDist) { kept.splice(kept.indexOf(conflict), 1, m); }
+        });
+        kept.sort(function (a, b) { return a.distKm - b.distKm; });
+
+        state.tripResults = kept;
+        state.tripLabel = fromPos.label + " → " + toPos.label + " · " + coveredRoutes.map(function (r) { return r.id; }).join(", ");
+        var totalKm = Math.round(leg.distance / 1000);
+        var totalMin = Math.round(leg.duration / 60);
+        tripSummary.innerHTML = "Trajet réel : <b>" + totalKm + " km</b>, environ <b>" + formatEta(totalMin) + "</b> de route. " +
+          (coveredRoutes.length
+            ? coveredRoutes.length + " autoroute(s) couverte(s) par cette collecte sur ce trajet : " + coveredRoutes.map(function (r) { return r.id; }).join(", ") + "."
+            : "Aucune des autoroutes de ce trajet n'est couverte par cette collecte — aucune aire ne peut être listée.");
+        tripSummary.classList.add("show");
+        tripStatus.textContent = kept.length
+          ? kept.length + " aire(s) trouvée(s) sur ce trajet."
+          : "Trajet calculé, mais aucune aire couverte ne s'y trouve.";
+        render();
+      });
+    }).catch(function (err) {
+      if (err.message !== "stop") {
+        tripStatus.textContent = "Erreur réseau lors du calcul (" + err.message + "). Réessayez.";
+      }
+    });
+  }
+
+  tripGoBtn.addEventListener("click", computeTrip);
+  [tripFrom, tripTo].forEach(function (input) {
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") computeTrip(); });
+  });
+
+  // ---------------------------------------------------------------------
+  // Manual fallback: search by city/aire name (no browser permission needed).
+  // Geolocation is blocked in this hosting environment's sandbox, even outside
+  // the chat preview, so this is the reliable way to set your position.
+  // ---------------------------------------------------------------------
+  function stripAccents(s) {
+    return s.normalize("NFKD").replace(/[̀-ͯ]/g, "");
+  }
+  function normText(s) {
+    return stripAccents(s).toLowerCase();
+  }
+
+  function closeSearchResults() {
+    searchResults.classList.remove("open");
+    searchResults.innerHTML = "";
+  }
+
+  function runSearch() {
+    var q = normText(citySearch.value.trim());
+    if (!q) { closeSearchResults(); return; }
+    var matches = [];
+    ROUTES.forEach(function (r) {
+      r.aires.forEach(function (a) {
+        if (normText(a.name).indexOf(q) !== -1) matches.push({ route: r, aire: a });
+      });
+    });
+    searchResults.innerHTML = "";
+    if (!matches.length) {
+      var empty = document.createElement("div");
+      empty.className = "search-result-empty";
+      empty.textContent = "Aucune aire ne correspond à « " + citySearch.value.trim() + " ».";
+      searchResults.appendChild(empty);
+    } else {
+      matches.slice(0, 8).forEach(function (m) {
+        var item = document.createElement("button");
+        item.type = "button";
+        item.className = "search-result-item";
+        item.innerHTML = m.aire.name + '<span class="route-tag">' + m.route.id + "</span>";
+        item.addEventListener("click", function () {
+          jumpToAire(m.route, m.aire, "Position calée sur " + m.aire.name + " (" + m.route.id + ").");
+          citySearch.value = m.aire.name;
+          closeSearchResults();
+        });
+        searchResults.appendChild(item);
+      });
+    }
+    searchResults.classList.add("open");
+  }
+
+  citySearch.addEventListener("input", runSearch);
+  citySearch.addEventListener("focus", function () { if (citySearch.value.trim()) runSearch(); });
+  document.addEventListener("click", function (e) {
+    if (e.target !== citySearch && !searchResults.contains(e.target)) closeSearchResults();
+  });
+
+  locateBtn.addEventListener("click", function () {
+    if (!navigator.geolocation) {
+      locateStatus.textContent = "Géolocalisation non disponible sur cet appareil/navigateur. Utilisez la recherche par ville ci-contre.";
+      return;
+    }
+    locateStatus.textContent = "Localisation en cours…";
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      var lat = pos.coords.latitude, lng = pos.coords.longitude;
+      var best = null;
+      ROUTES.forEach(function (r) {
+        r.aires.forEach(function (a) {
+          var d = haversineKm(lat, lng, a.lat, a.lng);
+          if (!best || d < best.d) best = { d: d, route: r, aire: a };
+        });
+      });
+      if (best && best.d <= 30) {
+        jumpToAire(best.route, best.aire, "Position calée sur l'aire la plus proche : " + best.aire.name +
+          " (≈" + Math.round(best.d) + " km).");
+      } else {
+        locateStatus.textContent = "Aucune des " + ROUTES.length + " autoroutes couvertes ne semble proche de votre position" +
+          (best ? " (aire la plus proche : " + best.aire.name + ", ≈" + Math.round(best.d) + " km)" : "") +
+          ". Choisissez votre itinéraire manuellement ou utilisez la recherche par ville.";
+      }
+    }, function (err) {
+      var hint = "Utilisez la recherche par ville/aire ci-contre, ou le curseur manuellement.";
+      if (err.code === 1) {
+        hint = "La géolocalisation est bloquée par la politique de permissions de cette page (limite de l'environnement d'hébergement, même hors aperçu intégré). Utilisez la recherche par ville/aire ci-contre à la place.";
+      }
+      locateStatus.textContent = "Impossible de récupérer votre position (" + err.message + "). " + hint;
+    }, { timeout: 8000 });
+  });
+
+  // ---------------------------------------------------------------------
+  // Render
+  // ---------------------------------------------------------------------
+  function formatKm(km) {
+    return (km < 10 ? km.toFixed(1) : Math.round(km)) + "";
+  }
+  function formatEta(minutes) {
+    if (minutes < 60) return Math.round(minutes) + " min";
+    var h = Math.floor(minutes / 60), m = Math.round(minutes % 60);
+    return h + " h" + (m ? " " + (m < 10 ? "0" + m : m) : "");
+  }
+
+  function buildAireCard(a, routeLabel, distKm, etaMin, isNext) {
+    var card = document.createElement("div");
+    card.className = "card" + (isNext ? " next" : "");
+
+    var head = document.createElement("div");
+    head.className = "card-head";
+    head.innerHTML =
+      '<div><p class="aire-name">' + a.name + '</p><p class="aire-route">' + routeLabel + "</p>" +
+      '<p class="aire-source">Source : ' + (a.source || "OpenStreetMap") + "</p></div>" +
+      (isNext ? '<span class="next-badge">Prochaine</span>' : "");
+    card.appendChild(head);
+
+    var statRow = document.createElement("div");
+    statRow.className = "stat-row";
+    statRow.innerHTML =
+      '<div class="stat"><span class="stat-num tabular">' + formatKm(distKm) + '<small>km</small></span><span class="stat-num-label">Distance</span></div>' +
+      '<div class="stat"><span class="stat-num tabular">' + formatEta(etaMin) + '</span><span class="stat-num-label">Temps estimé</span></div>';
+    card.appendChild(statRow);
+
+    var restWrap = document.createElement("div");
+    restWrap.className = "restaurants";
+    a.restaurants.forEach(function (res) {
+      var meta = CUISINE[res.t];
+      var dimmed = state.activeCuisines.length && state.activeCuisines.indexOf(res.t) === -1;
+      var chip = document.createElement("span");
+      chip.className = "r-chip" + (dimmed ? " dim" : "");
+      chip.innerHTML = '<span class="icon-badge"><svg viewBox="0 0 24 24"><use href="#' + meta.icon + '"/></svg></span>' + res.n;
+      restWrap.appendChild(chip);
+    });
+    card.appendChild(restWrap);
+
+    var svcWrap = document.createElement("div");
+    svcWrap.className = "services";
+    a.services.forEach(function (svcKey) {
+      var meta = SERVICE_META[svcKey];
+      if (!meta) return;
+      var svc = document.createElement("span");
+      svc.className = "service";
+      svc.innerHTML = '<svg viewBox="0 0 24 24"><use href="#' + meta.icon + '"/></svg>' + meta.label;
+      svcWrap.appendChild(svc);
+    });
+    card.appendChild(svcWrap);
+
+    return card;
+  }
+
+  function renderEmpty(message) {
+    cardGrid.innerHTML = "";
+    var empty = document.createElement("div");
+    empty.className = "empty-state";
+    empty.style.gridColumn = "1 / -1";
+    empty.textContent = message;
+    cardGrid.appendChild(empty);
+  }
+
+  function renderRouteMode() {
+    var r = currentRoute();
+    var max = maxPk(r);
+    var ahead = [];
+
+    var wantedSide = state.forward ? "forward" : "reverse";
+    r.aires.forEach(function (a) {
+      // Each carriageway has its own aire; a "reverse"-side aire is physically
+      // unreachable while travelling forward (and vice versa). Aires with no
+      // determined side (direction === null) are shown regardless of travel
+      // direction since we have no confirmed opposite-side aire to exclude them for.
+      if (a.direction && a.direction !== wantedSide) return;
+      var dist = state.forward ? (a.pk - state.position) : (state.position - a.pk);
+      if (dist >= -0.001) ahead.push({ aire: a, dist: Math.max(dist, 0) });
+    });
+    ahead.sort(function (x, y) { return x.dist - y.dist; });
+
+    if (state.activeCuisines.length) {
+      ahead = ahead.filter(function (item) {
+        return item.aire.restaurants.some(function (res) {
+          return state.activeCuisines.indexOf(res.t) !== -1;
+        });
+      });
+    }
+
+    resultCount.textContent = "(" + ahead.length + ")";
+    routeSummary.textContent = r.name + " · sens " + (state.forward ? r.from + " → " + r.to : r.to + " → " + r.from) +
+      " · position km " + Math.round(state.position) + " / " + max;
+
+    cardGrid.innerHTML = "";
+    if (!ahead.length) {
+      renderEmpty(state.activeCuisines.length
+        ? "Aucune aire à venir ne correspond à ce filtre. Essayez d'en retirer un."
+        : "Plus aucune aire à venir sur ce tronçon avec ces réglages.");
+      return;
+    }
+
+    ahead.forEach(function (item, idx) {
+      var etaMin = (item.dist / state.speed) * 60;
+      cardGrid.appendChild(buildAireCard(item.aire, r.name + " · ~" + item.aire.pk + " km", item.dist, etaMin, idx === 0));
+    });
+  }
+
+  function renderTripMode() {
+    if (!state.tripResults) {
+      resultCount.textContent = "";
+      routeSummary.textContent = "";
+      renderEmpty("Indiquez un départ et une arrivée ci-dessus, puis cliquez sur « Calculer l'itinéraire ».");
+      return;
+    }
+
+    var results = state.tripResults;
+    if (state.activeCuisines.length) {
+      results = results.filter(function (item) {
+        return item.aire.restaurants.some(function (res) {
+          return state.activeCuisines.indexOf(res.t) !== -1;
+        });
+      });
+    }
+
+    resultCount.textContent = "(" + results.length + ")";
+    routeSummary.textContent = state.tripLabel || "";
+
+    cardGrid.innerHTML = "";
+    if (!results.length) {
+      renderEmpty(state.activeCuisines.length
+        ? "Aucune aire sur ce trajet ne correspond à ce filtre."
+        : "Aucune aire couverte par cette collecte ne se trouve sur ce trajet.");
+      return;
+    }
+
+    results.forEach(function (item, idx) {
+      cardGrid.appendChild(buildAireCard(item.aire, item.route.name + " · ~" + Math.round(item.distKm) + " km du départ", item.distKm, item.etaMin, idx === 0));
+    });
+  }
+
+  function render() {
+    if (state.mode === "trip") renderTripMode();
+    else renderRouteMode();
+  }
+
+  setupSlider();
+  render();
+})();
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function (e) {
+        console.warn("Service worker registration failed:", e);
+      });
+    });
+  }
+</script>
