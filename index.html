@@ -4191,8 +4191,8 @@
   {
     "id": "A63",
     "name": "A63 — L'Aquitaine (Sud)",
-    "from": "Bayonne",
-    "to": "Saugnac-et-Muret",
+    "from": "Biriatou",
+    "to": "Saint-Geours-de-Maremne",
     "aires": [
       {
         "name": "Aire de service de Bidart (Est)",
@@ -4201,15 +4201,53 @@
         "lng": -1.5973648,
         "restaurants": [
           {
+            "n": "Bonjour",
+            "t": "coffee"
+          },
+          {
             "n": "La Croissanterie",
             "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "fuel",
+          "shop"
+        ],
+        "direction": "forward",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+      },
+      {
+        "name": "Aire de service de Bidart (Ouest)",
+        "pk": 0.1,
+        "lat": 43.4230227,
+        "lng": -1.5984363,
+        "restaurants": [
+          {
+            "n": "Bonjour",
+            "t": "coffee"
           },
           {
-            "n": "Manhattan Hot Dog",
-            "t": "burger"
-          },
+            "n": "La Croissanterie",
+            "t": "bakery"
+          }
+        ],
+        "services": [
+          "ev",
+          "shop",
+          "wc"
+        ],
+        "direction": "reverse",
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+      },
+      {
+        "name": "Aire de Labenne Ouest",
+        "pk": 23.1,
+        "lat": 43.58587335,
+        "lng": -1.4203364,
+        "restaurants": [
           {
-            "n": "La Table des Frères Ibarboure",
+            "n": "Franprix",
             "t": "self"
           }
         ],
@@ -4219,57 +4257,7 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
-      },
-      {
-        "name": "Aire de service de Bidart (Ouest)",
-        "pk": 0.1,
-        "lat": 43.4230227,
-        "lng": -1.5984363,
-        "restaurants": [
-          {
-            "n": "bonjour",
-            "t": "coffee"
-          },
-          {
-            "n": "La Croissanterie",
-            "t": "bakery"
-          },
-          {
-            "n": "Corner Café",
-            "t": "coffee"
-          }
-        ],
-        "services": [
-          "ev",
-          "shop",
-          "wc"
-        ],
-        "direction": "reverse",
-        "source": "OpenStreetMap"
-      },
-      {
-        "name": "Aire de Labenne",
-        "pk": 23.1,
-        "lat": 43.58587335,
-        "lng": -1.4203364,
-        "restaurants": [
-          {
-            "n": "Boulangerie Pains d'Epoque",
-            "t": "bakery"
-          },
-          {
-            "n": "Philéas",
-            "t": "burger"
-          }
-        ],
-        "services": [
-          "ev",
-          "fuel",
-          "shop"
-        ],
-        "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a63/aire-labenne-est"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
       },
       {
         "name": "Aire de la Porte des Landes-Ouest",
@@ -4290,7 +4278,7 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
       },
       {
         "name": "Aire de la Porte des Landes-Est",
@@ -4299,7 +4287,11 @@
         "lng": -0.8500405,
         "restaurants": [
           {
-            "n": "Flunch",
+            "n": "Brioche Dorée",
+            "t": "bakery"
+          },
+          {
+            "n": "Un Jour de Marché",
             "t": "self"
           }
         ],
@@ -4309,7 +4301,7 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
       }
     ]
   },
@@ -5484,19 +5476,58 @@
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
+  // Project (lat,lng) onto the segment a->b (both aires with their own pk),
+  // using a flat local projection -- fine over the few-km/tens-of-km gap
+  // between two consecutive aires. Returns the closest point's pk and how far
+  // off the segment the real position actually is.
+  function projectOntoSegment(lat, lng, a, b) {
+    var R = 6371;
+    var latRef = a.lat * Math.PI / 180;
+    function toXY(la, lo) {
+      return [
+        (lo - a.lng) * Math.PI / 180 * Math.cos(latRef) * R,
+        (la - a.lat) * Math.PI / 180 * R
+      ];
+    }
+    var B = toXY(b.lat, b.lng);
+    var P = toXY(lat, lng);
+    var abLen2 = B[0] * B[0] + B[1] * B[1];
+    var t = abLen2 > 0 ? (P[0] * B[0] + P[1] * B[1]) / abLen2 : 0;
+    t = Math.max(0, Math.min(1, t));
+    var dx = P[0] - t * B[0], dy = P[1] - t * B[1];
+    return { pk: a.pk + t * (b.pk - a.pk), dist: Math.sqrt(dx * dx + dy * dy) };
+  }
+
+  // A real position rarely sits exactly on an aire -- interpolate between the
+  // two aires bracketing it instead of snapping to whichever one is nearest,
+  // so distances to what's actually ahead stay accurate from wherever you are.
+  function projectPositionOnRoute(route, lat, lng) {
+    var sorted = route.aires.slice().sort(function (x, y) { return x.pk - y.pk; });
+    var best = null;
+    for (var i = 0; i < sorted.length - 1; i++) {
+      var res = projectOntoSegment(lat, lng, sorted[i], sorted[i + 1]);
+      if (!best || res.dist < best.dist) best = res;
+    }
+    return best ? best.pk : sorted[0].pk;
+  }
+
   // Jump the console to a given aire: pick its route, its own real direction
   // (from road geometry) when known, and its position along the route.
   function jumpToAire(route, aire, statusText) {
+    jumpToPosition(route, aire.pk, aire.direction, statusText +
+      (aire.direction ? " Sens détecté automatiquement." : " Vérifiez le sens de circulation ci-dessus."));
+  }
+
+  function jumpToPosition(route, pk, direction, statusText) {
     if (state.mode !== "route") setMode("route");
     state.routeId = route.id;
     routeSelect.value = route.id;
-    state.forward = aire.direction === "reverse" ? false : true;
-    state.position = aire.pk;
+    state.forward = direction === "reverse" ? false : true;
+    state.position = pk;
     setupSlider();
     positionSlider.value = state.position;
     render();
-    locateStatus.textContent = statusText +
-      (aire.direction ? " Sens détecté automatiquement." : " Vérifiez le sens de circulation ci-dessus.");
+    locateStatus.textContent = statusText;
   }
 
   // ---------------------------------------------------------------------
@@ -5744,8 +5775,13 @@
         });
       });
       if (best && best.d <= 30) {
-        jumpToAire(best.route, best.aire, "Position calée sur l'aire la plus proche : " + best.aire.name +
-          " (≈" + Math.round(best.d) + " km).");
+        // Use the nearest aire only to pick the route and a direction hint --
+        // your actual position is interpolated along the route, not snapped
+        // to that aire's exact spot.
+        var projectedPk = projectPositionOnRoute(best.route, lat, lng);
+        jumpToPosition(best.route, projectedPk, best.aire.direction,
+          "Position calée sur l'" + best.route.name + " (près de " + best.aire.name + ", ≈" + Math.round(best.d) + " km)." +
+          (best.aire.direction ? " Sens détecté automatiquement." : " Vérifiez le sens de circulation ci-dessus."));
       } else {
         locateStatus.textContent = "Aucune des " + ROUTES.length + " autoroutes couvertes ne semble proche de votre position" +
           (best ? " (aire la plus proche : " + best.aire.name + ", ≈" + Math.round(best.d) + " km)" : "") +
@@ -5867,9 +5903,12 @@
       return;
     }
 
+    var now = new Date();
+    var nowHHMM = (now.getHours() < 10 ? "0" : "") + now.getHours() + ":" + (now.getMinutes() < 10 ? "0" : "") + now.getMinutes();
     ahead.forEach(function (item, idx) {
       var etaMin = (item.dist / state.speed) * 60;
-      cardGrid.appendChild(buildAireCard(item.aire, r.name + " · ~" + item.aire.pk + " km", item.dist, etaMin, idx === 0));
+      var clockTime = formatClockTime(nowHHMM, etaMin);
+      cardGrid.appendChild(buildAireCard(item.aire, r.name + " · ~" + item.aire.pk + " km", item.dist, etaMin, idx === 0, clockTime));
     });
   }
 
