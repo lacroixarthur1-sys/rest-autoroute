@@ -62,8 +62,7 @@ def cuisine_counts(route):
     return counts
 
 
-def render_card(aire, route, depth):
-    icon_root = "../" * depth
+def render_card(aire, route):
     r_chips = "".join(
         f'<span class="r-chip"><span class="icon-badge"><svg><use href="#{CUISINE.get(r["t"], ("", "i-self"))[1]}"/></svg></span>{r["n"]}</span>'
         for r in aire["restaurants"]
@@ -100,10 +99,9 @@ def render_route_page(route, all_routes):
         f'<span class="chip"><svg><use href="#{CUISINE.get(t, ("", "i-self"))[1]}"/></svg>{CUISINE.get(t, (t, ""))[0]} · {c}</span>'
         for t, c in sorted(counts.items(), key=lambda x: -x[1])
     )
-
     title = f"Restaurant Autoroute {route['id']} : tous les restos des aires ({route['from']} → {route['to']}) | Rest'Autoroute"
     description = (
-        f"Liste complète des {n_restos} restaurants sur les {n_aires} aires de l'autoroute "
+        f"Liste complète des {n_restos} restaurants sur les aires de repos et de service de l'autoroute "
         f"{route['id']} entre {route['from']} et {route['to']} : self-service, burger, pizza, "
         f"boulangerie... Trouvez où manger avant de manquer la sortie."
     )
@@ -127,7 +125,7 @@ def render_route_page(route, all_routes):
     def section(sens, aires):
         if not aires:
             return ""
-        cards = "".join(render_card(a, route, depth=2) for a in aires)
+        cards = "".join(render_card(a, route) for a in aires)
         return f"""
       <div class="results-meta">
         <h2>Sens {sens}</h2>
@@ -192,7 +190,7 @@ def render_route_page(route, all_routes):
     <div class="cta-row">
       <a class="locate-cta" href="../../?locate=1">
         <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
-        Me localiser — voir les aires les plus proches
+        Me localiser — trouver l'aire d'autoroute à proximité
       </a>
       <a class="cta-link" href="../../?route={route['id']}">
         <svg viewBox="0 0 24 24"><use href="#i-road"/></svg>
@@ -200,6 +198,8 @@ def render_route_page(route, all_routes):
       </a>
     </div>
   </div>
+
+  <p class="lead">Toutes les aires de repos et aires de service avec restaurant sur l'{route['id']}.</p>
 
   <div class="filters">
     <span class="filters-label">Types de restaurants sur l'{route['id']} :</span>
@@ -239,7 +239,7 @@ def render_hub_page(all_routes):
         for r in sorted(all_routes, key=lambda r: r["id"])
     )
     title = "Restaurant Aire d'Autoroute : toutes les autoroutes couvertes | Rest'Autoroute"
-    description = "Trouvez un restaurant sur une aire d'autoroute (aire de repos ou de service) sur toutes les autoroutes françaises couvertes par Rest'Autoroute : A6, A7, A10, A71..."
+    description = "Trouvez une aire d'autoroute à proximité avec restaurant (aire de repos ou de service), sur toutes les autoroutes françaises couvertes par Rest'Autoroute : A6, A7, A10, A71..."
     return f"""<!doctype html>
 <html lang="fr">
 <head>
@@ -283,7 +283,7 @@ def render_hub_page(all_routes):
     <div class="cta-row">
       <a class="locate-cta" href="../?locate=1">
         <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
-        Me localiser — trouver mon autoroute automatiquement
+        Me localiser — trouver l'aire d'autoroute à proximité
       </a>
       <a class="cta-link" href="../">
         <svg viewBox="0 0 24 24"><use href="#i-road"/></svg>
@@ -394,6 +394,8 @@ PAGE_CSS = """
   .filters .filters-label { font-size: 11.5px; color: var(--text-dim); letter-spacing: 0.06em; margin-right: 4px; text-transform: uppercase; }
   .chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text-dim); font-size: 12px; letter-spacing: 0.03em; text-decoration: none; }
   .chip svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
+
+  .lead { color: var(--text-dim); font-size: 14px; margin: 0 0 16px; }
 
   .results-meta { display: flex; justify-content: space-between; align-items: baseline; margin: 28px 0 12px; flex-wrap: wrap; gap: 8px; }
   .results-meta h2 { font-size: 15px; margin: 0; letter-spacing: 0.04em; color: var(--sign-blue); }
