@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Restaurant Autoroute : toutes les autoroutes couvertes | Rest'Autoroute</title>
-<meta name="description" content="Trouvez les restaurants sur les aires de toutes les autoroutes françaises couvertes par Rest'Autoroute : A6, A7, A10, A71...">
+<title>Restaurant Aire d'Autoroute : toutes les autoroutes couvertes | Rest'Autoroute</title>
+<meta name="description" content="Trouvez un restaurant sur une aire d'autoroute (aire de repos ou de service) sur toutes les autoroutes françaises couvertes par Rest'Autoroute : A6, A7, A10, A71...">
 <link rel="canonical" href="https://restautoroute.fr/aires/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Restaurant Autoroute : toutes les autoroutes couvertes | Rest'Autoroute">
-<meta property="og:description" content="Trouvez les restaurants sur les aires de toutes les autoroutes françaises couvertes par Rest'Autoroute : A6, A7, A10, A71...">
+<meta property="og:title" content="Restaurant Aire d'Autoroute : toutes les autoroutes couvertes | Rest'Autoroute">
+<meta property="og:description" content="Trouvez un restaurant sur une aire d'autoroute (aire de repos ou de service) sur toutes les autoroutes françaises couvertes par Rest'Autoroute : A6, A7, A10, A71...">
 <meta property="og:url" content="https://restautoroute.fr/aires/">
 <link rel="icon" href="../icons/favicon-32.png" sizes="32x32">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HBTCYGW0FW"></script>
@@ -51,8 +51,9 @@
   .brand { display: flex; align-items: center; gap: 14px; }
   .brand-mark { width: 46px; height: 46px; border-radius: 8px; background: linear-gradient(155deg, var(--sign-blue), var(--sign-blue-deep)); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); flex: none; }
   .brand-mark svg { width: 26px; height: 26px; stroke: #fff; fill: none; }
-  h1 { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: 0.01em; line-height: 1; text-transform: none; font-family: var(--font-body); }
-  h1 span { color: var(--amber); }
+  .brand-name { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: 0.01em; line-height: 1; text-transform: none; font-family: var(--font-body); }
+  .brand-name span { color: var(--amber); }
+  .route-h1 { color: #fff; font-size: 17px; margin: 0 0 2px; font-weight: 700; letter-spacing: 0.02em; }
   .tagline { margin: 4px 0 0; font-size: 14.5px; color: var(--text-dim); max-width: 46ch; }
   .theme-note { font-size: 13px; }
   .theme-note a { color: var(--sign-blue); text-decoration: none; font-weight: 600; }
@@ -150,7 +151,7 @@
   <div class="brand">
     <a href="../" style="text-decoration:none;"><div class="brand-mark"><svg viewBox="0 0 24 24"><use href="#i-road"/></svg></div></a>
     <div>
-      <h1>Rest'<span>Autoroute</span></h1>
+      <p class="brand-name">Rest'<span>Autoroute</span></p>
       <p class="tagline">Choisissez votre autoroute pour voir les restaurants de ses aires.</p>
     </div>
   </div>
@@ -158,6 +159,7 @@
 </div>
 <div class="page">
   <div class="console route-sign">
+    <h1 class="route-h1" style="font-size:19px; margin-bottom:14px;">Restaurant Aire d'Autoroute : toutes les autoroutes couvertes</h1>
     <div class="cta-row">
       <a class="locate-cta" href="../?locate=1">
         <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
