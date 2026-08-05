@@ -7748,6 +7748,11 @@
     return points;
   }
 
+  function currentHHMM() {
+    var now = new Date();
+    return (now.getHours() < 10 ? "0" : "") + now.getHours() + ":" + (now.getMinutes() < 10 ? "0" : "") + now.getMinutes();
+  }
+
   function formatClockTime(departureHHMM, etaMinutes) {
     var parts = departureHHMM.split(":");
     var totalMin = parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10) + etaMinutes;
@@ -7859,6 +7864,7 @@
 
     tripFrom.value = state.myLocation.label;
     tripTo.value = toQ;
+    tripDeparture.value = currentHHMM();
     setMode("trip");
     tripSummary.classList.remove("show");
     tripStatus.textContent = "Recherche de la destination…";
@@ -8090,8 +8096,7 @@
       return;
     }
 
-    var now = new Date();
-    var nowHHMM = (now.getHours() < 10 ? "0" : "") + now.getHours() + ":" + (now.getMinutes() < 10 ? "0" : "") + now.getMinutes();
+    var nowHHMM = currentHHMM();
     ahead.forEach(function (item, idx) {
       var etaMin = (item.dist / state.speed) * 60;
       var clockTime = formatClockTime(nowHHMM, etaMin);
