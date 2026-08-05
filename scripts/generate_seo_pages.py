@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate static, indexable per-route landing pages from the ROUTES data
-embedded in index.html, plus a hub page, sitemap.xml and robots.txt.
+embedded in index.html, plus a hub page, per-aire pages, sitemap.xml and
+robots.txt.
 
 Reuses the main app's design system (colors, cards, icons) so these pages
 read as the same product, not a separate SEO bolt-on.
@@ -9,6 +10,7 @@ Run from anywhere: python3 scripts/generate_seo_pages.py
 """
 import json
 import re
+import unicodedata
 import urllib.parse
 from pathlib import Path
 
@@ -41,6 +43,25 @@ def load_routes():
     return json.loads(snippet)
 
 
+def slugify(name):
+    name = name.replace("œ", "oe").replace("Œ", "Oe").replace("æ", "ae").replace("Æ", "Ae")
+    n = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode("ascii")
+    n = re.sub(r"[^a-zA-Z0-9]+", "-", n).strip("-").lower()
+    return n or "aire"
+
+
+def assign_slugs(route):
+    seen = {}
+    for aire in route["aires"]:
+        base = slugify(aire["name"])
+        if base in seen:
+            seen[base] += 1
+            aire["_slug"] = f"{base}-{seen[base]}"
+        else:
+            seen[base] = 1
+            aire["_slug"] = base
+
+
 def fmt_pk(pk):
     s = f"{pk:.1f}"
     if s.endswith(".0"):
@@ -62,7 +83,7 @@ def cuisine_counts(route):
     return counts
 
 
-def render_card(aire, route):
+def render_card(aire, route, link=True):
     r_chips = "".join(
         f'<span class="r-chip"><span class="icon-badge"><svg><use href="#{CUISINE.get(r["t"], ("", "i-self"))[1]}"/></svg></span>{r["n"]}</span>'
         for r in aire["restaurants"]
@@ -72,11 +93,12 @@ def render_card(aire, route):
         for s in aire.get("services", [])
         if s in SERVICES
     )
+    name_html = f'<a class="aire-link" href="{aire["_slug"]}/">{aire["name"]}</a>' if link else aire["name"]
     return f"""
       <div class="card">
         <div class="card-head">
           <div>
-            <p class="aire-name">{aire["name"]}</p>
+            <p class="aire-name">{name_html}</p>
             <p class="aire-route">PK {fmt_pk(aire["pk"])} · {route["id"]}</p>
           </div>
         </div>
@@ -86,6 +108,124 @@ def render_card(aire, route):
           <a class="service maps-link" href="{maps_link(aire["name"], route["id"])}" target="_blank" rel="noopener">Avis Google Maps ↗</a>
         </div>
       </div>"""
+
+
+def render_aire_page(aire, route, all_routes):
+    route_slug = route["id"].lower()
+    aire_slug = aire["_slug"]
+    r_chips = "".join(
+        f'<span class="r-chip"><span class="icon-badge"><svg><use href="#{CUISINE.get(r["t"], ("", "i-self"))[1]}"/></svg></span>{r["n"]}</span>'
+        for r in aire["restaurants"]
+    )
+    svc_items = "".join(
+        f'<span class="service"><svg><use href="#{SERVICES[s][1]}"/></svg>{SERVICES[s][0]}</span>'
+        for s in aire.get("services", [])
+        if s in SERVICES
+    )
+    resto_names = ", ".join(r["n"] for r in aire["restaurants"])
+    sens = "forward" if aire.get("direction") == "forward" else "reverse"
+    sens_label = f"{route['from']} → {route['to']}" if sens == "forward" else f"{route['to']} → {route['from']}"
+
+    title = f"Restaurant {aire['name']} ({route['id']}) : {resto_names} | Rest'Autoroute"
+    description = (
+        f"{aire['name']} sur l'autoroute {route['id']} (PK {fmt_pk(aire['pk'])}, sens {sens_label}) : "
+        f"{resto_names}. Horaires, avis et services (carburant, boutique, aire de jeux...)."
+    )
+
+    other_aires = [a for a in route["aires"] if a["_slug"] != aire_slug]
+    other_chips = "".join(
+        f'<a class="chip" href="../{a["_slug"]}/">{a["name"]}</a>' for a in sorted(other_aires, key=lambda a: a["pk"])
+    )
+
+    ld_json = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": f"{DOMAIN}/"},
+            {"@type": "ListItem", "position": 2, "name": "Autoroutes", "item": f"{DOMAIN}/aires/"},
+            {"@type": "ListItem", "position": 3, "name": route["id"], "item": f"{DOMAIN}/aires/{route_slug}/"},
+            {"@type": "ListItem", "position": 4, "name": aire["name"], "item": f"{DOMAIN}/aires/{route_slug}/{aire_slug}/"},
+        ],
+    }
+
+    return f"""<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<link rel="canonical" href="{DOMAIN}/aires/{route_slug}/{aire_slug}/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{DOMAIN}/aires/{route_slug}/{aire_slug}/">
+<link rel="icon" href="../../../icons/favicon-32.png" sizes="32x32">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HBTCYGW0FW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-HBTCYGW0FW');
+</script>
+<script type="application/ld+json">{json.dumps(ld_json, ensure_ascii=False)}</script>
+<style>
+{PAGE_CSS}
+</style>
+</head>
+<body>
+{SVG_DEFS}
+
+<div class="hero">
+  <div class="brand">
+    <a href="../../../" style="text-decoration:none;"><div class="brand-mark"><svg viewBox="0 0 24 24"><use href="#i-road"/></svg></div></a>
+    <div>
+      <p class="brand-name">Rest'<span>Autoroute</span></p>
+      <p class="tagline">{aire["name"]} — Autoroute {route['id']}</p>
+    </div>
+  </div>
+  <div class="theme-note"><a href="../">← Toutes les aires de l'{route['id']}</a></div>
+</div>
+
+<div class="page">
+
+  <div class="console route-sign">
+    <div class="route-sign-row">
+      <div class="route-badge">{route['id']}</div>
+      <div class="route-sign-info">
+        <h1 class="route-h1">Restaurant {aire['name']}</h1>
+        <div class="route-sign-cities">Sens {sens_label}</div>
+        <div class="route-sign-stats">PK {fmt_pk(aire['pk'])} · {len(aire['restaurants'])} restaurant{"s" if len(aire['restaurants']) > 1 else ""}</div>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a class="locate-cta" href="../../../?locate=1">
+        <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
+        Me localiser — trouver l'aire d'autoroute à proximité
+      </a>
+      <a class="cta-link" href="../../../?route={route['id']}">
+        <svg viewBox="0 0 24 24"><use href="#i-road"/></svg>
+        Ouvrir le simulateur {route['id']} en manuel
+      </a>
+    </div>
+  </div>
+
+  <p class="lead">Restaurants et services disponibles sur {aire["name"]}, aire d'autoroute {route['id']} ({sens_label}).</p>
+
+  <div class="grid">{render_card(aire, route, link=False)}</div>
+
+  <div class="filters" style="margin-top:36px;">
+    <span class="filters-label">Autres aires sur l'{route['id']} :</span>
+    {other_chips}
+  </div>
+
+  <footer class="legal">
+    Rest'Autoroute — les restaurants et aires listés ici proviennent d'OpenStreetMap et peuvent avoir changé depuis la collecte. Vérifiez sur place. <a href="../../../">Retour à l'accueil</a> · <a href="../">Toutes les aires de l'{route['id']}</a>.
+  </footer>
+</div>
+</body>
+</html>
+"""
 
 
 def render_route_page(route, all_routes):
@@ -405,6 +545,8 @@ PAGE_CSS = """
   .card { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; }
   .card-head { background: var(--sign-blue-pale); padding: 12px 16px; border-bottom: 1px solid var(--line); }
   .aire-name { font-size: 16px; font-weight: 700; color: var(--sign-blue-deep); line-height: 1.15; margin: 0; text-transform: none; }
+  .aire-link { text-decoration: none; }
+  .aire-link:hover { text-decoration: underline; }
   .aire-route { font-size: 11px; color: var(--text-dim); margin: 2px 0 0; }
   .restaurants { padding: 12px 16px 4px; display: flex; flex-wrap: wrap; gap: 6px; }
   .r-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-2); border-radius: 8px; padding: 5px 9px 5px 6px; font-size: 12.5px; }
@@ -431,9 +573,12 @@ PAGE_CSS = """
 
 
 def build_sitemap(all_routes):
-    urls = [f"{DOMAIN}/", f"{DOMAIN}/aires/"] + [
-        f"{DOMAIN}/aires/{r['id'].lower()}/" for r in all_routes
-    ]
+    urls = [f"{DOMAIN}/", f"{DOMAIN}/aires/"]
+    for r in all_routes:
+        slug = r["id"].lower()
+        urls.append(f"{DOMAIN}/aires/{slug}/")
+        for aire in r["aires"]:
+            urls.append(f"{DOMAIN}/aires/{slug}/{aire['_slug']}/")
     body = "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
 
@@ -444,21 +589,31 @@ def build_robots():
 
 def main():
     routes = load_routes()
+    for route in routes:
+        assign_slugs(route)
+
     aires_dir = ROOT / "aires"
     aires_dir.mkdir(exist_ok=True)
 
     (aires_dir / "index.html").write_text(render_hub_page(routes), encoding="utf-8")
 
+    n_aire_pages = 0
     for route in routes:
         slug = route["id"].lower()
         route_dir = aires_dir / slug
         route_dir.mkdir(exist_ok=True)
         (route_dir / "index.html").write_text(render_route_page(route, routes), encoding="utf-8")
 
+        for aire in route["aires"]:
+            aire_dir = route_dir / aire["_slug"]
+            aire_dir.mkdir(exist_ok=True)
+            (aire_dir / "index.html").write_text(render_aire_page(aire, route, routes), encoding="utf-8")
+            n_aire_pages += 1
+
     (ROOT / "sitemap.xml").write_text(build_sitemap(routes), encoding="utf-8")
     (ROOT / "robots.txt").write_text(build_robots(), encoding="utf-8")
 
-    print(f"Generated {len(routes)} route pages + hub + sitemap.xml + robots.txt")
+    print(f"Generated {len(routes)} route pages + {n_aire_pages} aire pages + hub + sitemap.xml + robots.txt")
 
 
 if __name__ == "__main__":
