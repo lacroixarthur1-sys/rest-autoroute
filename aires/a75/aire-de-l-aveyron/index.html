@@ -19,7 +19,7 @@
   gtag('config', 'G-HBTCYGW0FW');
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": "https://restautoroute.fr/"}, {"@type": "ListItem", "position": 2, "name": "Autoroutes", "item": "https://restautoroute.fr/aires/"}, {"@type": "ListItem", "position": 3, "name": "A75", "item": "https://restautoroute.fr/aires/a75/"}, {"@type": "ListItem", "position": 4, "name": "Aire de l'Aveyron", "item": "https://restautoroute.fr/aires/a75/aire-de-l-aveyron/"}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Combien de restaurants sur Aire de l'Aveyron ?", "acceptedAnswer": {"@type": "Answer", "text": "1 restaurant sur Aire de l'Aveyron : Léo Resto (Self-service)."}}, {"@type": "Question", "name": "Quels services sont disponibles sur Aire de l'Aveyron ?", "acceptedAnswer": {"@type": "Answer", "text": "En plus de la restauration : borne électrique, carburant."}}, {"@type": "Question", "name": "Quelle est la prochaine aire avec restaurant sur l'A75 en direction de Lodève ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de la Lozère (La Garde), à 56,8 km, avec 2 restaurants."}}, {"@type": "Question", "name": "Dans quel sens se trouve Aire de l'Aveyron sur l'A75 ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de l'Aveyron est au PK 55,2 de l'A75, dans le sens Clermont-Ferrand → Lodève."}}, {"@type": "Question", "name": "Où se trouve exactement Aire de l'Aveyron ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de l'Aveyron se situe sur la commune de Sévérac-le-Château, à proximité de Rodez (département : Aveyron)."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Combien de restaurants sur Aire de l'Aveyron ?", "acceptedAnswer": {"@type": "Answer", "text": "1 restaurant sur Aire de l'Aveyron : Léo Resto (Self-service)."}}, {"@type": "Question", "name": "Quels services sont disponibles sur Aire de l'Aveyron ?", "acceptedAnswer": {"@type": "Answer", "text": "En plus de la restauration : borne électrique, carburant."}}, {"@type": "Question", "name": "Quelle est la prochaine aire avec restaurant sur l'A75 en direction de Lodève ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de la Lozère (La Garde), à 56,8 km, avec 2 restaurants."}}, {"@type": "Question", "name": "Dans quel sens se trouve Aire de l'Aveyron sur l'A75 ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de l'Aveyron est au PK 55,2 de l'A75, dans le sens Clermont-Ferrand → Lodève."}}, {"@type": "Question", "name": "Où se trouve exactement Aire de l'Aveyron ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de l'Aveyron se situe sur la commune de Sévérac-le-Château, à proximité de Rodez (département : Aveyron)."}}, {"@type": "Question", "name": "Peut-on recharger une voiture électrique près de Aire de l'Aveyron ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, 56 points de recharge (3 stations) sont recensés à moins d'1 km, jusqu'à 250 kW (CHAdeMO, Combo CCS, Type 2). Source : base nationale IRVE."}}]}</script>
 <style>
 
   :root {
@@ -98,6 +98,12 @@
   .practical a { color: var(--sign-blue); font-weight: 600; text-decoration: none; }
   .practical a:hover { text-decoration: underline; }
   .context { font-size: 13.5px; color: var(--text-dim); margin: 10px 0 0; line-height: 1.6; }
+
+  .ev-box { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; margin-top: 16px; }
+  .ev-box.ev-none { opacity: 0.75; }
+  .ev-title { font-weight: 700; font-size: 13.5px; margin: 0 0 4px; color: var(--sign-blue-deep); }
+  .ev-detail { font-size: 13px; color: var(--text-dim); margin: 0; line-height: 1.5; }
+  .ev-source { font-size: 11px; color: var(--text-dim); margin: 5px 0 0; opacity: 0.8; }
 
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
@@ -218,13 +224,15 @@
         </div>
       </div></div>
 
+  <div class="ev-box"><p class="ev-title">⚡ Recharge électrique à proximité (moins d'1 km)</p><p class="ev-detail">56 points de recharge · 3 stations · jusqu'à 250 kW · CHAdeMO, Combo CCS, Type 2 · Tesla, TotalEnergies Charging Services, TotalEnergies Marketing France</p><p class="ev-source">Source : base nationale IRVE (data.gouv.fr)</p></div>
+
   <p class="practical">En direction de Lodève, la prochaine aire avec restaurant est <a href="../aire-de-la-lozere-la-garde/">Aire de la Lozère (La Garde)</a>, à 56,8 km. C'est la première aire avec restaurant en venant de Clermont-Ferrand.</p>
 
   <p class="context">Sur l'A75 (Lodève → Clermont-Ferrand), Rest'Autoroute référence 6 aires avec restaurant (15 restaurants au total), réparties dans les deux sens de circulation.</p>
 
   <div class="faq">
     <h2 class="faq-title">Questions fréquentes</h2>
-    <details class="faq-item"><summary>Combien de restaurants sur Aire de l'Aveyron ?</summary><p>1 restaurant sur Aire de l'Aveyron : Léo Resto (Self-service).</p></details><details class="faq-item"><summary>Quels services sont disponibles sur Aire de l'Aveyron ?</summary><p>En plus de la restauration : borne électrique, carburant.</p></details><details class="faq-item"><summary>Quelle est la prochaine aire avec restaurant sur l'A75 en direction de Lodève ?</summary><p>Aire de la Lozère (La Garde), à 56,8 km, avec 2 restaurants.</p></details><details class="faq-item"><summary>Dans quel sens se trouve Aire de l'Aveyron sur l'A75 ?</summary><p>Aire de l'Aveyron est au PK 55,2 de l'A75, dans le sens Clermont-Ferrand → Lodève.</p></details><details class="faq-item"><summary>Où se trouve exactement Aire de l'Aveyron ?</summary><p>Aire de l'Aveyron se situe sur la commune de Sévérac-le-Château, à proximité de Rodez (département : Aveyron).</p></details>
+    <details class="faq-item"><summary>Combien de restaurants sur Aire de l'Aveyron ?</summary><p>1 restaurant sur Aire de l'Aveyron : Léo Resto (Self-service).</p></details><details class="faq-item"><summary>Quels services sont disponibles sur Aire de l'Aveyron ?</summary><p>En plus de la restauration : borne électrique, carburant.</p></details><details class="faq-item"><summary>Quelle est la prochaine aire avec restaurant sur l'A75 en direction de Lodève ?</summary><p>Aire de la Lozère (La Garde), à 56,8 km, avec 2 restaurants.</p></details><details class="faq-item"><summary>Dans quel sens se trouve Aire de l'Aveyron sur l'A75 ?</summary><p>Aire de l'Aveyron est au PK 55,2 de l'A75, dans le sens Clermont-Ferrand → Lodève.</p></details><details class="faq-item"><summary>Où se trouve exactement Aire de l'Aveyron ?</summary><p>Aire de l'Aveyron se situe sur la commune de Sévérac-le-Château, à proximité de Rodez (département : Aveyron).</p></details><details class="faq-item"><summary>Peut-on recharger une voiture électrique près de Aire de l'Aveyron ?</summary><p>Oui, 56 points de recharge (3 stations) sont recensés à moins d'1 km, jusqu'à 250 kW (CHAdeMO, Combo CCS, Type 2). Source : base nationale IRVE.</p></details>
   </div>
 
   <div class="filters" style="margin-top:36px;">

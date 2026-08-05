@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 INDEX_HTML = ROOT / "index.html"
 DOMAIN = "https://restautoroute.fr"
 GEOCODE_CACHE_PATH = ROOT / "scripts" / "geocode_cache.json"
+EV_CACHE_PATH = ROOT / "scripts" / "ev_cache.json"
 NOMINATIM_UA = "RestAutorouteBot/1.0 (contact: lacroix.arthur1@gmail.com)"
 
 CUISINE = {
@@ -212,6 +213,21 @@ def build_faq(aire, route, prev_a, next_a, destination, origin, sens_label):
         if department:
             loc += f" (département : {department})"
         faq.append((f"Où se trouve exactement {aire['name']} ?", f"{aire['name']} se situe {loc}."))
+
+    ev = aire.get("_ev")
+    if ev:
+        connectors_str = ", ".join(ev["connectors"]) if ev["connectors"] else "type non précisé"
+        faq.append((
+            f"Peut-on recharger une voiture électrique près de {aire['name']} ?",
+            f"Oui, {ev['n_points']} point{'s' if ev['n_points'] > 1 else ''} de recharge "
+            f"({ev['n_stations']} station{'s' if ev['n_stations'] > 1 else ''}) sont recensés à moins d'1 km, "
+            f"jusqu'à {ev['max_power_kw']} kW ({connectors_str}). Source : base nationale IRVE.",
+        ))
+    else:
+        faq.append((
+            f"Peut-on recharger une voiture électrique près de {aire['name']} ?",
+            f"Aucune borne de recharge n'est recensée à moins d'1 km de {aire['name']} dans la base nationale IRVE.",
+        ))
     return faq
 
 
@@ -292,6 +308,24 @@ def render_aire_page(aire, route, all_routes):
     faq_html = "".join(
         f'<details class="faq-item"><summary>{q}</summary><p>{a}</p></details>' for q, a in faq
     )
+
+    ev = aire.get("_ev")
+    if ev:
+        connectors_str = ", ".join(ev["connectors"])
+        operators_str = ", ".join(ev["operators"])
+        ev_html = (
+            '<div class="ev-box"><p class="ev-title">⚡ Recharge électrique à proximité (moins d\'1 km)</p>'
+            f'<p class="ev-detail">{ev["n_points"]} point{"s" if ev["n_points"] > 1 else ""} de recharge · '
+            f'{ev["n_stations"]} station{"s" if ev["n_stations"] > 1 else ""} · jusqu\'à {ev["max_power_kw"]} kW'
+            + (f' · {connectors_str}' if connectors_str else '')
+            + (f' · {operators_str}' if operators_str else '')
+            + '</p><p class="ev-source">Source : base nationale IRVE (data.gouv.fr)</p></div>'
+        )
+    else:
+        ev_html = (
+            '<div class="ev-box ev-none"><p class="ev-title">⚡ Recharge électrique</p>'
+            "<p class=\"ev-detail\">Aucune borne recensée à moins d'1 km dans la base nationale IRVE.</p></div>"
+        )
 
     ld_json = {
         "@context": "https://schema.org",
@@ -386,6 +420,8 @@ def render_aire_page(aire, route, all_routes):
   <p class="lead">{lead_text}</p>
 
   <div class="grid">{render_card(aire, route, link=False, official_link=aire["official"])}</div>
+
+  {ev_html}
 
   <p class="practical">{practical_html}</p>
 
@@ -725,6 +761,12 @@ PAGE_CSS = """
   .practical a:hover { text-decoration: underline; }
   .context { font-size: 13.5px; color: var(--text-dim); margin: 10px 0 0; line-height: 1.6; }
 
+  .ev-box { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; margin-top: 16px; }
+  .ev-box.ev-none { opacity: 0.75; }
+  .ev-title { font-weight: 700; font-size: 13.5px; margin: 0 0 4px; color: var(--sign-blue-deep); }
+  .ev-detail { font-size: 13px; color: var(--text-dim); margin: 0; line-height: 1.5; }
+  .ev-source { font-size: 11px; color: var(--text-dim); margin: 5px 0 0; opacity: 0.8; }
+
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
   .faq-item { background: var(--surface-1); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; }
@@ -799,6 +841,11 @@ def main():
             if done % 25 == 0:
                 print(f"Geocoded {done}/{total_aires} aires...")
     save_geocode_cache(geo_cache)
+
+    ev_cache = json.loads(EV_CACHE_PATH.read_text(encoding="utf-8")) if EV_CACHE_PATH.exists() else {}
+    for route in routes:
+        for aire in route["aires"]:
+            aire["_ev"] = ev_cache.get(f"{aire['lat']:.5f},{aire['lng']:.5f}")
 
     aires_dir = ROOT / "aires"
     aires_dir.mkdir(exist_ok=True)
