@@ -366,6 +366,25 @@ def render_aire_page(aire, route, all_routes):
             "<p class=\"ev-detail\">Aucune borne recensée à moins d'1 km dans la base nationale IRVE.</p></div>"
         )
 
+    report_subject = urllib.parse.quote(f"Signalement Rest'Autoroute : {aire['name']}")
+    report_body = urllib.parse.quote(
+        f"Aire : {aire['name']} ({route['id']})\n"
+        f"Page : {DOMAIN}/aires/{route_slug}/{aire_slug}/\n\n"
+        "Type de problème (cochez) :\n"
+        "[ ] Localisation de l'aire incorrecte\n"
+        "[ ] Erreur sur un restaurant / service\n"
+        "[ ] Autre\n\n"
+        "Détails : "
+    )
+    report_html = (
+        '<p class="report-block"><a href="#" class="report-link" '
+        'data-u="lacroix.arthur1" data-d="gmail.com" '
+        f'data-subj="{report_subject}" data-body="{report_body}" '
+        "onclick=\"var u=this.dataset.u+'@'+this.dataset.d;"
+        "location.href='mailto:'+u+'?subject='+this.dataset.subj+'&body='+this.dataset.body;"
+        'return false;">🚩 Signaler une erreur sur cette aire</a></p>'
+    )
+
     ld_json = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -461,6 +480,8 @@ def render_aire_page(aire, route, all_routes):
   <div class="grid">{render_card(aire, route, link=False, official_link=aire["official"])}</div>
 
   {ev_html}
+
+  {report_html}
 
   <p class="practical">{practical_html}</p>
 
@@ -809,6 +830,10 @@ PAGE_CSS = """
   .ev-spec { display: flex; flex-direction: column; gap: 2px; }
   .ev-spec-k { font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; text-transform: uppercase; }
   .ev-spec-v { font-size: 13.5px; font-weight: 600; }
+
+  .report-block { margin: 14px 0 0; }
+  .report-link { font-size: 12.5px; color: var(--text-dim); text-decoration: none; border-bottom: 1px dashed var(--line); }
+  .report-link:hover { color: var(--sign-blue); border-color: var(--sign-blue); }
 
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
