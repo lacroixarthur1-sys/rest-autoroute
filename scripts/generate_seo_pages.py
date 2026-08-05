@@ -217,11 +217,20 @@ def build_faq(aire, route, prev_a, next_a, destination, origin, sens_label):
     ev = aire.get("_ev")
     if ev:
         connectors_str = ", ".join(ev["connectors"]) if ev["connectors"] else "type non précisé"
+        extra = []
+        extra.append("accès libre" if ev["n_open"] >= ev["n_reserved"] else "accès réservé (badge/abonnement) pour la plupart")
+        extra.append("24h/24 7j/7" if ev["hours_247"] else "horaires variables selon les stations")
+        if ev["all_free"]:
+            extra.append("gratuit")
+        elif ev["cb_payment"]:
+            extra.append("paiement par carte bancaire possible")
+        if ev["pmr"] == "accessible":
+            extra.append("accessible PMR")
         faq.append((
             f"Peut-on recharger une voiture électrique près de {aire['name']} ?",
             f"Oui, {ev['n_points']} point{'s' if ev['n_points'] > 1 else ''} de recharge "
             f"({ev['n_stations']} station{'s' if ev['n_stations'] > 1 else ''}) sont recensés à moins d'1 km, "
-            f"jusqu'à {ev['max_power_kw']} kW ({connectors_str}). Source : base nationale IRVE.",
+            f"jusqu'à {ev['max_power_kw']} kW ({connectors_str}), {', '.join(extra)}. Source : base nationale IRVE.",
         ))
     else:
         faq.append((
@@ -311,15 +320,40 @@ def render_aire_page(aire, route, all_routes):
 
     ev = aire.get("_ev")
     if ev:
-        connectors_str = ", ".join(ev["connectors"])
-        operators_str = ", ".join(ev["operators"])
+        connectors_str = ", ".join(ev["connectors"]) if ev["connectors"] else "non précisé"
+        operators_str = ", ".join(ev["operators"]) if ev["operators"] else "non précisé"
+        access_str = (
+            f"{ev['n_open']} en accès libre" + (f" · {ev['n_reserved']} sur badge/abonnement" if ev["n_reserved"] else "")
+            if ev["n_open"] or ev["n_reserved"] else "non précisé"
+        )
+        hours_str = "24h/24, 7j/7" if ev["hours_247"] else "variables selon les stations"
+        if ev["all_free"]:
+            payment_str = "gratuit"
+        elif ev["any_free"]:
+            payment_str = "gratuit sur certaines stations, CB possible sur les autres" if ev["cb_payment"] else "gratuit sur certaines stations"
+        elif ev["cb_payment"]:
+            payment_str = "carte bancaire (sans abonnement)"
+        else:
+            payment_str = "badge / appli opérateur"
+        pmr_str = {"accessible": "oui", "not_accessible": "non", "unknown": "non précisé"}[ev["pmr"]]
+        reservation_str = "possible sur certaines stations" if ev["reservation"] else "non"
+        specs = [
+            ("Points de recharge", f"{ev['n_points']} ({ev['n_stations']} station{'s' if ev['n_stations'] > 1 else ''})"),
+            ("Puissance max.", f"{ev['max_power_kw']} kW"),
+            ("Prises", connectors_str),
+            ("Opérateur(s)", operators_str),
+            ("Accès", access_str),
+            ("Horaires", hours_str),
+            ("Paiement", payment_str),
+            ("Réservation", reservation_str),
+            ("Accessible PMR", pmr_str),
+        ]
+        specs_html = "".join(f'<div class="ev-spec"><span class="ev-spec-k">{k}</span><span class="ev-spec-v">{v}</span></div>' for k, v in specs)
         ev_html = (
             '<div class="ev-box"><p class="ev-title">⚡ Recharge électrique à proximité (moins d\'1 km)</p>'
-            f'<p class="ev-detail">{ev["n_points"]} point{"s" if ev["n_points"] > 1 else ""} de recharge · '
-            f'{ev["n_stations"]} station{"s" if ev["n_stations"] > 1 else ""} · jusqu\'à {ev["max_power_kw"]} kW'
-            + (f' · {connectors_str}' if connectors_str else '')
-            + (f' · {operators_str}' if operators_str else '')
-            + '</p><p class="ev-source">Source : base nationale IRVE (data.gouv.fr)</p></div>'
+            f'<div class="ev-specs">{specs_html}</div>'
+            "<p class=\"ev-source\">Source : base nationale IRVE (data.gouv.fr) — infos statiques déclarées par les opérateurs, "
+            "pas de disponibilité en temps réel.</p></div>"
         )
     else:
         ev_html = (
@@ -763,9 +797,13 @@ PAGE_CSS = """
 
   .ev-box { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; margin-top: 16px; }
   .ev-box.ev-none { opacity: 0.75; }
-  .ev-title { font-weight: 700; font-size: 13.5px; margin: 0 0 4px; color: var(--sign-blue-deep); }
+  .ev-title { font-weight: 700; font-size: 13.5px; margin: 0 0 10px; color: var(--sign-blue-deep); }
   .ev-detail { font-size: 13px; color: var(--text-dim); margin: 0; line-height: 1.5; }
-  .ev-source { font-size: 11px; color: var(--text-dim); margin: 5px 0 0; opacity: 0.8; }
+  .ev-source { font-size: 11px; color: var(--text-dim); margin: 10px 0 0; opacity: 0.8; }
+  .ev-specs { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px 18px; }
+  .ev-spec { display: flex; flex-direction: column; gap: 2px; }
+  .ev-spec-k { font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; text-transform: uppercase; }
+  .ev-spec-v { font-size: 13.5px; font-weight: 600; }
 
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }

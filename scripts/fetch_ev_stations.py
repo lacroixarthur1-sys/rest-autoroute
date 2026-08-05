@@ -39,6 +39,30 @@ def bucket_key(lat, lon):
     return (round(lat / BUCKET_SIZE), round(lon / BUCKET_SIZE))
 
 
+def is_true(v):
+    return (v or "").strip().lower() == "true"
+
+
+def norm_access(v):
+    v = (v or "").strip().lower()
+    if "réserv" in v or "reserv" in v:
+        return "reserved"
+    if "libre" in v:
+        return "open"
+    return "unknown"
+
+
+def norm_pmr(v):
+    v = (v or "").strip().lower()
+    if v.startswith("non accessible"):
+        return "not_accessible"
+    if v.startswith(("réservé pmr", "reserve pmr", "réserve pmr")):
+        return "reserved_pmr"
+    if v.startswith("accessible"):
+        return "accessible"
+    return "unknown"
+
+
 def download_csv(dest):
     import urllib.request as req
     meta = json.loads(req.urlopen(DATASET_API, timeout=30).read().decode("utf-8"))
@@ -105,6 +129,12 @@ def main():
                         "points": 0,
                         "max_power": 0,
                         "connectors": set(),
+                        "access": norm_access(row.get("condition_acces")),
+                        "pmr": norm_pmr(row.get("accessibilite_pmr")),
+                        "hours_247": (row.get("horaires") or "").strip() == "24/7",
+                        "free": is_true(row.get("gratuit")),
+                        "cb": is_true(row.get("paiement_cb")),
+                        "reservation": is_true(row.get("reservation")),
                     })
                     st["points"] += 1
                     st["max_power"] = max(st["max_power"], power)
@@ -125,16 +155,39 @@ def main():
         if not stations:
             cache[f"{a['lat']:.5f},{a['lng']:.5f}"] = None
             continue
-        n_points = sum(s["points"] for s in stations.values())
-        max_power = max((s["max_power"] for s in stations.values()), default=0)
-        connectors = sorted(set().union(*(s["connectors"] for s in stations.values())))
-        operators = sorted({s["operator"] for s in stations.values() if s["operator"]})[:4]
+        svals = list(stations.values())
+        n_points = sum(s["points"] for s in svals)
+        max_power = max((s["max_power"] for s in svals), default=0)
+        connectors = sorted(set().union(*(s["connectors"] for s in svals)))
+        operators = sorted({s["operator"] for s in svals if s["operator"]})[:4]
+        n_open = sum(1 for s in svals if s["access"] == "open")
+        n_reserved = sum(1 for s in svals if s["access"] == "reserved")
+        all_247 = all(s["hours_247"] for s in svals)
+        any_free = any(s["free"] for s in svals)
+        all_free = all(s["free"] for s in svals)
+        any_cb = any(s["cb"] for s in svals)
+        any_reservation = any(s["reservation"] for s in svals)
+        pmr_states = {s["pmr"] for s in svals}
+        if "reserved_pmr" in pmr_states or "accessible" in pmr_states:
+            pmr = "accessible"
+        elif pmr_states == {"not_accessible"}:
+            pmr = "not_accessible"
+        else:
+            pmr = "unknown"
         cache[f"{a['lat']:.5f},{a['lng']:.5f}"] = {
             "n_stations": len(stations),
             "n_points": n_points,
             "max_power_kw": round(max_power),
             "connectors": connectors,
             "operators": operators,
+            "n_open": n_open,
+            "n_reserved": n_reserved,
+            "hours_247": all_247,
+            "any_free": any_free,
+            "all_free": all_free,
+            "cb_payment": any_cb,
+            "reservation": any_reservation,
+            "pmr": pmr,
         }
 
     EV_CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")

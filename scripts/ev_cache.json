@@ -1,3467 +1,5339 @@
 {
   "42.57993,2.84613": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 30,
+    "n_reserved": 16,
     "n_stations": 18,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "42.95013,2.96831": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 64,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "SPIE CITYNETWORKS",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "42.95051,2.97225": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 64,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "SPIE CITYNETWORKS",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.11022,0.61555": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 180,
+    "n_open": 2,
     "n_points": 22,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Picoty | FR*PY2"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.14274,6.01101": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 200,
+    "n_open": 18,
     "n_points": 96,
+    "n_reserved": 15,
     "n_stations": 33,
     "operators": [
       "ALDI MARCHE CAVAILLON (ALDI MARCHE)",
       "Allego",
       "ELECTRA",
       "EVzen"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "43.17872,2.54269": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 60,
+    "n_reserved": 31,
     "n_stations": 33,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.19248,5.66791": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 64,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.19381,5.66864": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 64,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.21460,3.08907": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 39,
+    "n_reserved": 14,
     "n_stations": 16,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.21557,3.09308": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 39,
+    "n_reserved": 14,
     "n_stations": 16,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.21662,2.22105": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 112,
+    "n_reserved": 42,
     "n_stations": 44,
     "operators": [
       "ELECTRA",
       "Electra"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "43.22005,2.21720": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 112,
+    "n_reserved": 42,
     "n_stations": 44,
     "operators": [
       "ELECTRA",
       "Electra"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "43.22954,-0.07889": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 1,
     "n_points": 16,
+    "n_reserved": 1,
     "n_stations": 2,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.29201,5.45389": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 7,
     "n_points": 36,
+    "n_reserved": 10,
     "n_stations": 17,
     "operators": [
       "ChargeGuru",
       "ChargePoint Austria GmbH | FR*CG0",
       "EVzen (SMEG Développement)",
       "RAIDEN"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "43.35250,1.80452": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 54,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "Greenflux",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.35908,3.34635": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 0,
     "n_points": 64,
+    "n_reserved": 16,
     "n_stations": 16,
     "operators": [
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.36031,3.34460": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 0,
     "n_points": 64,
+    "n_reserved": 16,
     "n_stations": 16,
     "operators": [
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.41442,6.45334": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 85,
+    "n_reserved": 11,
     "n_stations": 14,
     "operators": [
       "IONITY",
       "Ionity",
       "Tesla",
       "TotalEnergies Charging Services"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.41567,6.45226": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 85,
+    "n_reserved": 11,
     "n_stations": 14,
     "operators": [
       "IONITY",
       "Ionity",
       "Tesla",
       "TotalEnergies Charging Services"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.42154,-0.59876": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 15,
+    "n_reserved": 8,
     "n_stations": 9,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.42235,-1.59736": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 9,
     "n_points": 28,
+    "n_reserved": 2,
     "n_stations": 11,
     "operators": [
       "Citeos Mobilité Electrique Paris - Cogelum IDF",
       "Izivia",
       "NVH",
       "SPIE CityNetworks"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "43.42236,5.99188": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 72,
+    "n_reserved": 9,
     "n_stations": 12,
     "operators": [
       "IONITY",
       "Ionity",
       "Tesla",
       "TotalEnergies Charging Services"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.42302,-1.59844": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 9,
     "n_points": 28,
+    "n_reserved": 2,
     "n_stations": 11,
     "operators": [
       "Citeos Mobilité Electrique Paris - Cogelum IDF",
       "Izivia",
       "NVH",
       "SPIE CityNetworks"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "43.42371,5.99140": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 72,
+    "n_reserved": 9,
     "n_stations": 12,
     "operators": [
       "IONITY",
       "Ionity",
       "Tesla",
       "TotalEnergies Charging Services"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.43348,5.39523": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 82,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Greenflux",
       "SPIE CITYNETWORKS",
       "Ze-Watt"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.44100,5.39539": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 78,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux",
       "SPIE CITYNETWORKS"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.44674,5.24248": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 17,
     "n_points": 150,
+    "n_reserved": 24,
     "n_stations": 41,
     "operators": [
       "Bouygues Energies & Services",
       "ChargeGuru",
       "ChargePoint Austria GmbH | FR*CG0",
       "DREAM ENERGY"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "43.46707,6.67227": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 150,
+    "n_open": 3,
     "n_points": 23,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "ChargeFacile | FR*LUM",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France",
       "YES55 | FR*Y55"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.46872,5.65459": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 0,
     "n_points": 30,
+    "n_reserved": 7,
     "n_stations": 7,
     "operators": [
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.47162,5.64423": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 0,
     "n_points": 82,
+    "n_reserved": 34,
     "n_stations": 34,
     "operators": [
       "IONITY",
       "Ionity",
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.48341,1.54953": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 112,
+    "n_reserved": 14,
     "n_stations": 18,
     "operators": [
       "Allego",
       "SPIE CITYNETWORKS"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.48585,1.54914": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 112,
+    "n_reserved": 14,
     "n_stations": 18,
     "operators": [
       "Allego",
       "SPIE CITYNETWORKS"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.52923,-1.15157": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 0,
     "n_points": 80,
+    "n_reserved": 42,
     "n_stations": 42,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.54223,6.78638": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 36,
+    "n_reserved": 1,
     "n_stations": 2,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.54766,3.79564": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 86,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "SPIE CITYNETWORKS",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.58587,-1.42034": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 32,
+    "n_reserved": 16,
     "n_stations": 19,
     "operators": [
       "IONITY",
       "IZIVIA",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.58843,5.18986": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 64,
+    "n_reserved": 2,
     "n_stations": 4,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.58913,7.03480": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 60,
+    "n_reserved": 12,
     "n_stations": 15,
     "operators": [
       "IONITY",
       "Ionity",
       "QOVOLTIS",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.58992,5.19151": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 64,
+    "n_reserved": 2,
     "n_stations": 4,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.59142,7.03495": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 59,
+    "n_reserved": 12,
     "n_stations": 14,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.59421,1.39721": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 10,
     "n_points": 52,
+    "n_reserved": 0,
     "n_stations": 10,
     "operators": [
       "IZIVIA",
       "LIDL France",
       "SOLVEO ENERGIES",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.60059,1.39853": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 24,
     "n_points": 129,
+    "n_reserved": 6,
     "n_stations": 30,
     "operators": [
       "Allego",
       "Bouygues Energies & Services",
       "ELECTRA",
       "EVzen"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "43.63265,5.49322": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 0,
     "n_points": 36,
+    "n_reserved": 19,
     "n_stations": 19,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.64769,1.51000": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 100,
+    "n_open": 2,
     "n_points": 26,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Freshmile | FR*FR1",
       "Power Dot France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.71243,4.13190": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 34,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Fastned France",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.71500,4.13286": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 34,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Fastned France",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.75211,1.65630": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 14,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.75331,7.41928": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 42,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "GreenFlux Assets B.V. | FR*EVZ",
       "SPIE CITYNETWORKS",
       "WAAT SAS | FR*WA2"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.75493,7.39778": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 45,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "ELECTRIC 55 CHARGING",
       "Greenflux",
       "WAAT SAS | FR*WA2"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "43.81200,1.36225": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 94,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.86376,3.31263": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 250,
+    "n_open": 2,
     "n_points": 44,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "Tesla",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "43.86909,4.44016": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 7,
     "n_points": 100,
+    "n_reserved": 0,
     "n_stations": 7,
     "operators": [
       "Atlante France",
       "Atlante | FR*ATL",
       "Bouygues Energies & Services",
       "Bump"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "43.87564,4.44967": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 1,
     "n_points": 16,
+    "n_reserved": 1,
     "n_stations": 2,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "43.92313,4.91235": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 27,
+    "n_reserved": 14,
     "n_stations": 15,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.00056,4.70143": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 30,
+    "n_reserved": 16,
     "n_stations": 18,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.00316,4.70204": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 30,
+    "n_reserved": 16,
     "n_stations": 18,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.02341,4.88991": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 600,
+    "n_open": 6,
     "n_points": 43,
+    "n_reserved": 16,
     "n_stations": 22,
     "operators": [
       "Bump",
       "ChargeFacile | FR*LUM",
       "EASYCHARGE",
       "IONITY"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "44.04114,1.00400": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 88,
+    "n_reserved": 34,
     "n_stations": 36,
     "operators": [
       "ELECTRA",
       "Electra"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "44.19557,4.73200": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 51,
+    "n_reserved": 24,
     "n_stations": 26,
     "operators": [
       "CPO CITEOS Vaucluse",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "44.21512,4.72324": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 39,
+    "n_reserved": 20,
     "n_stations": 21,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.33086,3.07976": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 250,
+    "n_open": 2,
     "n_points": 56,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "Tesla",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.36090,-0.85004": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 4,
     "n_points": 92,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Zunder",
       "Zunder | ES*ZUN"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "44.36186,-0.85233": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 4,
     "n_points": 92,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Zunder",
       "Zunder | ES*ZUN"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "44.40500,0.18680": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 23,
+    "n_reserved": 12,
     "n_stations": 13,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.51447,4.78262": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 98,
+    "n_reserved": 52,
     "n_stations": 54,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.51567,4.78082": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 98,
+    "n_reserved": 52,
     "n_stations": 54,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.65795,1.56828": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.72171,4.78719": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 34,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.86577,4.86507": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 250,
+    "n_open": 3,
     "n_points": 56,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "EASYCHARGE",
       "Tesla",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "44.86615,4.86665": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 250,
+    "n_open": 3,
     "n_points": 56,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "EASYCHARGE",
       "Tesla",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "44.86998,3.24822": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 360,
+    "n_open": 5,
     "n_points": 101,
+    "n_reserved": 10,
     "n_stations": 15,
     "operators": [
       "Atlante France",
       "Atlante | FR*ATL",
       "IONITY",
       "IZIVIA"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "44.97851,-0.43242": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 54,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Atlante France",
       "Atlante | FR*ATL",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.00192,0.03474": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 22,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.01688,4.87472": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 109,
+    "n_reserved": 34,
     "n_stations": 37,
     "operators": [
       "ELECTRA",
       "Electra",
       "Freshmile | FR*FR1",
       "TotalEnergies Charging Services"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "45.02182,4.87631": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 108,
+    "n_reserved": 34,
     "n_stations": 36,
     "operators": [
       "ELECTRA",
       "Electra",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "45.03252,1.52598": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 30,
+    "n_reserved": 15,
     "n_stations": 17,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.07226,5.21128": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 56,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.07414,5.20989": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 56,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.14949,0.79966": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 5,
     "n_points": 36,
+    "n_reserved": 0,
     "n_stations": 5,
     "operators": [
       "Citeos Mobilité Electrique Paris - Cogelum IDF",
       "Fastned France",
       "Tesla"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "45.16134,1.44068": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 0,
     "n_points": 64,
+    "n_reserved": 34,
     "n_stations": 34,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.18859,-0.49040": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 58,
+    "n_reserved": 8,
     "n_stations": 9,
     "operators": [
       "IONITY",
       "Ionity",
       "SPIE CITYNETWORKS"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.18914,-0.49388": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 58,
+    "n_reserved": 8,
     "n_stations": 9,
     "operators": [
       "IONITY",
       "Ionity",
       "SPIE CITYNETWORKS"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.24420,5.86190": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 40,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Fastned France",
       "Greenflux"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.24629,6.42362": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 8,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.27623,4.82600": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 54,
+    "n_reserved": 24,
     "n_stations": 27,
     "operators": [
       "IONITY",
       "Ionity",
       "LIDL France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.27640,5.62329": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 45,
+    "n_reserved": 17,
     "n_stations": 20,
     "operators": [
       "Bouygues Energies & Services",
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.27649,4.82814": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 54,
+    "n_reserved": 24,
     "n_stations": 27,
     "operators": [
       "IONITY",
       "Ionity",
       "LIDL France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.27837,5.62398": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 43,
+    "n_reserved": 17,
     "n_stations": 19,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.33648,3.27299": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 250,
+    "n_open": 2,
     "n_points": 25,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "EASYCHARGE",
       "Tesla"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "45.35941,1.93745": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 38,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.52640,5.97424": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "Combo CCS"
     ],
+    "hours_247": true,
     "max_power_kw": 250,
+    "n_open": 2,
     "n_points": 113,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Tesla"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.54106,1.50961": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 2,
     "n_points": 18,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Citeos Mobilité Electrique Paris - Cogelum IDF",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "45.54768,6.15671": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 38,
+    "n_reserved": 20,
     "n_stations": 22,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.57811,5.63347": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 40,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Fastned France",
       "Greenflux"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.59096,4.82673": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 2,
     "n_points": 24,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.61170,-0.60021": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 93,
+    "n_reserved": 8,
     "n_stations": 11,
     "operators": [
       "Atlante France",
       "Atlante | FR*ATL",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.61209,5.20982": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 47,
+    "n_reserved": 17,
     "n_stations": 19,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.62224,2.45706": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 84,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Atlante France",
       "Atlante | FR*ATL"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.64236,3.18420": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 0,
     "n_points": 30,
+    "n_reserved": 16,
     "n_stations": 16,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.66016,3.15292": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 19,
+    "n_reserved": 10,
     "n_stations": 11,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.68038,4.15659": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 32,
+    "n_reserved": 4,
     "n_stations": 6,
     "operators": [
       "Fastned France",
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.68200,4.15453": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 32,
+    "n_reserved": 4,
     "n_stations": 6,
     "operators": [
       "Fastned France",
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.69835,4.97667": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 250,
+    "n_open": 3,
     "n_points": 52,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Freshmile | FR*FR1",
       "Tesla"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.80350,4.77055": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 400,
+    "n_open": 19,
     "n_points": 104,
+    "n_reserved": 4,
     "n_stations": 23,
     "operators": [
       "Bump",
       "DRIVECO Partner Network",
       "EVzen",
       "GreenFlux Assets B.V. | FR*EVZ"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "45.80898,4.76952": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 400,
+    "n_open": 18,
     "n_points": 92,
+    "n_reserved": 4,
     "n_stations": 22,
     "operators": [
       "Bump",
       "DRIVECO Partner Network",
       "EVzen",
       "GreenFlux Assets B.V. | FR*EVZ"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "45.84329,5.07031": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 350,
+    "n_open": 8,
     "n_points": 62,
+    "n_reserved": 8,
     "n_stations": 16,
     "operators": [
       "Greenflux",
       "IONITY",
       "Ionity",
       "SIVAM BY AUTOSPHERE - MONTLUEL"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "45.84521,5.07002": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 350,
+    "n_open": 8,
     "n_points": 62,
+    "n_reserved": 8,
     "n_stations": 16,
     "operators": [
       "Greenflux",
       "IONITY",
       "Ionity",
       "SIVAM BY AUTOSPHERE - MONTLUEL"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "45.85086,3.40565": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 1,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.85444,3.81102": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 400,
+    "n_open": 0,
     "n_points": 150,
+    "n_reserved": 28,
     "n_stations": 28,
     "operators": [
       "Plenitude On The Road",
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.85611,3.81231": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 400,
+    "n_open": 0,
     "n_points": 150,
+    "n_reserved": 28,
     "n_stations": 28,
     "operators": [
       "Plenitude On The Road",
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.88802,4.89442": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 38,
+    "n_reserved": 20,
     "n_stations": 22,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "45.89341,-0.60335": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 40,
+    "n_reserved": 4,
     "n_stations": 5,
     "operators": [
       "Shell Recharge",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "45.90849,1.29280": null,
   "45.91346,1.29253": null,
   "45.95637,2.98780": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 44,
+    "n_reserved": 17,
     "n_stations": 18,
     "operators": [
       "ELECTRA",
       "Electra"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "46.05736,3.11346": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 48,
+    "n_reserved": 2,
     "n_stations": 4,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "46.09614,5.96299": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 27,
+    "n_reserved": 8,
     "n_stations": 10,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.09730,5.96277": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 27,
+    "n_reserved": 8,
     "n_stations": 10,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.11662,5.49182": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 31,
+    "n_reserved": 9,
     "n_stations": 11,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.11808,5.49032": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 31,
+    "n_reserved": 9,
     "n_stations": 11,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.13595,4.76758": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 47,
+    "n_reserved": 16,
     "n_stations": 19,
     "operators": [
       "Fastned France",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.14238,4.76711": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 47,
+    "n_reserved": 16,
     "n_stations": 19,
     "operators": [
       "Fastned France",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.20400,5.29430": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 42,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "SPIE CITYNETWORKS",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.20448,5.29663": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 42,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "SPIE CITYNETWORKS",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.29638,-0.37684": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 59,
+    "n_reserved": 11,
     "n_stations": 14,
     "operators": [
       "IONITY",
       "Ionity",
       "Tesla",
       "TotalEnergies Charging Services"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.29770,-0.37103": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 59,
+    "n_reserved": 11,
     "n_stations": 14,
     "operators": [
       "IONITY",
       "Ionity",
       "Tesla",
       "TotalEnergies Charging Services"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.31397,1.41989": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 30,
+    "n_reserved": 16,
     "n_stations": 18,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.35474,2.80308": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 59,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "EASYCHARGE",
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "46.41964,4.86639": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 63,
+    "n_reserved": 17,
     "n_stations": 19,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.41993,4.86426": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 63,
+    "n_reserved": 17,
     "n_stations": 19,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.45213,-0.01636": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 89,
+    "n_reserved": 33,
     "n_stations": 36,
     "operators": [
       "Allego",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.45337,-0.01660": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 89,
+    "n_reserved": 33,
     "n_stations": 36,
     "operators": [
       "Allego",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.57237,-1.11479": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 37,
+    "n_reserved": 10,
     "n_stations": 12,
     "operators": [
       "IONITY",
       "Ionity",
       "Tesla"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.69176,4.84274": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 40,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Fastned France",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.69244,4.84469": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 40,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Fastned France",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.70153,0.36665": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 30,
+    "n_reserved": 16,
     "n_stations": 18,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.70213,0.37155": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 30,
+    "n_reserved": 16,
     "n_stations": 18,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "46.90459,-1.04818": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 0,
     "n_points": 44,
+    "n_reserved": 23,
     "n_stations": 23,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "46.90587,0.52392": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 36,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux",
       "Picoty | FR*PY2"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "46.90691,0.52204": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 36,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux",
       "Picoty | FR*PY2"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "46.96343,4.83838": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 8,
     "n_points": 66,
+    "n_reserved": 1,
     "n_stations": 9,
     "operators": [
       "Greenflux",
       "Izivia",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.03219,5.10917": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 30,
+    "n_reserved": 16,
     "n_stations": 18,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.08991,1.84514": null,
   "47.09481,2.24120": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 79,
+    "n_reserved": 10,
     "n_stations": 13,
     "operators": [
       "IONITY",
       "Ionity",
       "Zunder",
       "Zunder | ES*ZUN"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.09548,2.24190": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 79,
+    "n_reserved": 10,
     "n_stations": 13,
     "operators": [
       "IONITY",
       "Ionity",
       "Zunder",
       "Zunder | ES*ZUN"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.10504,4.71366": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 48,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Greenflux",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.11308,4.71185": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 48,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Greenflux",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.13533,-0.82647": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 400,
+    "n_open": 1,
     "n_points": 52,
+    "n_reserved": 6,
     "n_stations": 7,
     "operators": [
       "Plenitude On The Road",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.14739,5.58209": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 40,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.14899,5.58332": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 40,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.16563,0.63191": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 35,
+    "n_reserved": 11,
     "n_stations": 13,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.16689,0.63074": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 35,
+    "n_reserved": 11,
     "n_stations": 13,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.18033,5.33377": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 4,
     "n_points": 32,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.18463,5.33262": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 4,
     "n_points": 32,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.21717,5.00232": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 4,
     "n_points": 66,
+    "n_reserved": 23,
     "n_stations": 27,
     "operators": [
       "CENTAURE",
       "DRIVECO Partner Network",
       "Fastned France",
       "IONITY"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "47.22291,5.01026": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 62,
+    "n_reserved": 23,
     "n_stations": 26,
     "operators": [
       "CENTAURE",
       "Fastned France",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "47.25700,2.98766": null,
   "47.30163,0.88877": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 76,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Zunder",
       "Zunder | ES*ZUN"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.31088,0.51017": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 66,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "SPIE CITYNETWORKS"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.31141,4.50055": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 63,
+    "n_reserved": 10,
     "n_stations": 12,
     "operators": [
       "IONITY",
       "Ionity",
       "SPIE CITYNETWORKS"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.31503,4.49602": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 63,
+    "n_reserved": 10,
     "n_stations": 12,
     "operators": [
       "IONITY",
       "Ionity",
       "SPIE CITYNETWORKS"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.32741,6.12475": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 9,
     "n_points": 80,
+    "n_reserved": 0,
     "n_stations": 9,
     "operators": [
       "EASYCHARGE",
       "Easy Charge | FR*ECH",
       "SPIE CITYNETWORKS",
       "SPIE CityNetworks"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "47.32853,6.12665": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 9,
     "n_points": 80,
+    "n_reserved": 0,
     "n_stations": 9,
     "operators": [
       "EASYCHARGE",
       "Easy Charge | FR*ECH",
       "SPIE CITYNETWORKS",
       "SPIE CityNetworks"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "47.33808,2.92806": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 1,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.33835,1.66647": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 1,
     "n_points": 16,
+    "n_reserved": 1,
     "n_stations": 2,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.34834,2.04827": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 180,
+    "n_open": 2,
     "n_points": 24,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Picoty | FR*PY2"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.34869,2.05037": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 180,
+    "n_open": 2,
     "n_points": 24,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Picoty | FR*PY2"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.41817,-1.01761": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 2,
     "n_points": 24,
+    "n_reserved": 2,
     "n_stations": 4,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.42249,5.17045": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 85,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "SPIE CITYNETWORKS",
       "SPIE CityNetworks",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.47379,0.77660": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 29,
+    "n_reserved": 8,
     "n_stations": 10,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.47540,0.77560": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 29,
+    "n_reserved": 8,
     "n_stations": 10,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.49991,-0.49010": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 65,
+    "n_reserved": 7,
     "n_stations": 10,
     "operators": [
       "IONITY",
       "Ionity",
       "Picoty | FR*PY2",
       "Tesla"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.50278,4.03608": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 600,
+    "n_open": 2,
     "n_points": 48,
+    "n_reserved": 17,
     "n_stations": 19,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.50450,4.03571": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 600,
+    "n_open": 2,
     "n_points": 48,
+    "n_reserved": 17,
     "n_stations": 19,
     "operators": [
       "IONITY",
       "Ionity",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.65105,0.46896": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 200,
+    "n_open": 1,
     "n_points": 9,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "Picoty | FR*PY2"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.66350,1.92910": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 86,
+    "n_reserved": 9,
     "n_stations": 10,
     "operators": [
       "Greenflux",
       "Plenitude On The Road"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.66376,1.38806": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 46,
+    "n_reserved": 24,
     "n_stations": 26,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.66489,1.38675": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 46,
+    "n_reserved": 24,
     "n_stations": 26,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "47.66538,1.92596": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 86,
+    "n_reserved": 9,
     "n_stations": 10,
     "operators": [
       "Greenflux",
       "Plenitude On The Road"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.78931,3.67153": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 4,
     "n_points": 72,
+    "n_reserved": 1,
     "n_stations": 5,
     "operators": [
       "Greenflux",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "47.83653,7.39506": null,
   "47.85152,2.68539": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 15,
+    "n_reserved": 8,
     "n_stations": 9,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.02348,-0.32549": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 24,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.02686,-0.34204": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 16,
+    "n_reserved": 2,
     "n_stations": 3,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.05132,0.17421": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 500,
+    "n_open": 14,
     "n_points": 289,
+    "n_reserved": 35,
     "n_stations": 49,
     "operators": [
       "Allego",
       "Atlante France",
       "Atlante | FR*ATL",
       "DRIVECO Partner Network"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "48.08408,2.47129": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 560,
+    "n_open": 2,
     "n_points": 31,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux",
       "Zunder | ES*ZUN"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.09570,-0.69679": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 31,
+    "n_reserved": 16,
     "n_stations": 17,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.16716,3.17250": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 24,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.21213,4.24083": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 2,
     "n_points": 24,
+    "n_reserved": 2,
     "n_stations": 4,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.24389,3.55473": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 56,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.24657,3.55465": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 56,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.42689,2.92914": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.45668,0.12579": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 320,
+    "n_open": 8,
     "n_points": 39,
+    "n_reserved": 10,
     "n_stations": 18,
     "operators": [
       "ChargeGuru",
       "ChargePoint Austria GmbH | FR*CG0",
       "Plug Inn fast charge",
       "RAIDEN"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": true
   },
   "48.58568,-1.32670": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 1,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.72206,-0.05707": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 24,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Zunder",
       "Zunder | ES*ZUN"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.72977,4.22686": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 1,
     "n_points": 58,
+    "n_reserved": 10,
     "n_stations": 11,
     "operators": [
       "Greenflux",
       "Shell Recharge"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.76170,7.36416": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 32,
+    "n_reserved": 2,
     "n_stations": 4,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.82861,2.74218": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 72,
+    "n_reserved": 2,
     "n_stations": 5,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.83039,2.74527": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 3,
     "n_points": 72,
+    "n_reserved": 2,
     "n_stations": 5,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "48.90753,-1.10492": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 1,
     "n_points": 19,
+    "n_reserved": 10,
     "n_stations": 11,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.93378,2.39178": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 150,
+    "n_open": 3,
     "n_points": 37,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "SPIE CityNetworks",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.93460,2.39397": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 150,
+    "n_open": 3,
     "n_points": 37,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "SPIE CityNetworks",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.94170,1.95367": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 54,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Bouygues Energies & Services",
       "Greenflux"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.94178,1.95122": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 54,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Bouygues Energies & Services",
       "Greenflux"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.97224,7.06867": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 12,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Fastned France",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "48.99216,1.63302": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 350,
+    "n_open": 6,
     "n_points": 37,
+    "n_reserved": 8,
     "n_stations": 14,
     "operators": [
       "Bouygues Energies & Services",
       "Fastned France",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.06012,2.34808": null,
   "49.07228,2.55328": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 7,
     "n_points": 70,
+    "n_reserved": 2,
     "n_stations": 9,
     "operators": [
       "ChargeGuru",
       "ChargePoint Austria GmbH | FR*CG0",
       "Fastned France",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.07232,2.55060": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 7,
     "n_points": 70,
+    "n_reserved": 2,
     "n_stations": 9,
     "operators": [
       "ChargeGuru",
       "ChargePoint Austria GmbH | FR*CG0",
       "Fastned France",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.07241,4.78821": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.07397,4.79047": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.11830,5.50916": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 38,
+    "n_reserved": 20,
     "n_stations": 22,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.11958,4.24386": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 82,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "TESLA France SARL",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.12002,5.50886": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 38,
+    "n_reserved": 20,
     "n_stations": 22,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.12587,3.53736": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 16,
+    "n_reserved": 2,
     "n_stations": 4,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.13268,6.65928": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 36,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.13415,6.65765": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 36,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.16804,-0.27505": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 400,
+    "n_open": 6,
     "n_points": 60,
+    "n_reserved": 27,
     "n_stations": 33,
     "operators": [
       "Bump",
       "IONITY",
       "Ionity",
       "Plenitude On The Road"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": true
   },
   "49.17965,6.05428": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 32,
+    "n_reserved": 1,
     "n_stations": 2,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.21127,1.21845": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 64,
+    "n_reserved": 2,
     "n_stations": 4,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.32439,0.32792": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 38,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Greenflux",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.36049,0.86112": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 32,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Fastned France",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.36157,0.86267": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 32,
+    "n_reserved": 0,
     "n_stations": 3,
     "operators": [
       "Fastned France",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.44939,3.92525": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 36,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.51893,2.71901": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 71,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Greenflux",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.52512,2.72460": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 3,
     "n_points": 71,
+    "n_reserved": 1,
     "n_stations": 4,
     "operators": [
       "Greenflux",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.59313,4.50438": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 175,
+    "n_open": 2,
     "n_points": 17,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "IZIVIA",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.60904,2.20412": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 150,
+    "n_open": 1,
     "n_points": 17,
+    "n_reserved": 1,
     "n_stations": 2,
     "operators": [
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.61379,0.54551": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 22,
+    "n_reserved": 12,
     "n_stations": 14,
     "operators": [
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.78569,3.33445": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 250,
+    "n_open": 2,
     "n_points": 40,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "Tesla",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.80752,1.97051": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 1,
     "n_points": 22,
+    "n_reserved": 0,
     "n_stations": 1,
     "operators": [
       "Greenflux"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.85470,2.52088": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 34,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Fastned France",
       "Power Dot France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "49.88678,2.83646": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 80,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "Greenflux",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "49.88842,2.84133": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 400,
+    "n_open": 2,
     "n_points": 80,
+    "n_reserved": 1,
     "n_stations": 3,
     "operators": [
       "Greenflux",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "50.16862,1.75470": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 2,
     "n_points": 69,
+    "n_reserved": 10,
     "n_stations": 12,
     "operators": [
       "IONITY",
       "Ionity",
       "Tesla"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "50.26223,2.86336": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "50.26351,2.86648": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 16,
+    "n_reserved": 0,
     "n_stations": 2,
     "operators": [
       "Fastned France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "50.40386,2.74411": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": false,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": false,
     "max_power_kw": 300,
+    "n_open": 2,
     "n_points": 24,
+    "n_reserved": 5,
     "n_stations": 7,
     "operators": [
       "Plenitude On The Road",
       "TotalEnergies Charging Services",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "unknown",
+    "reservation": false
   },
   "50.53027,3.04629": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "EF",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 300,
+    "n_open": 4,
     "n_points": 48,
+    "n_reserved": 0,
     "n_stations": 4,
     "operators": [
       "Greenflux",
       "RossiniEnergy",
       "TotalEnergies Marketing France"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   },
   "50.57240,2.37995": {
+    "all_free": false,
+    "any_free": false,
+    "cb_payment": true,
     "connectors": [
       "CHAdeMO",
       "Combo CCS",
       "Type 2"
     ],
+    "hours_247": true,
     "max_power_kw": 350,
+    "n_open": 3,
     "n_points": 23,
+    "n_reserved": 8,
     "n_stations": 11,
     "operators": [
       "Fastned France",
       "IONITY",
       "Ionity"
-    ]
+    ],
+    "pmr": "accessible",
+    "reservation": false
   }
 }
