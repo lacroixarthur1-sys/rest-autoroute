@@ -65,26 +65,28 @@
   .route-badge { font-family: var(--font-display); font-size: 34px; font-weight: 800; background: #fff; color: var(--sign-blue-deep); padding: 6px 16px; border-radius: 8px; letter-spacing: 0.02em; line-height: 1; flex: none; }
   .route-sign-cities { font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; font-family: var(--font-display); }
   .route-sign-stats { font-size: 22px; font-weight: 800; margin-top: 2px; }
-  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 6px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+  .locate-cta, .cta-link {
+    flex: 1 1 200px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 14px 20px; border-radius: 12px; font-family: var(--font-body);
+    font-weight: 700; font-size: 14px; text-decoration: none; text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
   .locate-cta {
     background: linear-gradient(135deg, var(--amber), var(--amber-deep));
-    color: #241703; border: 2px solid rgba(255,255,255,0.55); border-radius: 999px;
-    padding: 15px 26px; font-weight: 800; font-size: 16px; font-family: var(--font-body);
-    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    color: #241703; border: 2px solid rgba(255,255,255,0.55);
     box-shadow: 0 10px 26px rgba(224,138,30,0.5), 0 0 0 1px rgba(0,0,0,0.05);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
   .locate-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(224,138,30,0.6), 0 0 0 1px rgba(0,0,0,0.05); }
   .locate-cta:active { transform: translateY(0); }
-  .locate-cta svg { width: 20px; height: 20px; stroke: #241703; fill: none; flex: none; }
+  .locate-cta svg { width: 19px; height: 19px; stroke: #241703; fill: none; flex: none; }
   .cta-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.1); color: #fff; border: 1.5px solid rgba(255,255,255,0.5);
-    border-radius: 999px; padding: 10px 18px; font-size: 13.5px; font-weight: 600;
-    text-decoration: none; transition: background 0.15s ease, border-color 0.15s ease;
+    background: rgba(255,255,255,0.1); color: #fff; border: 2px solid rgba(255,255,255,0.5);
   }
-  .cta-link:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.75); }
-  .cta-link svg { width: 15px; height: 15px; stroke: currentColor; fill: none; flex: none; }
+  .cta-link:hover { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.75); transform: translateY(-2px); }
+  .cta-link:active { transform: translateY(0); }
+  .cta-link svg { width: 17px; height: 17px; stroke: currentColor; fill: none; flex: none; }
 
   .filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 4px 0 20px; }
   .filters .filters-label { font-size: 11.5px; color: var(--text-dim); letter-spacing: 0.06em; margin-right: 4px; text-transform: uppercase; }
@@ -204,7 +206,7 @@
       <div class="card">
         <div class="card-head">
           <div>
-            <p class="aire-name">Aire de la Mayenne</p>
+            <p class="aire-name"><a class="aire-link" href="https://ulys.com/aire/aire-de-la-mayenne/" target="_blank" rel="noopener">Aire de la Mayenne</a></p>
             <p class="aire-route">PK 28,7 · A81</p>
           </div>
         </div>
