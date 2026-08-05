@@ -527,6 +527,8 @@
     display: flex;
     flex-direction: column;
   }
+  a.card { text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  a.card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(18,21,26,0.14); }
   .card.next { border-color: var(--amber); box-shadow: 0 0 0 2px color-mix(in srgb, var(--amber) 35%, transparent), var(--shadow); }
   .card-head {
     background: var(--sign-blue-pale);
@@ -794,7 +796,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-dardilly"
       },
       {
         "name": "Aire des Bruyères - Paisy",
@@ -822,7 +825,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://voyage.aprr.fr/carte-itineraires?poi=service_area;3795"
+        "source": "OpenStreetMap · https://voyage.aprr.fr/carte-itineraires?poi=service_area;3795",
+        "slug": "aire-des-bruyeres-paisy"
       },
       {
         "name": "Aire de Taponas",
@@ -848,7 +852,8 @@
           "playground"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-taponas"
       },
       {
         "name": "Aire de Dracé",
@@ -872,7 +877,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-drace"
       },
       {
         "name": "Aire de Mâcon-La Salle",
@@ -901,7 +907,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-macon-la-salle"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-macon-la-salle",
+        "slug": "aire-de-macon-la-salle"
       },
       {
         "name": "Aire de Mâcon-Saint-Albain",
@@ -926,7 +933,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-macon-saint-albain"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-macon-saint-albain",
+        "slug": "aire-de-macon-saint-albain"
       },
       {
         "name": "Aire de La Ferté",
@@ -950,7 +958,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-la-ferte"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-la-ferte",
+        "slug": "aire-de-la-ferte"
       },
       {
         "name": "Aire de Saint-Ambreuil",
@@ -973,7 +982,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-saint-ambreuil"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-saint-ambreuil",
+        "slug": "aire-de-saint-ambreuil"
       },
       {
         "name": "Aire de Beaune-Merceuil",
@@ -1006,7 +1016,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-beaune-merceuil"
       },
       {
         "name": "Aire de la Forêt",
@@ -1027,7 +1038,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-bligny-sur-ouche"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-bligny-sur-ouche",
+        "slug": "aire-de-la-foret"
       },
       {
         "name": "Aire du Creux Moreau",
@@ -1050,7 +1062,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-creux-moreau"
       },
       {
         "name": "Aire des Lochères",
@@ -1075,7 +1088,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-locheres"
       },
       {
         "name": "Aire du Chien Blanc",
@@ -1103,7 +1117,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-chien-blanc"
       },
       {
         "name": "Aire de la Chaponne",
@@ -1132,7 +1147,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-la-chaponne"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-la-chaponne",
+        "slug": "aire-de-la-chaponne"
       },
       {
         "name": "Aire de Maison-Dieu",
@@ -1157,7 +1173,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://voyage.aprr.fr/carte-itineraires?poi=service_area;3780"
+        "source": "OpenStreetMap · https://voyage.aprr.fr/carte-itineraires?poi=service_area;3780",
+        "slug": "aire-de-maison-dieu"
       },
       {
         "name": "Aire de Venoy-Soleil Levant",
@@ -1182,7 +1199,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-venoy-soleil-levant"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a6/aire-venoy-soleil-levant",
+        "slug": "aire-de-venoy-soleil-levant"
       }
     ]
   },
@@ -1210,7 +1228,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-vitrolles"
       },
       {
         "name": "Aire de Lançon de Provence Ouest",
@@ -1232,7 +1251,8 @@
           "playground"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-lancon-de-provence-ouest"
       },
       {
         "name": "Aire de Lançon de Provence Est",
@@ -1252,7 +1272,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-lancon-de-provence-est"
       },
       {
         "name": "Aire de Morières",
@@ -1272,7 +1293,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-morieres"
       },
       {
         "name": "Aire de Sorgues",
@@ -1296,7 +1318,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-sorgues"
       },
       {
         "name": "Aire de Mornas Village",
@@ -1324,7 +1347,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-mornas-village"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-mornas-village",
+        "slug": "aire-de-mornas-village"
       },
       {
         "name": "Aire de Mornas-Les Adrets",
@@ -1361,7 +1385,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-mornas-les-adrets"
       },
       {
         "name": "Aire de Montélimar Est",
@@ -1390,7 +1415,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-montelimar-est"
       },
       {
         "name": "Aire de Montélimar Ouest",
@@ -1417,7 +1443,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-montelimar-ouest"
       },
       {
         "name": "Aire de Saulce",
@@ -1444,7 +1471,8 @@
           "playground"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-saulce"
       },
       {
         "name": "Aire de Portes-lès-Valence Ouest",
@@ -1473,7 +1501,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-portes-les-valence-ouest"
       },
       {
         "name": "Aire de Portes-lès-Valence Est",
@@ -1504,7 +1533,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-portes-les-valence-est"
       },
       {
         "name": "Aire de Pont-de-l'Isère-Les Vinays",
@@ -1532,7 +1562,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-pont-de-l-isere-les-vinays"
       },
       {
         "name": "Aire de la Latitude 45",
@@ -1557,7 +1588,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-la-latitude-45"
       },
       {
         "name": "Aire de Saint-Rambert-d'Albon Ouest",
@@ -1594,7 +1626,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-saint-rambert-d-albon-ouest"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-saint-rambert-d-albon-ouest",
+        "slug": "aire-de-saint-rambert-d-albon-ouest"
       },
       {
         "name": "Aire de Saint-Rambert-d'Albon Est",
@@ -1626,7 +1659,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-saint-rambert-d-albon-est"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a7/aire-saint-rambert-d-albon-est",
+        "slug": "aire-de-saint-rambert-d-albon-est"
       }
     ]
   },
@@ -1658,7 +1692,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-vidauban-sud"
       },
       {
         "name": "Aire de Provence Verdon",
@@ -1688,7 +1723,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-provence-verdon"
       },
       {
         "name": "Aire du Canaver",
@@ -1709,7 +1745,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-canaver"
       },
       {
         "name": "Aire de l'Estérel",
@@ -1728,7 +1765,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-l-esterel"
       },
       {
         "name": "Aire de Cambarette",
@@ -1748,7 +1786,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-cambarette"
       },
       {
         "name": "Aire des Terrasses de Provence Centre VL",
@@ -1767,7 +1806,8 @@
           "playground"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-terrasses-de-provence-centre-vl"
       },
       {
         "name": "Aire de la Cote d'Azur",
@@ -1800,7 +1840,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-cote-d-azur"
       },
       {
         "name": "Aire de Mougins",
@@ -1825,7 +1866,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-mougins"
       },
       {
         "name": "Aire de la Sainte Victoire",
@@ -1850,7 +1892,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-sainte-victoire"
       },
       {
         "name": "Aire de Rousset",
@@ -1875,7 +1918,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-rousset"
       },
       {
         "name": "Aire de la Via Julia Augusta",
@@ -1895,7 +1939,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a8/aire-scoperta"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a8/aire-scoperta",
+        "slug": "aire-de-la-via-julia-augusta"
       },
       {
         "name": "Aire de la Riviera Française",
@@ -1915,7 +1960,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-riviera-francaise"
       }
     ]
   },
@@ -1948,7 +1994,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-village-catalan"
       },
       {
         "name": "Aire de la Palme Ouest",
@@ -1970,7 +2017,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-palme-ouest"
       },
       {
         "name": "Aire de la Palme Est",
@@ -1997,7 +2045,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-palme-est"
       },
       {
         "name": "Aire de Narbonne-Vinassan Nord",
@@ -2024,7 +2073,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-narbonne-vinassan-nord"
       },
       {
         "name": "Aire de Narbonne-Vinassan Sud",
@@ -2051,7 +2101,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-narbonne-vinassan-sud"
       },
       {
         "name": "Aire de Béziers-Montblanc Sud Boby Lapointe",
@@ -2070,7 +2121,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-beziers-montblanc-sud-boby-lapointe"
       },
       {
         "name": "Aire de Béziers-Montblanc Nord Boby Lapointe",
@@ -2098,7 +2150,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-beziers-montblanc-nord-boby-lapointe"
       },
       {
         "name": "Aire de Montpellier-Fabrègues Nord",
@@ -2139,7 +2192,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-montpellier-fabregues-nord"
       },
       {
         "name": "Aire d'Ambrussum Sud",
@@ -2172,7 +2226,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-d-ambrussum-sud"
       },
       {
         "name": "Aire d'Ambrussum Nord",
@@ -2202,7 +2257,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-d-ambrussum-nord"
       },
       {
         "name": "Aire de Marguerittes Sud",
@@ -2238,7 +2294,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-marguerittes-sud"
       },
       {
         "name": "Aire de Marguerittes Nord",
@@ -2263,7 +2320,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-marguerittes-nord"
       },
       {
         "name": "Aire de Tavel-Sud",
@@ -2290,7 +2348,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-tavel-sud"
       },
       {
         "name": "Aire de Tavel-Nord",
@@ -2314,7 +2373,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-tavel-nord"
       }
     ]
   },
@@ -2359,7 +2419,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-l-estalot"
       },
       {
         "name": "Aire de Saugon Est",
@@ -2386,7 +2447,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-saugon-est"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-saugon-est",
+        "slug": "aire-de-saugon-est"
       },
       {
         "name": "Aire de Saugon Ouest",
@@ -2407,7 +2469,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-saugon-ouest"
       },
       {
         "name": "Aire de Saint-Léger Est",
@@ -2436,7 +2499,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-saint-leger"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-saint-leger",
+        "slug": "aire-de-saint-leger-est"
       },
       {
         "name": "Aire de Fenioux",
@@ -2463,7 +2527,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-fenioux"
       },
       {
         "name": "Aire du Poitou-Charentes Nord",
@@ -2495,7 +2560,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitou-charentes-nord"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitou-charentes-nord",
+        "slug": "aire-du-poitou-charentes-nord"
       },
       {
         "name": "Aire du Poitou-Charentes Sud",
@@ -2519,7 +2585,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitou-charentes-sud"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitou-charentes-sud",
+        "slug": "aire-du-poitou-charentes-sud"
       },
       {
         "name": "Aire de Rouillé - Pamproux Sud",
@@ -2540,7 +2607,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-rouille-pamproux-sud"
       },
       {
         "name": "Aire de Rouillé - Pamproux Nord",
@@ -2560,7 +2628,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-rouille-pamproux-nord"
       },
       {
         "name": "Aire de Poitiers Jaunay-Clan",
@@ -2580,7 +2649,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-poitiers-jaunay-clan"
       },
       {
         "name": "Aire de Poitiers-Chincé",
@@ -2604,7 +2674,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitiers-chince"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-poitiers-chince",
+        "slug": "aire-de-poitiers-chince"
       },
       {
         "name": "Aire de Châtellerault-Usseau",
@@ -2622,7 +2693,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-chatellerault-usseau"
       },
       {
         "name": "Aire de Châtellerault-Antran",
@@ -2644,7 +2716,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-chatellerault-ouest-antran"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a10/aire-chatellerault-ouest-antran",
+        "slug": "aire-de-chatellerault-antran"
       },
       {
         "name": "Aire de La Fontaine Colette",
@@ -2662,7 +2735,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-fontaine-colette"
       },
       {
         "name": "Aire de Sainte-Maure de Touraine",
@@ -2685,7 +2759,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-sainte-maure-de-touraine"
       },
       {
         "name": "Aire de Tours-Val de Loire",
@@ -2710,7 +2785,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-tours-val-de-loire"
       },
       {
         "name": "Aire de Tours-La Longue Vue",
@@ -2734,7 +2810,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-tours-la-longue-vue"
       },
       {
         "name": "Aire de Blois-Villerbon",
@@ -2758,7 +2835,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-blois-villerbon"
       },
       {
         "name": "Aire de Blois-Ménars",
@@ -2782,7 +2860,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-blois-menars"
       }
     ]
   },
@@ -2809,7 +2888,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-varades-pays-d-ancenis"
       },
       {
         "name": "Aire des Portes d'Angers Sud",
@@ -2838,7 +2918,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-portes-d-angers-sud"
       }
     ]
   },
@@ -2870,7 +2951,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-jardin-des-causses-du-lot"
       },
       {
         "name": "Aire de Pech-Montat",
@@ -2894,7 +2976,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-pech-montat"
       },
       {
         "name": "Aire Porte de Corrèze",
@@ -2912,7 +2995,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-porte-de-correze"
       },
       {
         "name": "Aire de Limoges-Est",
@@ -2955,7 +3039,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-limoges-est"
       },
       {
         "name": "Aire de Limoges-Ouest",
@@ -2973,7 +3058,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-limoges-ouest"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-limoges-ouest",
+        "slug": "aire-de-limoges-ouest"
       },
       {
         "name": "Aire de Boismandé",
@@ -2993,7 +3079,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-bois-mande-est"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-bois-mande-est",
+        "slug": "aire-de-boismande"
       },
       {
         "name": "Aire des Champs d'Amour",
@@ -3011,7 +3098,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-champs-d-amour-vatan"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a20/aire-champs-d-amour-vatan",
+        "slug": "aire-des-champs-d-amour"
       }
     ]
   },
@@ -3041,7 +3129,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-gevrey-chambertin-ouest"
       },
       {
         "name": "Aire de Gevrey-Chambertin Est",
@@ -3061,7 +3150,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-gevrey-chambertin-est"
       },
       {
         "name": "Aire de Dijon-Brognon",
@@ -3090,7 +3180,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-dijon-brognon"
       }
     ]
   },
@@ -3116,7 +3207,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-glanon"
       },
       {
         "name": "Aire de Dole Audelange",
@@ -3136,7 +3228,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-dole-audelange"
       },
       {
         "name": "Aire de Dole Romange",
@@ -3156,7 +3249,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-dole-romange"
       },
       {
         "name": "Aire de Besançon Marchaux",
@@ -3180,7 +3274,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a36/aire-besancon-marchaux"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a36/aire-besancon-marchaux",
+        "slug": "aire-de-besancon-marchaux"
       },
       {
         "name": "Aire de Besançon Champoux",
@@ -3209,7 +3304,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-besancon-champoux"
       }
     ]
   },
@@ -3240,7 +3336,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-pont-chene-dargent"
       },
       {
         "name": "Aire de Pont Val de Saône",
@@ -3259,7 +3356,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-pont-val-de-saone"
       }
     ]
   },
@@ -3286,7 +3384,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-valleiry-sud"
       },
       {
         "name": "Aire de Valleiry Nord",
@@ -3307,7 +3406,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-valleiry-nord"
       },
       {
         "name": "Aire de Ceignes-Cerdon",
@@ -3327,7 +3427,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-ceignes-cerdon"
       },
       {
         "name": "Aire de Ceignes Haut-Bugey",
@@ -3348,7 +3449,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-ceignes-haut-bugey"
       },
       {
         "name": "Aire de Bourg Jasseron",
@@ -3372,7 +3474,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-bourg-jasseron"
       },
       {
         "name": "Aire de Bourg Teyssonge",
@@ -3400,7 +3503,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-bourg-teyssonge"
       }
     ]
   },
@@ -3432,7 +3536,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys",
+        "slug": "aire-de-lyon-dagneux"
       },
       {
         "name": "Aire de Lyon-Montluel",
@@ -3456,7 +3561,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-lyon-montluel"
       }
     ]
   },
@@ -3482,7 +3588,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-saint-julien-mont-denis"
       },
       {
         "name": "Aire du Val Gelon",
@@ -3500,7 +3607,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-val-gelon"
       },
       {
         "name": "Aire du Granier",
@@ -3519,7 +3627,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-granier"
       },
       {
         "name": "Aire du Guiers",
@@ -3542,7 +3651,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-guiers"
       },
       {
         "name": "Aire de l'Isle d'Abeau Sud",
@@ -3575,7 +3685,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-l-isle-d-abeau-sud"
       },
       {
         "name": "Aire de Manissieux (Saint-Priest)",
@@ -3599,7 +3710,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + recherche web (vérifié manuellement le 2026-07-31) (une seule adresse officielle regroupant les deux noms)"
+        "source": "OpenStreetMap + recherche web (vérifié manuellement le 2026-07-31) (une seule adresse officielle regroupant les deux noms)",
+        "slug": "aire-de-manissieux-saint-priest"
       }
     ]
   },
@@ -3625,7 +3737,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-communay-nord"
       },
       {
         "name": "Aire de Mionnay",
@@ -3644,7 +3757,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a46/aire-mionnay"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a46/aire-mionnay",
+        "slug": "aire-de-mionnay"
       }
     ]
   },
@@ -3672,7 +3786,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-l-ile-rose"
       },
       {
         "name": "Aire de Voreppe",
@@ -3696,7 +3811,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-voreppe"
       }
     ]
   },
@@ -3724,7 +3840,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-royans-vercors"
       },
       {
         "name": "Aire Porte de la Drôme",
@@ -3749,7 +3866,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-porte-de-la-drome"
       }
     ]
   },
@@ -3774,7 +3892,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-freres-lumiere"
       },
       {
         "name": "Aire de la Baie de La Ciotat",
@@ -3797,7 +3916,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-baie-de-la-ciotat"
       },
       {
         "name": "Aire de la Pomme",
@@ -3819,7 +3939,8 @@
           "playground"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-pomme"
       }
     ]
   },
@@ -3858,7 +3979,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a51/aire-chabauds-cabries"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a51/aire-chabauds-cabries",
+        "slug": "aire-des-chabauds"
       },
       {
         "name": "Aire de la Champouse",
@@ -3875,7 +3997,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-champouse"
       },
       {
         "name": "Aire de Meyrargues-Fontbelle",
@@ -3893,7 +4016,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-meyrargues-fontbelle"
       }
     ]
   },
@@ -3932,7 +4056,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a61/aire-corbieres-nord"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a61/aire-corbieres-nord",
+        "slug": "aire-de-service-des-corbieres-nord"
       },
       {
         "name": "Aire de service de Carcassonne-Arzens (Sud)",
@@ -3955,7 +4080,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-service-de-carcassonne-arzens-sud"
       },
       {
         "name": "Aire de service de Carcassonne-Arzens (Nord)",
@@ -3974,7 +4100,8 @@
           "playground"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-service-de-carcassonne-arzens-nord"
       },
       {
         "name": "Aire de service de Port-Lauragais (Sud)",
@@ -4009,7 +4136,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-service-de-port-lauragais-sud"
       },
       {
         "name": "Aire de service de Toulouse Sud (Sud)",
@@ -4041,7 +4169,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-service-de-toulouse-sud-sud"
       },
       {
         "name": "Aire de service de Toulouse Sud (Nord)",
@@ -4069,7 +4198,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-service-de-toulouse-sud-nord"
       }
     ]
   },
@@ -4109,7 +4239,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a62/aire-toulouse-frontonnais"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a62/aire-toulouse-frontonnais",
+        "slug": "aire-du-frontonnais-nord"
       },
       {
         "name": "Aire de Garonne",
@@ -4137,7 +4268,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-garonne"
       },
       {
         "name": "Aire du Mas d'Agenais",
@@ -4166,7 +4298,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-mas-d-agenais"
       }
     ]
   },
@@ -4197,7 +4330,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-service-de-bidart-est"
       },
       {
         "name": "Aire de service de Bidart (Ouest)",
@@ -4220,7 +4354,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-service-de-bidart-ouest"
       },
       {
         "name": "Aire de Labenne Ouest",
@@ -4239,7 +4374,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-labenne-ouest"
       },
       {
         "name": "Aire de la Porte des Landes-Ouest",
@@ -4260,7 +4396,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-la-porte-des-landes-ouest"
       },
       {
         "name": "Aire de la Porte des Landes-Est",
@@ -4283,7 +4420,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-la-porte-des-landes-est"
       }
     ]
   },
@@ -4316,7 +4454,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a64/aire-comminges"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a64/aire-comminges",
+        "slug": "aire-de-service-du-comminges"
       },
       {
         "name": "Aire de service des Pyrénées",
@@ -4343,7 +4482,8 @@
           "playground"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-service-des-pyrenees"
       },
       {
         "name": "Aire de service de Lacq-Audéjos (Sud)",
@@ -4363,7 +4503,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-service-de-lacq-audejos-sud"
       },
       {
         "name": "Aire de service d'Hastingues",
@@ -4386,7 +4527,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-service-d-hastingues"
       }
     ]
   },
@@ -4430,7 +4572,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-volcans-d-auvergne"
       },
       {
         "name": "Aire de Bourges-Sainte-Thorette",
@@ -4454,7 +4597,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + recherche web (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + recherche web (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-bourges-sainte-thorette"
       },
       {
         "name": "Aire de Bourges-Marmagne",
@@ -4474,7 +4618,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a71/aire-bourges-marmagne"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a71/aire-bourges-marmagne",
+        "slug": "aire-de-bourges-marmagne"
       },
       {
         "name": "Aire de Salbris La Loge",
@@ -4501,7 +4646,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap + recherche web (vérifié manuellement le 2026-07-31)"
+        "source": "OpenStreetMap + recherche web (vérifié manuellement le 2026-07-31)",
+        "slug": "aire-de-salbris-la-loge"
       },
       {
         "name": "Aire de Salbris-Theillay",
@@ -4520,7 +4666,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-salbris-theillay"
       },
       {
         "name": "Aire de La Ferté-Saint-Aubin",
@@ -4539,7 +4686,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-ferte-saint-aubin"
       },
       {
         "name": "Aire de Cœur de Sologne",
@@ -4566,7 +4714,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-coeur-de-sologne"
       },
       {
         "name": "Aire de l'Allier (Doyet-Saulzet)",
@@ -4595,7 +4744,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31) (une seule adresse officielle regroupant Doyet et Saulzet)"
+        "source": "OpenStreetMap + Vinci Autoroutes/Ulys (vérifié manuellement le 2026-07-31) (une seule adresse officielle regroupant Doyet et Saulzet)",
+        "slug": "aire-de-l-allier-doyet-saulzet"
       }
     ]
   },
@@ -4623,7 +4773,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-plaine-du-forez-est"
       },
       {
         "name": "Aire de la Plaine du Forez Ouest",
@@ -4642,7 +4793,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-plaine-du-forez-ouest"
       }
     ]
   },
@@ -4701,7 +4853,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-caylar"
       },
       {
         "name": "Aire de l'Aveyron",
@@ -4719,7 +4872,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-l-aveyron"
       },
       {
         "name": "Aire de La Fayette-Lorlanges",
@@ -4738,7 +4892,8 @@
           "playground"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-fayette-lorlanges"
       },
       {
         "name": "Aire d'Authezat",
@@ -4758,7 +4913,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a75/aire-authezat"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a75/aire-authezat",
+        "slug": "aire-d-authezat"
       },
       {
         "name": "Aire de Veyre",
@@ -4778,7 +4934,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-veyre"
       },
       {
         "name": "Aire de la Lozère (La Garde)",
@@ -4801,7 +4958,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap + recherche web (vérifié manuellement le 2026-07-31) (une seule adresse officielle regroupant les deux noms)"
+        "source": "OpenStreetMap + recherche web (vérifié manuellement le 2026-07-31) (une seule adresse officielle regroupant les deux noms)",
+        "slug": "aire-de-la-lozere-la-garde"
       }
     ]
   },
@@ -4829,7 +4987,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a81/aire-st-denis-d-orques"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a81/aire-st-denis-d-orques",
+        "slug": "aire-de-saint-denis-d-orques"
       },
       {
         "name": "Aire de la Vallée de l'Erve",
@@ -4852,7 +5011,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-vallee-de-l-erve"
       },
       {
         "name": "Aire de la Mayenne",
@@ -4875,7 +5035,8 @@
           "playground"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-mayenne"
       }
     ]
   },
@@ -4901,7 +5062,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-mont-saint-michel"
       },
       {
         "name": "Aire de la Vallée de la Vire Gouvets",
@@ -4919,7 +5081,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-vallee-de-la-vire-gouvets"
       }
     ]
   },
@@ -4945,7 +5108,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-val-de-cher"
       },
       {
         "name": "Aire des Jardins de Villandry",
@@ -4967,7 +5131,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-jardins-de-villandry"
       },
       {
         "name": "Aire de Romorantin",
@@ -4991,7 +5156,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-romorantin"
       }
     ]
   },
@@ -5016,7 +5182,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-palombieres"
       },
       {
         "name": "Aire du Manoire",
@@ -5041,7 +5208,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a89/aire-perigueux-manoire"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a89/aire-perigueux-manoire",
+        "slug": "aire-du-manoire"
       },
       {
         "name": "Aire du Pays de Brive",
@@ -5059,7 +5227,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-pays-de-brive"
       },
       {
         "name": "Aire de la Corrèze",
@@ -5083,7 +5252,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a89/aire-correze-vitrac"
+        "source": "OpenStreetMap · https://www.aires-autoroute-areas.com/autoroutes/a89/aire-correze-vitrac",
+        "slug": "aire-de-la-correze"
       },
       {
         "name": "Aire du Chavanon",
@@ -5103,7 +5273,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-chavanon"
       },
       {
         "name": "Aire de Manzat",
@@ -5121,7 +5292,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-manzat"
       },
       {
         "name": "Aire de Limagne",
@@ -5140,7 +5312,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-limagne"
       },
       {
         "name": "Aire du Haut-Forez Sud",
@@ -5163,7 +5336,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-haut-forez-sud"
       },
       {
         "name": "Aire du Haut-Forez Nord",
@@ -5184,7 +5358,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-haut-forez-nord"
       }
     ]
   },
@@ -5207,7 +5382,8 @@
         ],
         "services": [],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-service-de-purpan-exterieur"
       },
       {
         "name": "Aire de service de Purpan (Intérieur)",
@@ -5226,7 +5402,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-service-de-purpan-interieur"
       }
     ]
   },
@@ -5260,7 +5437,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-courneuve-est"
       },
       {
         "name": "Aire de La Courneuve Ouest",
@@ -5286,7 +5464,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-courneuve-ouest"
       },
       {
         "name": "Aire de Vémars-Ouest",
@@ -5315,7 +5494,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-vemars-ouest"
       },
       {
         "name": "Aire de Vémars-Est",
@@ -5344,7 +5524,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-vemars-est"
       },
       {
         "name": "Aire de Ressons Ouest",
@@ -5362,7 +5543,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-ressons-ouest"
       },
       {
         "name": "Aire de Ressons Est",
@@ -5391,7 +5573,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-ressons-est"
       },
       {
         "name": "Aire Cœur des Hauts-de-France Ouest",
@@ -5419,7 +5602,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-coeur-des-hauts-de-france-ouest"
       },
       {
         "name": "Aire Cœur des Hauts-de-France Est",
@@ -5447,7 +5631,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-coeur-des-hauts-de-france-est"
       },
       {
         "name": "Aire de Wancourt Ouest",
@@ -5472,7 +5657,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-wancourt-ouest"
       },
       {
         "name": "Aire de Wancourt Est",
@@ -5497,7 +5683,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-wancourt-est"
       },
       {
         "name": "Aire de Phalempin-Est",
@@ -5520,7 +5707,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-phalempin-est"
       }
     ]
   },
@@ -5556,7 +5744,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-nord-de-giberville"
       },
       {
         "name": "Aire de Beuzeville Nord",
@@ -5575,7 +5764,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-beuzeville-nord"
       },
       {
         "name": "Aire de Bosgouet Sud",
@@ -5611,7 +5801,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-bosgouet-sud"
       },
       {
         "name": "Aire de Bosgouet Nord",
@@ -5647,7 +5838,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-bosgouet-nord"
       },
       {
         "name": "Aire Sud de Vironvay",
@@ -5667,7 +5859,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-sud-de-vironvay"
       },
       {
         "name": "Aire Sud de Rosny-sur-Seine",
@@ -5690,7 +5883,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-sud-de-rosny-sur-seine"
       },
       {
         "name": "Aire Sud de Morainvilliers",
@@ -5713,7 +5907,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-sud-de-morainvilliers"
       },
       {
         "name": "Aire Nord de Morainvilliers",
@@ -5736,7 +5931,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-nord-de-morainvilliers"
       }
     ]
   },
@@ -5770,7 +5966,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-courneuve-ouest"
       },
       {
         "name": "Aire d'Attainville",
@@ -5787,7 +5984,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-d-attainville"
       },
       {
         "name": "Aire d’Hardivillers",
@@ -5806,7 +6004,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-dhardivillers"
       },
       {
         "name": "Aire de la Baie de Somme",
@@ -5831,7 +6030,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-baie-de-somme"
       }
     ]
   },
@@ -5858,7 +6058,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-loiret"
       },
       {
         "name": "Aire de Villeroy",
@@ -5879,7 +6080,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-villeroy"
       }
     ]
   },
@@ -5915,7 +6117,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-sommesous"
       },
       {
         "name": "Aire du Mont de Nizy",
@@ -5935,7 +6138,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-mont-de-nizy"
       },
       {
         "name": "Aire d’Urvillers",
@@ -5960,7 +6164,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-durvillers"
       },
       {
         "name": "Aire de Souchez",
@@ -5979,7 +6184,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-souchez"
       },
       {
         "name": "Aire de Saint-Hilaire-Cottes",
@@ -6003,7 +6209,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-saint-hilaire-cottes"
       }
     ]
   },
@@ -6031,7 +6238,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-sarthe-touraine"
       },
       {
         "name": "Aire Le Mans Nord",
@@ -6064,7 +6272,8 @@
           "ev"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-le-mans-nord"
       },
       {
         "name": "Aire de la Dentelle d'Alençon",
@@ -6088,7 +6297,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-dentelle-d-alencon"
       }
     ]
   },
@@ -6116,7 +6326,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-bolleville"
       },
       {
         "name": "Aire de Croixrault",
@@ -6136,7 +6347,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-croixrault"
       },
       {
         "name": "Aire de Villers-Bretonneux",
@@ -6155,7 +6367,8 @@
           "shop"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-villers-bretonneux"
       }
     ]
   },
@@ -6182,7 +6395,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-ardennes-woinic"
       }
     ]
   },
@@ -6208,7 +6422,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-battenheim"
       }
     ]
   },
@@ -6243,7 +6458,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-ferrieres"
       },
       {
         "name": "Aire de Bussy Saint-Georges",
@@ -6270,7 +6486,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-bussy-saint-georges"
       },
       {
         "name": "Aire de Tardenois Sud",
@@ -6297,7 +6514,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-tardenois-sud"
       },
       {
         "name": "Aire de Reims Champagne-Sud",
@@ -6329,7 +6547,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-reims-champagne-sud"
       },
       {
         "name": "Aire de Valmy Orbeval",
@@ -6349,7 +6568,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-valmy-orbeval"
       },
       {
         "name": "Aire de Valmy le Moulin",
@@ -6369,7 +6589,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-valmy-le-moulin"
       },
       {
         "name": "Aire de Verdun Saint-Nicolas-Sud",
@@ -6395,7 +6616,8 @@
           "fuel"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-verdun-saint-nicolas-sud"
       },
       {
         "name": "Aire de Verdun Saint-Nicolas-Nord",
@@ -6421,7 +6643,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-verdun-saint-nicolas-nord"
       },
       {
         "name": "Aire de Metz Saint-Privat",
@@ -6444,7 +6667,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-metz-saint-privat"
       },
       {
         "name": "Aire de Longeville-Nord",
@@ -6467,7 +6691,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-longeville-nord"
       },
       {
         "name": "Aire de Longeville-Sud",
@@ -6490,7 +6715,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-longeville-sud"
       },
       {
         "name": "Aire de Keskastel-Est",
@@ -6508,7 +6734,8 @@
           "fuel"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-keskastel-est"
       },
       {
         "name": "Aire de Saverne - Eckartswiller",
@@ -6535,7 +6762,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-saverne-eckartswiller"
       }
     ]
   },
@@ -6562,7 +6790,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-saint-nazaire-les-eymes"
       }
     ]
   },
@@ -6590,7 +6819,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-jonchets-la-grande-paroisse"
       },
       {
         "name": "Aire de Villeneuve l’Archevêque",
@@ -6610,7 +6840,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-villeneuve-larcheveque"
       },
       {
         "name": "Aire de Villeneuve Vauluisant",
@@ -6630,7 +6861,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-villeneuve-vauluisant"
       },
       {
         "name": "Aire de Troyes-Fresnoy",
@@ -6653,7 +6885,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-troyes-fresnoy"
       }
     ]
   },
@@ -6683,7 +6916,8 @@
           "shop"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-la-bigue"
       }
     ]
   },
@@ -6710,7 +6944,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-repos-du-peage-de-toulouse-est"
       },
       {
         "name": "Aire de service des Portes du Tarn",
@@ -6733,7 +6968,8 @@
           "playground"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-service-des-portes-du-tarn"
       }
     ]
   },
@@ -6756,7 +6992,8 @@
         ],
         "services": [],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-pouilly"
       },
       {
         "name": "Aire des Vignobles",
@@ -6775,7 +7012,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-des-vignobles"
       },
       {
         "name": "Aire du Jardin des Arbres",
@@ -6795,7 +7033,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-jardin-des-arbres"
       }
     ]
   },
@@ -6824,7 +7063,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-de-vendee"
       }
     ]
   },
@@ -6856,7 +7096,8 @@
           "wc"
         ],
         "direction": "reverse",
-        "source": "Vinci Autoroutes / Ulys"
+        "source": "Vinci Autoroutes / Ulys",
+        "slug": "aire-de-trementines"
       },
       {
         "name": "Aire des Herbiers",
@@ -6876,7 +7117,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "Vinci Autoroutes / Ulys"
+        "source": "Vinci Autoroutes / Ulys",
+        "slug": "aire-des-herbiers"
       }
     ]
   },
@@ -6904,7 +7146,8 @@
           "wc"
         ],
         "direction": "forward",
-        "source": "OpenStreetMap"
+        "source": "OpenStreetMap",
+        "slug": "aire-du-pays-d-argentan"
       }
     ]
   }
@@ -7449,9 +7692,12 @@
     return h + " h" + (m ? " " + (m < 10 ? "0" + m : m) : "");
   }
 
-  function buildAireCard(a, routeLabel, distKm, etaMin, isNext, clockTime) {
-    var card = document.createElement("div");
+  function buildAireCard(a, routeLabel, distKm, etaMin, isNext, clockTime, routeId) {
+    var card = document.createElement(a.slug ? "a" : "div");
     card.className = "card" + (isNext ? " next" : "");
+    if (a.slug && routeId) {
+      card.href = "aires/" + routeId.toLowerCase() + "/" + a.slug + "/";
+    }
 
     var head = document.createElement("div");
     head.className = "card-head";
@@ -7549,7 +7795,7 @@
     ahead.forEach(function (item, idx) {
       var etaMin = (item.dist / state.speed) * 60;
       var clockTime = formatClockTime(nowHHMM, etaMin);
-      cardGrid.appendChild(buildAireCard(item.aire, r.name + " · ~" + item.aire.pk + " km", item.dist, etaMin, idx === 0, clockTime));
+      cardGrid.appendChild(buildAireCard(item.aire, r.name + " · ~" + item.aire.pk + " km", item.dist, etaMin, idx === 0, clockTime, r.id));
     });
   }
 
@@ -7583,7 +7829,7 @@
 
     results.forEach(function (item, idx) {
       var clockTime = state.tripDepartureTime ? formatClockTime(state.tripDepartureTime, item.etaMin) : null;
-      cardGrid.appendChild(buildAireCard(item.aire, item.route.name + " · ~" + Math.round(item.distKm) + " km du départ", item.distKm, item.etaMin, idx === 0, clockTime));
+      cardGrid.appendChild(buildAireCard(item.aire, item.route.name + " · ~" + Math.round(item.distKm) + " km du départ", item.distKm, item.etaMin, idx === 0, clockTime, item.route.id));
     });
   }
 
