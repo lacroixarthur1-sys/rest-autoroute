@@ -110,6 +110,56 @@ def render_card(aire, route, link=True):
       </div>"""
 
 
+def find_neighbors(aire, route):
+    same_dir = sorted(
+        [a for a in route["aires"] if a["direction"] == aire["direction"]], key=lambda a: a["pk"]
+    )
+    idx = next(i for i, a in enumerate(same_dir) if a["_slug"] == aire["_slug"])
+    prev_a = same_dir[idx - 1] if idx > 0 else None
+    next_a = same_dir[idx + 1] if idx < len(same_dir) - 1 else None
+    return prev_a, next_a
+
+
+def build_faq(aire, route, prev_a, next_a, destination, origin, sens_label):
+    resto_list = ", ".join(f"{r['n']} ({CUISINE.get(r['t'], (r['t'],))[0]})" for r in aire["restaurants"])
+    n = len(aire["restaurants"])
+    svc_labels = [SERVICES[s][0] for s in aire.get("services", []) if s in SERVICES]
+
+    faq = []
+    faq.append((
+        f"Combien de restaurants sur {aire['name']} ?",
+        f"{n} restaurant{'s' if n > 1 else ''} sur {aire['name']} : {resto_list}.",
+    ))
+    faq.append((
+        f"Quels services sont disponibles sur {aire['name']} ?",
+        (f"En plus de la restauration : {', '.join(svc_labels).lower()}."
+         if svc_labels else
+         "Aucun service annexe (carburant, borne électrique...) recensé sur cette aire, hors restauration."),
+    ))
+    if next_a:
+        dist = abs(next_a["pk"] - aire["pk"])
+        faq.append((
+            f"Quelle est la prochaine aire avec restaurant sur l'{route['id']} en direction de {destination} ?",
+            f"{next_a['name']}, à {fmt_pk(dist)} km, avec {len(next_a['restaurants'])} restaurant{'s' if len(next_a['restaurants']) > 1 else ''}.",
+        ))
+    else:
+        faq.append((
+            f"Y a-t-il une autre aire avec restaurant après {aire['name']} vers {destination} ?",
+            f"Non, {aire['name']} est la dernière aire avec restaurant sur l'{route['id']} avant d'arriver à {destination}.",
+        ))
+    if prev_a:
+        dist = abs(aire["pk"] - prev_a["pk"])
+        faq.append((
+            f"Quelle est l'aire avec restaurant précédente, en venant de {origin} ?",
+            f"{prev_a['name']}, {fmt_pk(dist)} km avant {aire['name']}.",
+        ))
+    faq.append((
+        f"Dans quel sens se trouve {aire['name']} sur l'{route['id']} ?",
+        f"{aire['name']} est au PK {fmt_pk(aire['pk'])} de l'{route['id']}, dans le sens {sens_label}.",
+    ))
+    return faq
+
+
 def render_aire_page(aire, route, all_routes):
     route_slug = route["id"].lower()
     aire_slug = aire["_slug"]
@@ -125,6 +175,8 @@ def render_aire_page(aire, route, all_routes):
     resto_names = ", ".join(r["n"] for r in aire["restaurants"])
     sens = "forward" if aire.get("direction") == "forward" else "reverse"
     sens_label = f"{route['from']} → {route['to']}" if sens == "forward" else f"{route['to']} → {route['from']}"
+    destination = route["to"] if sens == "forward" else route["from"]
+    origin = route["from"] if sens == "forward" else route["to"]
 
     title = f"Restaurant {aire['name']} ({route['id']}) : {resto_names} | Rest'Autoroute"
     description = (
@@ -137,6 +189,38 @@ def render_aire_page(aire, route, all_routes):
         f'<a class="chip" href="../{a["_slug"]}/">{a["name"]}</a>' for a in sorted(other_aires, key=lambda a: a["pk"])
     )
 
+    prev_a, next_a = find_neighbors(aire, route)
+    n_svc = len([s for s in aire.get("services", []) if s in SERVICES])
+    svc_labels = [SERVICES[s][0] for s in aire.get("services", []) if s in SERVICES]
+    n_resto = len(aire["restaurants"])
+    lead_text = (
+        f"{aire['name']} est une aire d'autoroute {route['id']} au PK {fmt_pk(aire['pk'])}, "
+        f"dans le sens {sens_label}. Elle compte {n_resto} restaurant{'s' if n_resto > 1 else ''}"
+        f"{' et propose ' + ', '.join(l.lower() for l in svc_labels) if svc_labels else ''}."
+    )
+
+    practical_parts = []
+    if next_a:
+        practical_parts.append(
+            f"En direction de {destination}, la prochaine aire avec restaurant est "
+            f"<a href=\"../{next_a['_slug']}/\">{next_a['name']}</a>, à {fmt_pk(abs(next_a['pk'] - aire['pk']))} km."
+        )
+    else:
+        practical_parts.append(f"C'est la dernière aire avec restaurant sur l'{route['id']} avant {destination}.")
+    if prev_a:
+        practical_parts.append(
+            f"En venant de {origin}, l'aire précédente avec restaurant est "
+            f"<a href=\"../{prev_a['_slug']}/\">{prev_a['name']}</a>, {fmt_pk(abs(aire['pk'] - prev_a['pk']))} km plus tôt."
+        )
+    else:
+        practical_parts.append(f"C'est la première aire avec restaurant en venant de {origin}.")
+    practical_html = " ".join(practical_parts)
+
+    faq = build_faq(aire, route, prev_a, next_a, destination, origin, sens_label)
+    faq_html = "".join(
+        f'<details class="faq-item"><summary>{q}</summary><p>{a}</p></details>' for q, a in faq
+    )
+
     ld_json = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -145,6 +229,18 @@ def render_aire_page(aire, route, all_routes):
             {"@type": "ListItem", "position": 2, "name": "Autoroutes", "item": f"{DOMAIN}/aires/"},
             {"@type": "ListItem", "position": 3, "name": route["id"], "item": f"{DOMAIN}/aires/{route_slug}/"},
             {"@type": "ListItem", "position": 4, "name": aire["name"], "item": f"{DOMAIN}/aires/{route_slug}/{aire_slug}/"},
+        ],
+    }
+    faq_ld_json = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": q,
+                "acceptedAnswer": {"@type": "Answer", "text": a},
+            }
+            for q, a in faq
         ],
     }
 
@@ -169,6 +265,7 @@ def render_aire_page(aire, route, all_routes):
   gtag('config', 'G-HBTCYGW0FW');
 </script>
 <script type="application/ld+json">{json.dumps(ld_json, ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(faq_ld_json, ensure_ascii=False)}</script>
 <style>
 {PAGE_CSS}
 </style>
@@ -214,9 +311,16 @@ def render_aire_page(aire, route, all_routes):
     </div>
   </div>
 
-  <p class="lead">Restaurants et services disponibles sur {aire["name"]}, aire d'autoroute {route['id']} ({sens_label}).</p>
+  <p class="lead">{lead_text}</p>
 
   <div class="grid">{render_card(aire, route, link=False)}</div>
+
+  <p class="practical">{practical_html}</p>
+
+  <div class="faq">
+    <h2 class="faq-title">Questions fréquentes</h2>
+    {faq_html}
+  </div>
 
   <div class="filters" style="margin-top:36px;">
     <span class="filters-label">Autres aires sur l'{route['id']} :</span>
@@ -540,6 +644,18 @@ PAGE_CSS = """
   .chip svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
 
   .lead { color: var(--text-dim); font-size: 14px; margin: 0 0 16px; }
+  .practical { font-size: 13.5px; color: var(--text-dim); margin: 22px 0 0; line-height: 1.6; }
+  .practical a { color: var(--sign-blue); font-weight: 600; text-decoration: none; }
+  .practical a:hover { text-decoration: underline; }
+
+  .faq { margin-top: 28px; }
+  .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
+  .faq-item { background: var(--surface-1); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; }
+  .faq-item summary { cursor: pointer; font-weight: 600; font-size: 13.5px; list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::before { content: "+ "; color: var(--sign-blue); font-weight: 800; }
+  .faq-item[open] summary::before { content: "– "; }
+  .faq-item p { font-size: 13px; color: var(--text-dim); margin: 8px 0 0; line-height: 1.55; }
 
   .results-meta { display: flex; justify-content: space-between; align-items: baseline; margin: 28px 0 12px; flex-wrap: wrap; gap: 8px; }
   .results-meta h2 { font-size: 15px; margin: 0; letter-spacing: 0.04em; color: var(--sign-blue); }

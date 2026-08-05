@@ -19,6 +19,7 @@
   gtag('config', 'G-HBTCYGW0FW');
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": "https://restautoroute.fr/"}, {"@type": "ListItem", "position": 2, "name": "Autoroutes", "item": "https://restautoroute.fr/aires/"}, {"@type": "ListItem", "position": 3, "name": "A13", "item": "https://restautoroute.fr/aires/a13/"}, {"@type": "ListItem", "position": 4, "name": "Aire de Bosgouet Sud", "item": "https://restautoroute.fr/aires/a13/aire-de-bosgouet-sud/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Combien de restaurants sur Aire de Bosgouet Sud ?", "acceptedAnswer": {"@type": "Answer", "text": "5 restaurants sur Aire de Bosgouet Sud : Stratto Cafeteria (Self-service), Columbus Café & Co (Café), KFC (Burger), McDonald's (Burger), Paul le Café (Boulangerie)."}}, {"@type": "Question", "name": "Quels services sont disponibles sur Aire de Bosgouet Sud ?", "acceptedAnswer": {"@type": "Answer", "text": "En plus de la restauration : borne électrique, carburant, boutique, toilettes."}}, {"@type": "Question", "name": "Quelle est la prochaine aire avec restaurant sur l'A13 en direction de Morainvilliers ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire Sud de Vironvay, à 30,9 km, avec 1 restaurant."}}, {"@type": "Question", "name": "Dans quel sens se trouve Aire de Bosgouet Sud sur l'A13 ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de Bosgouet Sud est au PK 85,9 de l'A13, dans le sens Démouville → Morainvilliers."}}]}</script>
 <style>
 
   :root {
@@ -91,6 +92,18 @@
   .chip svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
 
   .lead { color: var(--text-dim); font-size: 14px; margin: 0 0 16px; }
+  .practical { font-size: 13.5px; color: var(--text-dim); margin: 22px 0 0; line-height: 1.6; }
+  .practical a { color: var(--sign-blue); font-weight: 600; text-decoration: none; }
+  .practical a:hover { text-decoration: underline; }
+
+  .faq { margin-top: 28px; }
+  .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
+  .faq-item { background: var(--surface-1); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; }
+  .faq-item summary { cursor: pointer; font-weight: 600; font-size: 13.5px; list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::before { content: "+ "; color: var(--sign-blue); font-weight: 800; }
+  .faq-item[open] summary::before { content: "– "; }
+  .faq-item p { font-size: 13px; color: var(--text-dim); margin: 8px 0 0; line-height: 1.55; }
 
   .results-meta { display: flex; justify-content: space-between; align-items: baseline; margin: 28px 0 12px; flex-wrap: wrap; gap: 8px; }
   .results-meta h2 { font-size: 15px; margin: 0; letter-spacing: 0.04em; color: var(--sign-blue); }
@@ -185,7 +198,7 @@
     </div>
   </div>
 
-  <p class="lead">Restaurants et services disponibles sur Aire de Bosgouet Sud, aire d'autoroute A13 (Démouville → Morainvilliers).</p>
+  <p class="lead">Aire de Bosgouet Sud est une aire d'autoroute A13 au PK 85,9, dans le sens Démouville → Morainvilliers. Elle compte 5 restaurants et propose borne électrique, carburant, boutique, toilettes.</p>
 
   <div class="grid">
       <div class="card">
@@ -201,6 +214,13 @@
           <a class="service maps-link" href="https://www.google.com/maps/search/?api=1&query=Aire%20de%20Bosgouet%20Sud%20aire%20autoroute%20A13" target="_blank" rel="noopener">Avis Google Maps ↗</a>
         </div>
       </div></div>
+
+  <p class="practical">En direction de Morainvilliers, la prochaine aire avec restaurant est <a href="../aire-sud-de-vironvay/">Aire Sud de Vironvay</a>, à 30,9 km. C'est la première aire avec restaurant en venant de Démouville.</p>
+
+  <div class="faq">
+    <h2 class="faq-title">Questions fréquentes</h2>
+    <details class="faq-item"><summary>Combien de restaurants sur Aire de Bosgouet Sud ?</summary><p>5 restaurants sur Aire de Bosgouet Sud : Stratto Cafeteria (Self-service), Columbus Café & Co (Café), KFC (Burger), McDonald's (Burger), Paul le Café (Boulangerie).</p></details><details class="faq-item"><summary>Quels services sont disponibles sur Aire de Bosgouet Sud ?</summary><p>En plus de la restauration : borne électrique, carburant, boutique, toilettes.</p></details><details class="faq-item"><summary>Quelle est la prochaine aire avec restaurant sur l'A13 en direction de Morainvilliers ?</summary><p>Aire Sud de Vironvay, à 30,9 km, avec 1 restaurant.</p></details><details class="faq-item"><summary>Dans quel sens se trouve Aire de Bosgouet Sud sur l'A13 ?</summary><p>Aire de Bosgouet Sud est au PK 85,9 de l'A13, dans le sens Démouville → Morainvilliers.</p></details>
+  </div>
 
   <div class="filters" style="margin-top:36px;">
     <span class="filters-label">Autres aires sur l'A13 :</span>

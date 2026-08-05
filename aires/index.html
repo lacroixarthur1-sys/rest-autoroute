@@ -90,6 +90,18 @@
   .chip svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
 
   .lead { color: var(--text-dim); font-size: 14px; margin: 0 0 16px; }
+  .practical { font-size: 13.5px; color: var(--text-dim); margin: 22px 0 0; line-height: 1.6; }
+  .practical a { color: var(--sign-blue); font-weight: 600; text-decoration: none; }
+  .practical a:hover { text-decoration: underline; }
+
+  .faq { margin-top: 28px; }
+  .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
+  .faq-item { background: var(--surface-1); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; }
+  .faq-item summary { cursor: pointer; font-weight: 600; font-size: 13.5px; list-style: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::before { content: "+ "; color: var(--sign-blue); font-weight: 800; }
+  .faq-item[open] summary::before { content: "– "; }
+  .faq-item p { font-size: 13px; color: var(--text-dim); margin: 8px 0 0; line-height: 1.55; }
 
   .results-meta { display: flex; justify-content: space-between; align-items: baseline; margin: 28px 0 12px; flex-wrap: wrap; gap: 8px; }
   .results-meta h2 { font-size: 15px; margin: 0; letter-spacing: 0.04em; color: var(--sign-blue); }
