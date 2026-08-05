@@ -703,9 +703,10 @@
         </div>
       </div>
       <div class="console-field full" style="position: relative;">
-        <label class="console-label" for="citySearch">Ou tapez une ville / une aire</label>
+        <label class="console-label" for="citySearch" id="citySearchLabel">Ou tapez une ville / une aire</label>
         <input type="text" id="citySearch" class="city-search" placeholder="ex : Montpellier, Beaune, Narbonne…" autocomplete="off">
         <div class="search-results" id="searchResults"></div>
+        <button class="locate-btn" id="destinationGoBtn" type="button" style="display:none; margin-top:10px;">Calculer le trajet jusqu'à cette destination</button>
       </div>
       <div class="locate-status" id="locateStatus"></div>
     </div>
@@ -7413,7 +7414,9 @@
     activeCuisines: [],
     tripResults: null, // array of {aire, route, distKm, etaMin} once a trip is computed
     tripLabel: null,
-    tripDepartureTime: null // "HH:MM" if the user filled in a departure time, else null
+    tripDepartureTime: null, // "HH:MM" if the user filled in a departure time, else null
+    myLocation: null, // {lat, lon, label} once "Me localiser" succeeds -- fuels the destination search below it
+    destinationMode: false
   };
 
   (function applyRouteFromUrl() {
@@ -7443,6 +7446,8 @@
   var locateBtn = document.getElementById("locateBtn");
   var locateStatus = document.getElementById("locateStatus");
   var citySearch = document.getElementById("citySearch");
+  var citySearchLabel = document.getElementById("citySearchLabel");
+  var destinationGoBtn = document.getElementById("destinationGoBtn");
   var searchResults = document.getElementById("searchResults");
   var positionSlider = document.getElementById("positionSlider");
   var modeRouteBtn = document.getElementById("modeRouteBtn");
@@ -7669,6 +7674,19 @@
     tripPanel.style.display = mode === "trip" ? "" : "none";
     render();
   }
+
+  // Once "Me localiser" succeeds, the city/aire search field below it turns
+  // into a destination field: typing a place there and validating computes
+  // the full real trip (all aires en route) from here to that destination,
+  // reusing the same engine as the "Trajet complet" panel.
+  function enableDestinationMode() {
+    state.destinationMode = true;
+    citySearchLabel.textContent = "Votre destination";
+    citySearch.placeholder = "ex : Montpellier, Narbonne, Barcelone…";
+    citySearch.value = "";
+    closeSearchResults();
+    destinationGoBtn.style.display = "";
+  }
   modeRouteBtn.addEventListener("click", function () { setMode("route"); });
   modeTripBtn.addEventListener("click", function () { setMode("trip"); });
 
@@ -7742,6 +7760,74 @@
     return hhStr + ":" + mmStr + (dayOffset > 0 ? " (+" + dayOffset + "j)" : "");
   }
 
+  // Shared by both trip-computing entry points: the "Trajet complet" panel
+  // (address -> address) and "Me localiser" + destination (geoloc -> address).
+  // fromPos/toPos are {lat, lon, label}; toPos is resolved by the caller so
+  // this function itself never needs to know whether either end came from
+  // geocoding or from the browser's own geolocation.
+  function runTripBetween(fromPos, toPos) {
+    tripStatus.textContent = "Calcul de l'itinéraire (" + fromPos.label + " → " + toPos.label + ")…";
+    return fetchOsrmRoute(fromPos, toPos).then(function (osrm) {
+      if (osrm.code !== "Ok" || !osrm.routes || !osrm.routes.length) {
+        tripStatus.textContent = "Impossible de calculer un itinéraire entre ces deux points.";
+        throw new Error("stop");
+      }
+      var leg = osrm.routes[0].legs[0];
+      var points = buildRoutePoints(leg);
+
+      var usedRefs = {};
+      points.forEach(function (p) { if (p.ref) usedRefs[p.ref] = true; });
+      var coveredRoutes = ROUTES.filter(function (r) { return usedRefs[normalizeRef(r.id)]; });
+
+      var matches = [];
+      coveredRoutes.forEach(function (route) {
+        var routeRef = normalizeRef(route.id);
+        var samePoints = points.filter(function (p) { return p.ref === routeRef; });
+        if (!samePoints.length) return;
+        route.aires.forEach(function (aire) {
+          var best = null;
+          samePoints.forEach(function (p) {
+            var d = haversineKm(aire.lat, aire.lng, p.lat, p.lon);
+            if (!best || d < best.d) best = { d: d, cumKm: p.cumKm };
+          });
+          if (best && best.d <= 2.5) {
+            matches.push({ aire: aire, route: route, matchDist: best.d, distKm: best.cumKm, etaMin: (best.cumKm / state.speed) * 60 });
+          }
+        });
+      });
+
+      // Two aires can both sit close to the same stretch of road (a Nord/Sud
+      // pair straddling the route) -- keep only the one actually nearest to
+      // the real path OSRM gave us, per cluster of nearby same-route matches.
+      matches.sort(function (a, b) { return a.distKm - b.distKm; });
+      var kept = [];
+      matches.forEach(function (m) {
+        var conflict = kept.find(function (k) {
+          return k.route.id === m.route.id && Math.abs(k.distKm - m.distKm) < 3 &&
+            haversineKm(k.aire.lat, k.aire.lng, m.aire.lat, m.aire.lng) < 1.5;
+        });
+        if (!conflict) kept.push(m);
+        else if (m.matchDist < conflict.matchDist) { kept.splice(kept.indexOf(conflict), 1, m); }
+      });
+      kept.sort(function (a, b) { return a.distKm - b.distKm; });
+
+      state.tripResults = kept;
+      state.tripDepartureTime = tripDeparture.value || null;
+      state.tripLabel = fromPos.label + " → " + toPos.label + " · " + coveredRoutes.map(function (r) { return r.id; }).join(", ");
+      var totalKm = Math.round(leg.distance / 1000);
+      var totalMin = Math.round((totalKm / state.speed) * 60);
+      tripSummary.innerHTML = "Trajet réel : <b>" + totalKm + " km</b>, environ <b>" + formatEta(totalMin) + "</b> de route à " + state.speed + " km/h. " +
+        (coveredRoutes.length
+          ? coveredRoutes.length + " autoroute(s) couverte(s) par cette collecte sur ce trajet : " + coveredRoutes.map(function (r) { return r.id; }).join(", ") + "."
+          : "Aucune des autoroutes de ce trajet n'est couverte par cette collecte — aucune aire ne peut être listée.");
+      tripSummary.classList.add("show");
+      tripStatus.textContent = kept.length
+        ? kept.length + " aire(s) trouvée(s) sur ce trajet."
+        : "Trajet calculé, mais aucune aire couverte ne s'y trouve.";
+      render();
+    });
+  }
+
   function computeTrip() {
     var fromQuery = tripFrom.value.trim();
     var toQuery = tripTo.value.trim();
@@ -7756,67 +7842,30 @@
       var fromPos = geo[0], toPos = geo[1];
       if (!fromPos) { tripStatus.textContent = "Adresse de départ introuvable : « " + fromQuery + " »."; throw new Error("stop"); }
       if (!toPos) { tripStatus.textContent = "Adresse d'arrivée introuvable : « " + toQuery + " »."; throw new Error("stop"); }
+      return runTripBetween(fromPos, toPos);
+    }).catch(function (err) {
+      if (err.message !== "stop") {
+        tripStatus.textContent = "Erreur réseau lors du calcul (" + err.message + "). Réessayez.";
+      }
+    });
+  }
 
-      tripStatus.textContent = "Calcul de l'itinéraire (" + fromPos.label + " → " + toPos.label + ")…";
-      return fetchOsrmRoute(fromPos, toPos).then(function (osrm) {
-        if (osrm.code !== "Ok" || !osrm.routes || !osrm.routes.length) {
-          tripStatus.textContent = "Impossible de calculer un itinéraire entre ces deux points.";
-          throw new Error("stop");
-        }
-        var leg = osrm.routes[0].legs[0];
-        var points = buildRoutePoints(leg);
+  // "Me localiser" + destination: same engine, but the departure point is the
+  // browser's own geolocation instead of a geocoded address.
+  function computeTripFromMyLocation(toQuery) {
+    var toQ = (toQuery || "").trim();
+    if (!state.myLocation) return;
+    if (!toQ) { locateStatus.textContent = "Indiquez une destination."; return; }
 
-        var usedRefs = {};
-        points.forEach(function (p) { if (p.ref) usedRefs[p.ref] = true; });
-        var coveredRoutes = ROUTES.filter(function (r) { return usedRefs[normalizeRef(r.id)]; });
+    tripFrom.value = state.myLocation.label;
+    tripTo.value = toQ;
+    setMode("trip");
+    tripSummary.classList.remove("show");
+    tripStatus.textContent = "Recherche de la destination…";
 
-        var matches = [];
-        coveredRoutes.forEach(function (route) {
-          var routeRef = normalizeRef(route.id);
-          var samePoints = points.filter(function (p) { return p.ref === routeRef; });
-          if (!samePoints.length) return;
-          route.aires.forEach(function (aire) {
-            var best = null;
-            samePoints.forEach(function (p) {
-              var d = haversineKm(aire.lat, aire.lng, p.lat, p.lon);
-              if (!best || d < best.d) best = { d: d, cumKm: p.cumKm };
-            });
-            if (best && best.d <= 2.5) {
-              matches.push({ aire: aire, route: route, matchDist: best.d, distKm: best.cumKm, etaMin: (best.cumKm / state.speed) * 60 });
-            }
-          });
-        });
-
-        // Two aires can both sit close to the same stretch of road (a Nord/Sud
-        // pair straddling the route) -- keep only the one actually nearest to
-        // the real path OSRM gave us, per cluster of nearby same-route matches.
-        matches.sort(function (a, b) { return a.distKm - b.distKm; });
-        var kept = [];
-        matches.forEach(function (m) {
-          var conflict = kept.find(function (k) {
-            return k.route.id === m.route.id && Math.abs(k.distKm - m.distKm) < 3 &&
-              haversineKm(k.aire.lat, k.aire.lng, m.aire.lat, m.aire.lng) < 1.5;
-          });
-          if (!conflict) kept.push(m);
-          else if (m.matchDist < conflict.matchDist) { kept.splice(kept.indexOf(conflict), 1, m); }
-        });
-        kept.sort(function (a, b) { return a.distKm - b.distKm; });
-
-        state.tripResults = kept;
-        state.tripDepartureTime = tripDeparture.value || null;
-        state.tripLabel = fromPos.label + " → " + toPos.label + " · " + coveredRoutes.map(function (r) { return r.id; }).join(", ");
-        var totalKm = Math.round(leg.distance / 1000);
-        var totalMin = Math.round((totalKm / state.speed) * 60);
-        tripSummary.innerHTML = "Trajet réel : <b>" + totalKm + " km</b>, environ <b>" + formatEta(totalMin) + "</b> de route à " + state.speed + " km/h. " +
-          (coveredRoutes.length
-            ? coveredRoutes.length + " autoroute(s) couverte(s) par cette collecte sur ce trajet : " + coveredRoutes.map(function (r) { return r.id; }).join(", ") + "."
-            : "Aucune des autoroutes de ce trajet n'est couverte par cette collecte — aucune aire ne peut être listée.");
-        tripSummary.classList.add("show");
-        tripStatus.textContent = kept.length
-          ? kept.length + " aire(s) trouvée(s) sur ce trajet."
-          : "Trajet calculé, mais aucune aire couverte ne s'y trouve.";
-        render();
-      });
+    geocode(toQ).then(function (toPos) {
+      if (!toPos) { tripStatus.textContent = "Destination introuvable : « " + toQ + " »."; throw new Error("stop"); }
+      return runTripBetween(state.myLocation, toPos);
     }).catch(function (err) {
       if (err.message !== "stop") {
         tripStatus.textContent = "Erreur réseau lors du calcul (" + err.message + "). Réessayez.";
@@ -7847,6 +7896,7 @@
   }
 
   function runSearch() {
+    if (state.destinationMode) return; // field now searches a destination, not an aire name
     var q = normText(citySearch.value.trim());
     if (!q) { closeSearchResults(); return; }
     var matches = [];
@@ -7880,6 +7930,10 @@
 
   citySearch.addEventListener("input", runSearch);
   citySearch.addEventListener("focus", function () { if (citySearch.value.trim()) runSearch(); });
+  citySearch.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && state.destinationMode) computeTripFromMyLocation(citySearch.value);
+  });
+  destinationGoBtn.addEventListener("click", function () { computeTripFromMyLocation(citySearch.value); });
   document.addEventListener("click", function (e) {
     if (e.target !== citySearch && !searchResults.contains(e.target)) closeSearchResults();
   });
@@ -7892,6 +7946,9 @@
     locateStatus.textContent = "Localisation en cours…";
     navigator.geolocation.getCurrentPosition(function (pos) {
       var lat = pos.coords.latitude, lng = pos.coords.longitude;
+      state.myLocation = { lat: lat, lon: lng, label: "Votre position actuelle" };
+      enableDestinationMode();
+
       var best = null;
       ROUTES.forEach(function (r) {
         r.aires.forEach(function (a) {
@@ -7899,6 +7956,7 @@
           if (!best || d < best.d) best = { d: d, route: r, aire: a };
         });
       });
+      var destinationHint = " Tapez votre destination ci-dessous pour calculer le trajet complet.";
       if (best && best.d <= 30) {
         // Use the nearest aire only to pick the route and a direction hint --
         // your actual position is interpolated along the route, not snapped
@@ -7906,11 +7964,12 @@
         var projectedPk = projectPositionOnRoute(best.route, lat, lng);
         jumpToPosition(best.route, projectedPk, best.aire.direction,
           "Position calée sur l'" + best.route.name + " (près de " + best.aire.name + ", ≈" + Math.round(best.d) + " km)." +
-          (best.aire.direction ? " Sens détecté automatiquement." : " Vérifiez le sens de circulation ci-dessus."));
+          (best.aire.direction ? " Sens détecté automatiquement." : " Vérifiez le sens de circulation ci-dessus.") +
+          destinationHint);
       } else {
         locateStatus.textContent = "Aucune des " + ROUTES.length + " autoroutes couvertes ne semble proche de votre position" +
           (best ? " (aire la plus proche : " + best.aire.name + ", ≈" + Math.round(best.d) + " km)" : "") +
-          ". Choisissez votre itinéraire manuellement ou utilisez la recherche par ville.";
+          "." + destinationHint;
       }
     }, function (err) {
       var hint = "Utilisez la recherche par ville/aire ci-contre, ou le curseur manuellement.";
