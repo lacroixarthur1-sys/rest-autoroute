@@ -257,11 +257,18 @@ def render_aire_page(aire, route, all_routes):
     sens_label = f"{route['from']} → {route['to']}" if sens == "forward" else f"{route['to']} → {route['from']}"
     destination = route["to"] if sens == "forward" else route["from"]
     origin = route["from"] if sens == "forward" else route["to"]
+    ev = aire.get("_ev")
 
-    title = f"Restaurant {aire['name']} ({route['id']}) : {resto_names} | Rest'Autoroute"
+    title = (
+        f"Restaurant {aire['name']} ({route['id']}) : {resto_names}"
+        + (" + borne de recharge électrique" if ev else "")
+        + " | Rest'Autoroute"
+    )
     description = (
         f"{aire['name']} sur l'autoroute {route['id']} (PK {fmt_pk(aire['pk'])}, sens {sens_label}) : "
-        f"{resto_names}. Horaires, avis et services (carburant, boutique, aire de jeux...)."
+        f"{resto_names}."
+        + (f" Borne de recharge électrique à proximité ({ev['n_points']} points, jusqu'à {ev['max_power_kw']} kW)." if ev else "")
+        + " Horaires, avis et services (carburant, boutique, aire de jeux...)."
     )
 
     other_aires = [a for a in route["aires"] if a["_slug"] != aire_slug]
@@ -317,8 +324,6 @@ def render_aire_page(aire, route, all_routes):
     faq_html = "".join(
         f'<details class="faq-item"><summary>{q}</summary><p>{a}</p></details>' for q, a in faq
     )
-
-    ev = aire.get("_ev")
     if ev:
         connectors_str = ", ".join(ev["connectors"]) if ev["connectors"] else "non précisé"
         operators_str = ", ".join(ev["operators"]) if ev["operators"] else "non précisé"
