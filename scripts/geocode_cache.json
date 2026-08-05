@@ -1,0 +1,1202 @@
+{
+  "42.57993,2.84613": {
+    "commune": "Villemolaque",
+    "department": "Pyrénées-Orientales",
+    "town": "Céret"
+  },
+  "42.95013,2.96831": {
+    "commune": "La Palme",
+    "department": "Aude",
+    "town": "Narbonne"
+  },
+  "42.95051,2.97225": {
+    "commune": "La Palme",
+    "department": "Aude",
+    "town": "Narbonne"
+  },
+  "43.11022,0.61555": {
+    "commune": "Clarac",
+    "department": "Haute-Garonne",
+    "town": "Saint-Gaudens"
+  },
+  "43.14274,6.01101": {
+    "commune": "La Valette-du-Var",
+    "department": "Var",
+    "town": "Toulon"
+  },
+  "43.17872,2.54269": {
+    "commune": "Capendu",
+    "department": "Aude",
+    "town": "Carcassonne"
+  },
+  "43.19248,5.66791": {
+    "commune": "La Ciotat",
+    "department": "Bouches-du-Rhône",
+    "town": "Marseille"
+  },
+  "43.19381,5.66864": {
+    "commune": "La Ciotat",
+    "department": "Bouches-du-Rhône",
+    "town": "Marseille"
+  },
+  "43.21460,3.08907": {
+    "commune": "Salles-d'Aude",
+    "department": "Aude",
+    "town": "Narbonne"
+  },
+  "43.21557,3.09308": {
+    "commune": "Salles-d'Aude",
+    "department": "Aude",
+    "town": "Narbonne"
+  },
+  "43.21662,2.22105": {
+    "commune": "Arzens",
+    "department": "Aude",
+    "town": "Carcassonne"
+  },
+  "43.22005,2.21720": {
+    "commune": "Arzens",
+    "department": "Aude",
+    "town": "Carcassonne"
+  },
+  "43.22954,-0.07889": {
+    "commune": "Ger",
+    "department": "Pyrénées-Atlantiques",
+    "town": "Pau"
+  },
+  "43.29201,5.45389": {
+    "commune": "Marseille",
+    "department": "Bouches-du-Rhône",
+    "town": null
+  },
+  "43.35250,1.80452": {
+    "commune": "Avignonet-Lauragais",
+    "department": "Haute-Garonne",
+    "town": "Toulouse"
+  },
+  "43.35908,3.34635": {
+    "commune": "Montblanc",
+    "department": "Hérault",
+    "town": "Béziers"
+  },
+  "43.36031,3.34460": {
+    "commune": "Montblanc",
+    "department": "Hérault",
+    "town": "Béziers"
+  },
+  "43.41442,6.45334": {
+    "commune": "Vidauban",
+    "department": "Var",
+    "town": "Draguignan"
+  },
+  "43.41567,6.45226": {
+    "commune": "Vidauban",
+    "department": "Var",
+    "town": "Draguignan"
+  },
+  "43.42154,-0.59876": {
+    "commune": "Lacq",
+    "department": "Pyrénées-Atlantiques",
+    "town": "Pau"
+  },
+  "43.42235,-1.59736": {
+    "commune": "Ustaritz",
+    "department": "Pyrénées-Atlantiques",
+    "town": "Bayonne"
+  },
+  "43.42236,5.99188": {
+    "commune": "Les Censiès",
+    "department": "Var",
+    "town": "Brignoles"
+  },
+  "43.42302,-1.59844": {
+    "commune": "Ustaritz",
+    "department": "Pyrénées-Atlantiques",
+    "town": "Bayonne"
+  },
+  "43.42371,5.99140": {
+    "commune": "Les Censiès",
+    "department": "Var",
+    "town": "Brignoles"
+  },
+  "43.43348,5.39523": {
+    "commune": "Bouc-Bel-Air",
+    "department": "Bouches-du-Rhône",
+    "town": "Aix-en-Provence"
+  },
+  "43.44100,5.39539": {
+    "commune": "Bouc-Bel-Air",
+    "department": "Bouches-du-Rhône",
+    "town": "Aix-en-Provence"
+  },
+  "43.44674,5.24248": {
+    "commune": "Vitrolles",
+    "department": "Bouches-du-Rhône",
+    "town": "Istres"
+  },
+  "43.46707,6.67227": {
+    "commune": "Puget-sur-Argens",
+    "department": "Var",
+    "town": "Draguignan"
+  },
+  "43.46872,5.65459": {
+    "commune": "Rousset",
+    "department": "Bouches-du-Rhône",
+    "town": "Aix-en-Provence"
+  },
+  "43.47162,5.64423": {
+    "commune": "Rousset",
+    "department": "Bouches-du-Rhône",
+    "town": "Aix-en-Provence"
+  },
+  "43.48341,1.54953": {
+    "commune": "Deyme",
+    "department": "Haute-Garonne",
+    "town": "Toulouse"
+  },
+  "43.48585,1.54914": {
+    "commune": "Deyme",
+    "department": "Haute-Garonne",
+    "town": "Toulouse"
+  },
+  "43.52923,-1.15157": {
+    "commune": "Hastingues",
+    "department": "Landes",
+    "town": "Dax"
+  },
+  "43.54223,6.78638": {
+    "commune": "Les Adrets-de-l'Estérel",
+    "department": "Var",
+    "town": "Draguignan"
+  },
+  "43.54766,3.79564": {
+    "commune": "Fabrègues",
+    "department": "Hérault",
+    "town": "Montpellier"
+  },
+  "43.58587,-1.42034": {
+    "commune": "Labenne",
+    "department": "Landes",
+    "town": "Dax"
+  },
+  "43.58843,5.18986": {
+    "commune": "Lançon-Provence",
+    "department": "Bouches-du-Rhône",
+    "town": "Aix-en-Provence"
+  },
+  "43.58913,7.03480": {
+    "commune": "Mougins",
+    "department": "Alpes-Maritimes",
+    "town": "Grasse"
+  },
+  "43.58992,5.19151": {
+    "commune": "Lançon-Provence",
+    "department": "Bouches-du-Rhône",
+    "town": "Aix-en-Provence"
+  },
+  "43.59142,7.03495": {
+    "commune": "Mougins",
+    "department": "Alpes-Maritimes",
+    "town": "Grasse"
+  },
+  "43.59421,1.39721": {
+    "commune": "Toulouse",
+    "department": "Haute-Garonne",
+    "town": null
+  },
+  "43.60059,1.39853": {
+    "commune": "Toulouse",
+    "department": "Haute-Garonne",
+    "town": null
+  },
+  "43.63265,5.49322": {
+    "commune": "Meyrargues",
+    "department": "Bouches-du-Rhône",
+    "town": "Aix-en-Provence"
+  },
+  "43.64769,1.51000": {
+    "commune": "Montrabé",
+    "department": "Haute-Garonne",
+    "town": "Toulouse"
+  },
+  "43.71243,4.13190": {
+    "commune": "Villetelle",
+    "department": "Hérault",
+    "town": "Montpellier"
+  },
+  "43.71500,4.13286": {
+    "commune": "Villetelle",
+    "department": "Hérault",
+    "town": "Montpellier"
+  },
+  "43.75211,1.65630": {
+    "commune": "Saint-Sulpice-la-Pointe",
+    "department": "Tarn",
+    "town": "Castres"
+  },
+  "43.75331,7.41928": {
+    "commune": "Beausoleil",
+    "department": "Alpes-Maritimes",
+    "town": "Nice"
+  },
+  "43.75493,7.39778": {
+    "commune": "La Turbie",
+    "department": "Alpes-Maritimes",
+    "town": "Nice"
+  },
+  "43.81200,1.36225": {
+    "commune": "Castelnau-d'Estrétefonds",
+    "department": "Haute-Garonne",
+    "town": "Toulouse"
+  },
+  "43.86376,3.31263": {
+    "commune": "Le Caylar",
+    "department": "Hérault",
+    "town": "Lodève"
+  },
+  "43.86909,4.44016": {
+    "commune": "Marguerittes",
+    "department": "Gard",
+    "town": "Nîmes"
+  },
+  "43.87564,4.44967": {
+    "commune": "Marguerittes",
+    "department": "Gard",
+    "town": "Nîmes"
+  },
+  "43.92313,4.91235": {
+    "commune": "Morières-lès-Avignon",
+    "department": "Vaucluse",
+    "town": "Avignon"
+  },
+  "44.00056,4.70143": {
+    "commune": "Tavel",
+    "department": "Gard",
+    "town": "Nîmes"
+  },
+  "44.00316,4.70204": {
+    "commune": "Tavel",
+    "department": "Gard",
+    "town": "Nîmes"
+  },
+  "44.02341,4.88991": {
+    "commune": "Sorgues",
+    "department": "Vaucluse",
+    "town": "Avignon"
+  },
+  "44.04114,1.00400": {
+    "commune": "Saint-Nicolas-de-la-Grave",
+    "department": "Tarn-et-Garonne",
+    "town": "Castelsarrasin"
+  },
+  "44.19557,4.73200": {
+    "commune": "Mornas",
+    "department": "Vaucluse",
+    "town": "Carpentras"
+  },
+  "44.21512,4.72324": {
+    "commune": "Mornas",
+    "department": "Vaucluse",
+    "town": "Carpentras"
+  },
+  "44.33086,3.07976": {
+    "commune": "Sévérac-le-Château",
+    "department": "Aveyron",
+    "town": "Rodez"
+  },
+  "44.36090,-0.85004": {
+    "commune": "Saugnac-et-Muret",
+    "department": "Landes",
+    "town": "Mont-de-Marsan"
+  },
+  "44.36186,-0.85233": {
+    "commune": "Saugnac-et-Muret",
+    "department": "Landes",
+    "town": "Mont-de-Marsan"
+  },
+  "44.40500,0.18680": {
+    "commune": "Le Mas-d'Agenais",
+    "department": "Lot-et-Garonne",
+    "town": "Marmande"
+  },
+  "44.51447,4.78262": {
+    "commune": "Allan",
+    "department": "Drôme",
+    "town": "Nyons"
+  },
+  "44.51567,4.78082": {
+    "commune": "Allan",
+    "department": "Drôme",
+    "town": "Nyons"
+  },
+  "44.65795,1.56828": {
+    "commune": "Cœur de Causse",
+    "department": "Lot",
+    "town": "Gourdon"
+  },
+  "44.72171,4.78719": {
+    "commune": "Saulce-sur-Rhône",
+    "department": "Drôme",
+    "town": "Nyons"
+  },
+  "44.86577,4.86507": {
+    "commune": "Portes-lès-Valence",
+    "department": "Drôme",
+    "town": "Valence"
+  },
+  "44.86615,4.86665": {
+    "commune": "Portes-lès-Valence",
+    "department": "Drôme",
+    "town": "Valence"
+  },
+  "44.86998,3.24822": {
+    "commune": "Arcomie",
+    "department": "Lozère",
+    "town": "Mende"
+  },
+  "44.97851,-0.43242": {
+    "commune": "Saint-André-de-Cubzac",
+    "department": "Gironde",
+    "town": "Blaye"
+  },
+  "45.00192,0.03474": {
+    "commune": "Gours",
+    "department": "Gironde",
+    "town": "Libourne"
+  },
+  "45.01688,4.87472": {
+    "commune": "Pont-de-l'Isère",
+    "department": "Drôme",
+    "town": "Valence"
+  },
+  "45.02182,4.87631": {
+    "commune": "Pont-de-l'Isère",
+    "department": "Drôme",
+    "town": "Valence"
+  },
+  "45.03252,1.52598": {
+    "commune": "Cressensac-Sarrazac",
+    "department": "Lot",
+    "town": "Gourdon"
+  },
+  "45.07226,5.21128": {
+    "commune": "La Baume-d'Hostun",
+    "department": "Drôme",
+    "town": "Valence"
+  },
+  "45.07414,5.20989": {
+    "commune": "La Baume-d'Hostun",
+    "department": "Drôme",
+    "town": "Valence"
+  },
+  "45.14949,0.79966": {
+    "commune": "Boulazac Isle Manoire",
+    "department": "Dordogne",
+    "town": "Périgueux"
+  },
+  "45.16134,1.44068": {
+    "commune": "Saint-Pantaléon-de-Larche",
+    "department": "Corrèze",
+    "town": "Brive-la-Gaillarde"
+  },
+  "45.18859,-0.49040": {
+    "commune": "Saugon",
+    "department": "Gironde",
+    "town": "Blaye"
+  },
+  "45.18914,-0.49388": {
+    "commune": "Saugon",
+    "department": "Gironde",
+    "town": "Blaye"
+  },
+  "45.24420,5.86190": {
+    "commune": "Saint-Nazaire-les-Eymes",
+    "department": "Isère",
+    "town": "Grenoble"
+  },
+  "45.24629,6.42362": {
+    "commune": "Saint-Julien-Mont-Denis",
+    "department": "Savoie",
+    "town": "Saint-Jean-de-Maurienne"
+  },
+  "45.27623,4.82600": {
+    "commune": "Saint-Rambert-d'Albon",
+    "department": "Drôme",
+    "town": "Valence"
+  },
+  "45.27640,5.62329": {
+    "commune": "Voreppe",
+    "department": "Isère",
+    "town": "Grenoble"
+  },
+  "45.27649,4.82814": {
+    "commune": "Saint-Rambert-d'Albon",
+    "department": "Drôme",
+    "town": "Valence"
+  },
+  "45.27837,5.62398": {
+    "commune": "Voreppe",
+    "department": "Isère",
+    "town": "Grenoble"
+  },
+  "45.33648,3.27299": {
+    "commune": "Lorlanges",
+    "department": "Haute-Loire",
+    "town": "Brioude"
+  },
+  "45.35941,1.93745": {
+    "commune": "Vitrac-sur-Montane",
+    "department": "Corrèze",
+    "town": "Tulle"
+  },
+  "45.52640,5.97424": {
+    "commune": "Saint-Jeoire-Prieuré",
+    "department": "Savoie",
+    "town": "Chambéry"
+  },
+  "45.54106,1.50961": {
+    "commune": "Masseret",
+    "department": "Corrèze",
+    "town": "Tulle"
+  },
+  "45.54768,6.15671": {
+    "commune": "Châteauneuf",
+    "department": "Savoie",
+    "town": "Chambéry"
+  },
+  "45.57811,5.63347": {
+    "commune": "Romagnieu",
+    "department": "Isère",
+    "town": "La Tour-du-Pin"
+  },
+  "45.59096,4.82673": {
+    "commune": "Communay",
+    "department": "Rhône",
+    "town": "Lyon"
+  },
+  "45.61170,-0.60021": {
+    "commune": "Saint-Léger",
+    "department": "Charente-Maritime",
+    "town": "Jonzac"
+  },
+  "45.61209,5.20982": {
+    "commune": "L'Isle-d'Abeau",
+    "department": "Isère",
+    "town": "La Tour-du-Pin"
+  },
+  "45.62224,2.45706": {
+    "commune": "Merlines",
+    "department": "Corrèze",
+    "town": "Ussel"
+  },
+  "45.64236,3.18420": {
+    "commune": "Authezat",
+    "department": "Puy-de-Dôme",
+    "town": "Clermont-Ferrand"
+  },
+  "45.66016,3.15292": {
+    "commune": "Monton",
+    "department": "Puy-de-Dôme",
+    "town": "Clermont-Ferrand"
+  },
+  "45.68038,4.15659": {
+    "commune": "Magneux-Haute-Rive",
+    "department": "Loire",
+    "town": "Montbrison"
+  },
+  "45.68200,4.15453": {
+    "commune": "Magneux-Haute-Rive",
+    "department": "Loire",
+    "town": "Montbrison"
+  },
+  "45.69835,4.97667": {
+    "commune": "Saint-Priest",
+    "department": "Rhône",
+    "town": "Lyon"
+  },
+  "45.80350,4.77055": {
+    "commune": "Dardilly",
+    "department": "Rhône",
+    "town": "Lyon"
+  },
+  "45.80898,4.76952": {
+    "commune": "Dardilly",
+    "department": "Rhône",
+    "town": "Lyon"
+  },
+  "45.84329,5.07031": {
+    "commune": "Dagneux",
+    "department": "Ain",
+    "town": "Bourg-en-Bresse"
+  },
+  "45.84521,5.07002": {
+    "commune": "Dagneux",
+    "department": "Ain",
+    "town": "Bourg-en-Bresse"
+  },
+  "45.85086,3.40565": {
+    "commune": "Orléat",
+    "department": "Puy-de-Dôme",
+    "town": "Thiers"
+  },
+  "45.85444,3.81102": {
+    "commune": "Les Salles",
+    "department": "Loire",
+    "town": "Montbrison"
+  },
+  "45.85611,3.81231": {
+    "commune": "Les Salles",
+    "department": "Loire",
+    "town": "Montbrison"
+  },
+  "45.88802,4.89442": {
+    "commune": "Mionnay",
+    "department": "Ain",
+    "town": "Bourg-en-Bresse"
+  },
+  "45.89341,-0.60335": {
+    "commune": "Fenioux",
+    "department": "Charente-Maritime",
+    "town": "Saint-Jean-d'Angély"
+  },
+  "45.90849,1.29280": {
+    "commune": "Limoges",
+    "department": "Haute-Vienne",
+    "town": null
+  },
+  "45.91346,1.29253": {
+    "commune": "Limoges",
+    "department": "Haute-Vienne",
+    "town": null
+  },
+  "45.95637,2.98780": {
+    "commune": "La Roche",
+    "department": "Puy-de-Dôme",
+    "town": "Riom"
+  },
+  "46.05736,3.11346": {
+    "commune": "Champs",
+    "department": "Puy-de-Dôme",
+    "town": "Riom"
+  },
+  "46.09614,5.96299": {
+    "commune": "Valleiry",
+    "department": "Haute-Savoie",
+    "town": "Saint-Julien-en-Genevois"
+  },
+  "46.09730,5.96277": {
+    "commune": "Valleiry",
+    "department": "Haute-Savoie",
+    "town": "Saint-Julien-en-Genevois"
+  },
+  "46.11662,5.49182": {
+    "commune": "Ceignes",
+    "department": "Ain",
+    "town": "Nantua"
+  },
+  "46.11808,5.49032": {
+    "commune": "Ceignes",
+    "department": "Ain",
+    "town": "Nantua"
+  },
+  "46.13595,4.76758": {
+    "commune": "Taponas",
+    "department": "Rhône",
+    "town": "Villefranche-sur-Saône"
+  },
+  "46.14238,4.76711": {
+    "commune": "Dracé",
+    "department": "Rhône",
+    "town": "Villefranche-sur-Saône"
+  },
+  "46.20400,5.29430": {
+    "commune": "Jasseron",
+    "department": "Ain",
+    "town": "Bourg-en-Bresse"
+  },
+  "46.20448,5.29663": {
+    "commune": "Jasseron",
+    "department": "Ain",
+    "town": "Bourg-en-Bresse"
+  },
+  "46.29638,-0.37684": {
+    "commune": "Aiffres",
+    "department": "Deux-Sèvres",
+    "town": "Niort"
+  },
+  "46.29770,-0.37103": {
+    "commune": "Gascougnolles",
+    "department": "Deux-Sèvres",
+    "town": "Niort"
+  },
+  "46.31397,1.41989": {
+    "commune": "Saint-Sulpice-les-Feuilles",
+    "department": "Haute-Vienne",
+    "town": "Bellac"
+  },
+  "46.35474,2.80308": {
+    "commune": "Doyet",
+    "department": "Allier",
+    "town": "Montluçon"
+  },
+  "46.41964,4.86639": {
+    "commune": "Saint-Albain",
+    "department": "Saône-et-Loire",
+    "town": "Mâcon"
+  },
+  "46.41993,4.86426": {
+    "commune": "Saint-Albain",
+    "department": "Saône-et-Loire",
+    "town": "Mâcon"
+  },
+  "46.45213,-0.01636": {
+    "commune": "Pamproux",
+    "department": "Deux-Sèvres",
+    "town": "Niort"
+  },
+  "46.45337,-0.01660": {
+    "commune": "Rouillé",
+    "department": "Vienne",
+    "town": "Poitiers"
+  },
+  "46.57237,-1.11479": {
+    "commune": "Saint-Jean-d'Hermine",
+    "department": "Vendée",
+    "town": "Fontenay-le-Comte"
+  },
+  "46.69176,4.84274": {
+    "commune": "Saint-Ambreuil",
+    "department": "Saône-et-Loire",
+    "town": "Chalon-sur-Saône"
+  },
+  "46.69244,4.84469": {
+    "commune": "Saint-Ambreuil",
+    "department": "Saône-et-Loire",
+    "town": "Chalon-sur-Saône"
+  },
+  "46.70153,0.36665": {
+    "commune": "Jaunay-Marigny",
+    "department": "Vienne",
+    "town": "Poitiers"
+  },
+  "46.70213,0.37155": {
+    "commune": "Jaunay-Marigny",
+    "department": "Vienne",
+    "town": "Poitiers"
+  },
+  "46.90459,-1.04818": {
+    "commune": "Les Herbiers",
+    "department": "Vendée",
+    "town": "La Roche-sur-Yon"
+  },
+  "46.90587,0.52392": {
+    "commune": "Antran",
+    "department": "Vienne",
+    "town": "Châtellerault"
+  },
+  "46.90691,0.52204": {
+    "commune": "Antran",
+    "department": "Vienne",
+    "town": "Châtellerault"
+  },
+  "46.96343,4.83838": {
+    "commune": "Merceuil",
+    "department": "Côte-d'Or",
+    "town": "Beaune"
+  },
+  "47.03219,5.10917": {
+    "commune": "Glanon",
+    "department": "Côte-d'Or",
+    "town": "Beaune"
+  },
+  "47.08991,1.84514": {
+    "commune": "Meunet-sur-Vatan",
+    "department": "Indre",
+    "town": "Issoudun"
+  },
+  "47.09481,2.24120": {
+    "commune": "Marmagne",
+    "department": "Cher",
+    "town": "Bourges"
+  },
+  "47.09548,2.24190": {
+    "commune": "Marmagne",
+    "department": "Cher",
+    "town": "Bourges"
+  },
+  "47.10504,4.71366": {
+    "commune": "Bligny-sur-Ouche",
+    "department": "Côte-d'Or",
+    "town": "Beaune"
+  },
+  "47.11308,4.71185": {
+    "commune": "Bligny-sur-Ouche",
+    "department": "Côte-d'Or",
+    "town": "Beaune"
+  },
+  "47.13533,-0.82647": {
+    "commune": "Trémentines",
+    "department": "Maine-et-Loire",
+    "town": "Cholet"
+  },
+  "47.14739,5.58209": {
+    "commune": "Audelange",
+    "department": "Jura",
+    "town": "Dole"
+  },
+  "47.14899,5.58332": {
+    "commune": "Audelange",
+    "department": "Jura",
+    "town": "Dole"
+  },
+  "47.16563,0.63191": {
+    "commune": "Saint-Épain",
+    "department": "Indre-et-Loire",
+    "town": "Chinon"
+  },
+  "47.16689,0.63074": {
+    "commune": "Saint-Épain",
+    "department": "Indre-et-Loire",
+    "town": "Chinon"
+  },
+  "47.18033,5.33377": {
+    "commune": "Pont",
+    "department": "Côte-d'Or",
+    "town": "Dijon"
+  },
+  "47.18463,5.33262": {
+    "commune": "Pont",
+    "department": "Côte-d'Or",
+    "town": "Dijon"
+  },
+  "47.21717,5.00232": {
+    "commune": "Gevrey-Chambertin",
+    "department": "Côte-d'Or",
+    "town": "Beaune"
+  },
+  "47.22291,5.01026": {
+    "commune": "Gevrey-Chambertin",
+    "department": "Côte-d'Or",
+    "town": "Beaune"
+  },
+  "47.25700,2.98766": {
+    "commune": "Pouilly-sur-Loire",
+    "department": "Nièvre",
+    "town": "Cosne-Cours-sur-Loire"
+  },
+  "47.30163,0.88877": {
+    "commune": "Athée-sur-Cher",
+    "department": "Indre-et-Loire",
+    "town": "Loches"
+  },
+  "47.31088,0.51017": {
+    "commune": "Druye",
+    "department": "Indre-et-Loire",
+    "town": "Tours"
+  },
+  "47.31141,4.50055": {
+    "commune": "Éguilly",
+    "department": "Côte-d'Or",
+    "town": "Beaune"
+  },
+  "47.31503,4.49602": {
+    "commune": "Gissey-le-Vieil",
+    "department": "Côte-d'Or",
+    "town": "Montbard"
+  },
+  "47.32741,6.12475": {
+    "commune": "Marchaux",
+    "department": "Doubs",
+    "town": "Besançon"
+  },
+  "47.32853,6.12665": {
+    "commune": "Marchaux",
+    "department": "Doubs",
+    "town": "Besançon"
+  },
+  "47.33808,2.92806": {
+    "commune": "Tracy-sur-Loire",
+    "department": "Nièvre",
+    "town": "Cosne-Cours-sur-Loire"
+  },
+  "47.33835,1.66647": {
+    "commune": "Pruniers-en-Sologne",
+    "department": "Loir-et-Cher",
+    "town": "Romorantin-Lanthenay"
+  },
+  "47.34834,2.04827": {
+    "commune": "Theillay",
+    "department": "Loir-et-Cher",
+    "town": "Romorantin-Lanthenay"
+  },
+  "47.34869,2.05037": {
+    "commune": "Theillay",
+    "department": "Loir-et-Cher",
+    "town": "Romorantin-Lanthenay"
+  },
+  "47.41817,-1.01761": {
+    "commune": "L'Hopitau",
+    "department": "Loire-Atlantique",
+    "town": "Loireauxence"
+  },
+  "47.42249,5.17045": {
+    "commune": "Brognon",
+    "department": "Côte-d'Or",
+    "town": "Dijon"
+  },
+  "47.47379,0.77660": {
+    "commune": "Monnaie",
+    "department": "Indre-et-Loire",
+    "town": "Tours"
+  },
+  "47.47540,0.77560": {
+    "commune": "Monnaie",
+    "department": "Indre-et-Loire",
+    "town": "Tours"
+  },
+  "47.49991,-0.49010": {
+    "commune": "La Poularderie",
+    "department": "Maine-et-Loire",
+    "town": "Verrières-en-Anjou"
+  },
+  "47.50278,4.03608": {
+    "commune": "Guillon-Terre-Plaine",
+    "department": "Yonne",
+    "town": "Avallon"
+  },
+  "47.50450,4.03571": {
+    "commune": "Guillon-Terre-Plaine",
+    "department": "Yonne",
+    "town": "Avallon"
+  },
+  "47.65105,0.46896": {
+    "commune": "Dissay-sous-Courcillon",
+    "department": "Sarthe",
+    "town": "La Flèche"
+  },
+  "47.66350,1.92910": {
+    "commune": "Chaumont-sur-Tharonne",
+    "department": "Loir-et-Cher",
+    "town": "Romorantin-Lanthenay"
+  },
+  "47.66376,1.38806": {
+    "commune": "Villerbon",
+    "department": "Loir-et-Cher",
+    "town": "Blois"
+  },
+  "47.66489,1.38675": {
+    "commune": "Villerbon",
+    "department": "Loir-et-Cher",
+    "town": "Blois"
+  },
+  "47.66538,1.92596": {
+    "commune": "Chaumont-sur-Tharonne",
+    "department": "Loir-et-Cher",
+    "town": "Romorantin-Lanthenay"
+  },
+  "47.78931,3.67153": {
+    "commune": "Venoy",
+    "department": "Yonne",
+    "town": "Auxerre"
+  },
+  "47.83653,7.39506": {
+    "commune": "Ensisheim",
+    "department": "Collectivité européenne d'Alsace",
+    "town": "Thann-Guebwiller"
+  },
+  "47.85152,2.68539": {
+    "commune": "Varennes-Changy",
+    "department": "Loiret",
+    "town": "Montargis"
+  },
+  "48.02348,-0.32549": {
+    "commune": "Saint-Denis-d'Orques",
+    "department": "Sarthe",
+    "town": "La Flèche"
+  },
+  "48.02686,-0.34204": {
+    "commune": "Thorigné-en-Charnie",
+    "department": "Mayenne",
+    "town": "Mayenne"
+  },
+  "48.05132,0.17421": {
+    "commune": "Saint-Saturnin",
+    "department": "Sarthe",
+    "town": "Le Mans"
+  },
+  "48.08408,2.47129": {
+    "commune": "Beaune-la-Rolande",
+    "department": "Loiret",
+    "town": "Pithiviers"
+  },
+  "48.09570,-0.69679": {
+    "commune": "Bonchamp-lès-Laval",
+    "department": "Mayenne",
+    "town": "Laval"
+  },
+  "48.16716,3.17250": {
+    "commune": "Villeroy",
+    "department": "Yonne",
+    "town": "Sens"
+  },
+  "48.21213,4.24083": {
+    "commune": "Fresnoy-le-Château",
+    "department": "Aube",
+    "town": "Troyes"
+  },
+  "48.24389,3.55473": {
+    "commune": "Villeneuve-l'Archevêque",
+    "department": "Yonne",
+    "town": "Sens"
+  },
+  "48.24657,3.55465": {
+    "commune": "Villeneuve-l'Archevêque",
+    "department": "Yonne",
+    "town": "Sens"
+  },
+  "48.42689,2.92914": {
+    "commune": "Forges",
+    "department": "Seine-et-Marne",
+    "town": "Provins"
+  },
+  "48.45668,0.12579": {
+    "commune": "Valframbert",
+    "department": "Orne",
+    "town": "Alençon"
+  },
+  "48.58568,-1.32670": {
+    "commune": "Saint-Aubin-de-Terregatte",
+    "department": "Manche",
+    "town": "Avranches"
+  },
+  "48.72206,-0.05707": {
+    "commune": "Fontenai-sur-Orne",
+    "department": "Orne",
+    "town": "Argentan"
+  },
+  "48.72977,4.22686": {
+    "commune": "Sommesous",
+    "department": "Marne",
+    "town": "Châlons-en-Champagne"
+  },
+  "48.76170,7.36416": {
+    "commune": "Eckartswiller",
+    "department": "Collectivité européenne d'Alsace",
+    "town": "Saverne"
+  },
+  "48.82861,2.74218": {
+    "commune": "Bussy-Saint-Georges",
+    "department": "Seine-et-Marne",
+    "town": "Torcy"
+  },
+  "48.83039,2.74527": {
+    "commune": "Bussy-Saint-Georges",
+    "department": "Seine-et-Marne",
+    "town": "Torcy"
+  },
+  "48.90753,-1.10492": {
+    "commune": "Gouvets",
+    "department": "Manche",
+    "town": "Saint-Lô"
+  },
+  "48.93378,2.39178": {
+    "commune": "La Courneuve",
+    "department": "Seine-Saint-Denis",
+    "town": "Saint-Denis"
+  },
+  "48.93460,2.39397": {
+    "commune": "La Courneuve",
+    "department": "Seine-Saint-Denis",
+    "town": "Saint-Denis"
+  },
+  "48.94170,1.95367": {
+    "commune": "Morainvilliers",
+    "department": "Yvelines",
+    "town": "Saint-Germain-en-Laye"
+  },
+  "48.94178,1.95122": {
+    "commune": "Morainvilliers",
+    "department": "Yvelines",
+    "town": "Saint-Germain-en-Laye"
+  },
+  "48.97224,7.06867": {
+    "commune": "Keskastel",
+    "department": "Collectivité européenne d'Alsace",
+    "town": "Saverne"
+  },
+  "48.99216,1.63302": {
+    "commune": "Rosny-sur-Seine",
+    "department": "Yvelines",
+    "town": "Mantes-la-Jolie"
+  },
+  "49.06012,2.34808": {
+    "commune": "Attainville",
+    "department": "Val-d'Oise",
+    "town": "Sarcelles"
+  },
+  "49.07228,2.55328": {
+    "commune": "Vémars",
+    "department": "Val-d'Oise",
+    "town": "Sarcelles"
+  },
+  "49.07232,2.55060": {
+    "commune": "Vémars",
+    "department": "Val-d'Oise",
+    "town": "Sarcelles"
+  },
+  "49.07241,4.78821": {
+    "commune": "Valmy",
+    "department": "Marne",
+    "town": "Châlons-en-Champagne"
+  },
+  "49.07397,4.79047": {
+    "commune": "Valmy",
+    "department": "Marne",
+    "town": "Châlons-en-Champagne"
+  },
+  "49.11830,5.50916": {
+    "commune": "Haudiomont",
+    "department": "Meuse",
+    "town": "Verdun"
+  },
+  "49.11958,4.24386": {
+    "commune": "Les Petites-Loges",
+    "department": "Marne",
+    "town": "Reims"
+  },
+  "49.12002,5.50886": {
+    "commune": "Haudiomont",
+    "department": "Meuse",
+    "town": "Verdun"
+  },
+  "49.12587,3.53736": {
+    "commune": "Fresnes-en-Tardenois",
+    "department": "Aisne",
+    "town": "Château-Thierry"
+  },
+  "49.13268,6.65928": {
+    "commune": "Longeville-lès-Saint-Avold",
+    "department": "Moselle",
+    "town": "Forbach-Boulay-Moselle"
+  },
+  "49.13415,6.65765": {
+    "commune": "Longeville-lès-Saint-Avold",
+    "department": "Moselle",
+    "town": "Forbach-Boulay-Moselle"
+  },
+  "49.16804,-0.27505": {
+    "commune": "Giberville",
+    "department": "Calvados",
+    "town": "Caen"
+  },
+  "49.17965,6.05428": {
+    "commune": "Saint-Privat-la-Montagne",
+    "department": "Moselle",
+    "town": "Metz"
+  },
+  "49.21127,1.21845": {
+    "commune": "Vironvay",
+    "department": "Eure",
+    "town": "Les Andelys"
+  },
+  "49.32439,0.32792": {
+    "commune": "Beuzeville",
+    "department": "Eure",
+    "town": "Bernay"
+  },
+  "49.36049,0.86112": {
+    "commune": "Bosgouet",
+    "department": "Eure",
+    "town": "Bernay"
+  },
+  "49.36157,0.86267": {
+    "commune": "Bosgouet",
+    "department": "Eure",
+    "town": "Bernay"
+  },
+  "49.44939,3.92525": {
+    "commune": "Juvincourt-et-Damary",
+    "department": "Aisne",
+    "town": "Laon"
+  },
+  "49.51893,2.71901": {
+    "commune": "Ressons-sur-Matz",
+    "department": "Oise",
+    "town": "Compiègne"
+  },
+  "49.52512,2.72460": {
+    "commune": "Ressons-sur-Matz",
+    "department": "Oise",
+    "town": "Compiègne"
+  },
+  "49.59313,4.50438": {
+    "commune": "Saulces-Monclin",
+    "department": "Ardennes",
+    "town": "Rethel"
+  },
+  "49.60904,2.20412": {
+    "commune": "Hardivillers",
+    "department": "Oise",
+    "town": "Clermont"
+  },
+  "49.61379,0.54551": {
+    "commune": "Bolleville",
+    "department": "Seine-Maritime",
+    "town": "Le Havre"
+  },
+  "49.78569,3.33445": {
+    "commune": "Urvillers",
+    "department": "Aisne",
+    "town": "Saint-Quentin"
+  },
+  "49.80752,1.97051": {
+    "commune": "Croixrault",
+    "department": "Somme",
+    "town": "Amiens"
+  },
+  "49.85470,2.52088": {
+    "commune": "Villers-Bretonneux",
+    "department": "Somme",
+    "town": "Amiens"
+  },
+  "49.88678,2.83646": {
+    "commune": "Assevillers",
+    "department": "Somme",
+    "town": "Péronne"
+  },
+  "49.88842,2.84133": {
+    "commune": "Assevillers",
+    "department": "Somme",
+    "town": "Péronne"
+  },
+  "50.16862,1.75470": {
+    "commune": "Sailly-Flibeaucourt",
+    "department": "Somme",
+    "town": "Abbeville"
+  },
+  "50.26223,2.86336": {
+    "commune": "Wancourt",
+    "department": "Pas-de-Calais",
+    "town": "Arras"
+  },
+  "50.26351,2.86648": {
+    "commune": "Wancourt",
+    "department": "Pas-de-Calais",
+    "town": "Arras"
+  },
+  "50.40386,2.74411": {
+    "commune": "Souchez",
+    "department": "Pas-de-Calais",
+    "town": "Lens"
+  },
+  "50.53027,3.04629": {
+    "commune": "Seclin",
+    "department": "Nord",
+    "town": "Lille"
+  },
+  "50.57240,2.37995": {
+    "commune": "Saint-Hilaire-Cottes",
+    "department": "Pas-de-Calais",
+    "town": "Béthune"
+  }
+}

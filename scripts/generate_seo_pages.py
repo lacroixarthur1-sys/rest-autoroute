@@ -10,13 +10,18 @@ Run from anywhere: python3 scripts/generate_seo_pages.py
 """
 import json
 import re
+import time
 import unicodedata
+import urllib.error
 import urllib.parse
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX_HTML = ROOT / "index.html"
 DOMAIN = "https://restautoroute.fr"
+GEOCODE_CACHE_PATH = ROOT / "scripts" / "geocode_cache.json"
+NOMINATIM_UA = "RestAutorouteBot/1.0 (contact: lacroix.arthur1@gmail.com)"
 
 CUISINE = {
     "burger": ("Burger", "i-burger"),
@@ -60,6 +65,42 @@ def assign_slugs(route):
         else:
             seen[base] = 1
             aire["_slug"] = base
+
+
+def load_geocode_cache():
+    if GEOCODE_CACHE_PATH.exists():
+        return json.loads(GEOCODE_CACHE_PATH.read_text(encoding="utf-8"))
+    return {}
+
+
+def save_geocode_cache(cache):
+    GEOCODE_CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
+
+
+def geocode(lat, lng, cache):
+    key = f"{lat:.5f},{lng:.5f}"
+    if key in cache:
+        return cache[key]
+    url = (
+        "https://nominatim.openstreetmap.org/reverse?"
+        + urllib.parse.urlencode({"lat": lat, "lon": lng, "format": "jsonv2", "zoom": 14, "accept-language": "fr"})
+    )
+    req = urllib.request.Request(url, headers={"User-Agent": NOMINATIM_UA})
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        addr = data.get("address", {})
+        commune = addr.get("village") or addr.get("town") or addr.get("city") or addr.get("hamlet") or addr.get("municipality")
+        department = addr.get("state_district") or addr.get("county")
+        town = addr.get("municipality")
+        if town == commune:
+            town = None
+        result = {"commune": commune, "department": department, "town": town}
+    except (urllib.error.URLError, TimeoutError, ValueError, KeyError):
+        result = {"commune": None, "department": None, "town": None}
+    cache[key] = result
+    time.sleep(1.1)
+    return result
 
 
 def fmt_pk(pk):
@@ -129,6 +170,8 @@ def build_faq(aire, route, prev_a, next_a, destination, origin, sens_label):
     resto_list = ", ".join(f"{r['n']} ({CUISINE.get(r['t'], (r['t'],))[0]})" for r in aire["restaurants"])
     n = len(aire["restaurants"])
     svc_labels = [SERVICES[s][0] for s in aire.get("services", []) if s in SERVICES]
+    geo = aire.get("_geo") or {}
+    commune, department, town = geo.get("commune"), geo.get("department"), geo.get("town")
 
     faq = []
     faq.append((
@@ -162,6 +205,13 @@ def build_faq(aire, route, prev_a, next_a, destination, origin, sens_label):
         f"Dans quel sens se trouve {aire['name']} sur l'{route['id']} ?",
         f"{aire['name']} est au PK {fmt_pk(aire['pk'])} de l'{route['id']}, dans le sens {sens_label}.",
     ))
+    if commune:
+        loc = f"sur la commune de {commune}"
+        if town:
+            loc += f", à proximité de {town}"
+        if department:
+            loc += f" (département : {department})"
+        faq.append((f"Où se trouve exactement {aire['name']} ?", f"{aire['name']} se situe {loc}."))
     return faq
 
 
@@ -198,10 +248,27 @@ def render_aire_page(aire, route, all_routes):
     n_svc = len([s for s in aire.get("services", []) if s in SERVICES])
     svc_labels = [SERVICES[s][0] for s in aire.get("services", []) if s in SERVICES]
     n_resto = len(aire["restaurants"])
+    geo = aire.get("_geo") or {}
+    commune, department, town = geo.get("commune"), geo.get("department"), geo.get("town")
     lead_text = (
         f"{aire['name']} est une aire d'autoroute {route['id']} au PK {fmt_pk(aire['pk'])}, "
         f"dans le sens {sens_label}. Elle compte {n_resto} restaurant{'s' if n_resto > 1 else ''}"
         f"{' et propose ' + ', '.join(l.lower() for l in svc_labels) if svc_labels else ''}."
+    )
+    if commune:
+        lead_text += f" Elle se situe sur la commune de {commune}"
+        if town:
+            lead_text += f", à proximité de {town}"
+        if department:
+            lead_text += f" (département : {department})"
+        lead_text += "."
+
+    n_aires_route = len(route["aires"])
+    n_restos_route = sum(len(a["restaurants"]) for a in route["aires"])
+    corridor_text = (
+        f"Sur l'{route['id']} ({route['from']} → {route['to']}), Rest'Autoroute référence "
+        f"{n_aires_route} aires avec restaurant ({n_restos_route} restaurants au total), "
+        f"réparties dans les deux sens de circulation."
     )
 
     practical_parts = []
@@ -321,6 +388,8 @@ def render_aire_page(aire, route, all_routes):
   <div class="grid">{render_card(aire, route, link=False, official_link=aire["official"])}</div>
 
   <p class="practical">{practical_html}</p>
+
+  <p class="context">{corridor_text}</p>
 
   <div class="faq">
     <h2 class="faq-title">Questions fréquentes</h2>
@@ -654,6 +723,7 @@ PAGE_CSS = """
   .practical { font-size: 13.5px; color: var(--text-dim); margin: 22px 0 0; line-height: 1.6; }
   .practical a { color: var(--sign-blue); font-weight: 600; text-decoration: none; }
   .practical a:hover { text-decoration: underline; }
+  .context { font-size: 13.5px; color: var(--text-dim); margin: 10px 0 0; line-height: 1.6; }
 
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
@@ -718,6 +788,17 @@ def main():
     routes = load_routes()
     for route in routes:
         assign_slugs(route)
+
+    geo_cache = load_geocode_cache()
+    total_aires = sum(len(r["aires"]) for r in routes)
+    done = 0
+    for route in routes:
+        for aire in route["aires"]:
+            aire["_geo"] = geocode(aire["lat"], aire["lng"], geo_cache)
+            done += 1
+            if done % 25 == 0:
+                print(f"Geocoded {done}/{total_aires} aires...")
+    save_geocode_cache(geo_cache)
 
     aires_dir = ROOT / "aires"
     aires_dir.mkdir(exist_ok=True)
