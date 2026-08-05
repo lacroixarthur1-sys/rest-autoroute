@@ -207,6 +207,10 @@ def render_aire_page(aire, route, all_routes):
         <svg viewBox="0 0 24 24"><use href="#i-road"/></svg>
         Ouvrir le simulateur {route['id']} en manuel
       </a>
+      <a class="cta-link" href="{aire["official"]}" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><use href="#i-info"/></svg>
+        Fiche officielle de l'aire ↗
+      </a>
     </div>
   </div>
 
