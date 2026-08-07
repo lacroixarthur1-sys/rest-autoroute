@@ -333,8 +333,12 @@ def render_aire_page(aire, route, all_routes):
     practical_html = " ".join(practical_parts)
 
     faq = build_faq(aire, route, prev_a, next_a, destination, origin, sens_label)
+    glossary_link = '<a href="../../../aire-de-repos/">aire de repos</a>'
     faq_html = "".join(
-        f'<details class="faq-item"><summary>{q}</summary><p>{a}</p></details>' for q, a in faq
+        f'<details class="faq-item"><summary>{q}</summary><p>'
+        + (a.replace("aire de repos", glossary_link, 1) if "aire de repos ou une aire de service" in q else a)
+        + "</p></details>"
+        for q, a in faq
     )
     if ev:
         connectors_str = ", ".join(ev["connectors"]) if ev["connectors"] else "non précisé"
@@ -722,7 +726,7 @@ def render_hub_page(all_routes):
     </div>
   </div>
   <div class="hub-grid">{tiles}</div>
-  <footer class="legal"><a href="../">← Retour à Rest'Autoroute</a></footer>
+  <footer class="legal"><a href="../">← Retour à Rest'Autoroute</a> · <a href="../aire-de-repos/">Aire de repos ou aire de service : la différence</a></footer>
 </div>
 </body>
 </html>
@@ -891,8 +895,155 @@ PAGE_CSS = """
 """
 
 
+def render_glossary_page(all_routes):
+    title = "Aire de repos : définition, différence avec une aire de service | Rest'Autoroute"
+    description = (
+        "Qu'est-ce qu'une aire de repos ? Différence avec une aire de service, comment trouver "
+        "l'aire de repos avec restaurant la plus proche de vous, sur les 48 autoroutes couvertes "
+        "par Rest'Autoroute."
+    )
+    route_chips = "".join(
+        f'<a class="chip" href="../aires/{r["id"].lower()}/">{r["id"]}</a>'
+        for r in sorted(all_routes, key=route_sort_key)
+    )
+    faq = [
+        (
+            "Qu'est-ce qu'une aire de repos ?",
+            "Une aire de repos est un espace aménagé le long d'une autoroute pour permettre aux "
+            "automobilistes de faire une pause : parking, tables de pique-nique, toilettes. Dans le "
+            "langage courant, le terme désigne aussi les aires avec restaurant et carburant, plus "
+            "précisément appelées aires de service.",
+        ),
+        (
+            "Quelle est la différence entre une aire de repos et une aire de service ?",
+            "Une aire de repos, au sens strict, ne propose que du stationnement et des sanitaires, sans "
+            "commerce. Une aire de service ajoute au moins une station-service, et souvent un "
+            "restaurant, une boutique ou une borne de recharge électrique. Toutes les aires référencées "
+            "sur Rest'Autoroute ont au moins un restaurant : ce sont donc, au sens strict, des aires de "
+            "service — même si beaucoup d'automobilistes continuent de les appeler aires de repos.",
+        ),
+        (
+            "Comment trouver l'aire de repos avec restaurant la plus proche de moi ?",
+            "Utilisez le bouton « Me localiser » sur la page d'accueil de Rest'Autoroute : le site utilise "
+            "votre position pour identifier l'aire avec restaurant la plus proche sur votre trajet, dans "
+            "les deux sens de circulation.",
+        ),
+        (
+            "Toutes les aires de repos ont-elles un restaurant ?",
+            "Non. Certaines aires de repos ne proposent que des toilettes et un parking, sans aucun "
+            "commerce. Rest'Autoroute référence uniquement les aires qui ont au moins un restaurant, sur "
+            "48 autoroutes françaises.",
+        ),
+        (
+            "Comment trouver une aire de repos sur mon trajet d'autoroute ?",
+            "Choisissez votre autoroute dans le simulateur de la page d'accueil, ou indiquez votre trajet "
+            "complet (ville de départ et d'arrivée) pour voir toutes les aires avec restaurant sur votre "
+            "parcours, classées par kilomètre.",
+        ),
+    ]
+    faq_html = "".join(f'<details class="faq-item"><summary>{q}</summary><p>{a}</p></details>' for q, a in faq)
+
+    ld_json = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": f"{DOMAIN}/"},
+            {"@type": "ListItem", "position": 2, "name": "Aire de repos", "item": f"{DOMAIN}/aire-de-repos/"},
+        ],
+    }
+    faq_ld_json = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in faq
+        ],
+    }
+
+    return f"""<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<link rel="canonical" href="{DOMAIN}/aire-de-repos/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{DOMAIN}/aire-de-repos/">
+<link rel="icon" href="../icons/favicon-32.png" sizes="32x32">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HBTCYGW0FW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-HBTCYGW0FW');
+</script>
+<script type="application/ld+json">{json.dumps(ld_json, ensure_ascii=False)}</script>
+<script type="application/ld+json">{json.dumps(faq_ld_json, ensure_ascii=False)}</script>
+<style>
+{PAGE_CSS}
+{HUB_CSS}
+</style>
+</head>
+<body>
+{SVG_DEFS}
+<div class="hero">
+  <div class="brand">
+    <a href="../" style="text-decoration:none;"><div class="brand-mark"><svg viewBox="0 0 24 24"><use href="#i-road"/></svg></div></a>
+    <div>
+      <p class="brand-name">Rest'<span>Autoroute</span></p>
+      <p class="tagline">Aire de repos, aire de service : la différence, et où trouver un restaurant.</p>
+    </div>
+  </div>
+  <div class="theme-note"><a href="../">← Accueil</a></div>
+</div>
+<div class="page">
+  <div class="console route-sign">
+    <h1 class="route-h1" style="font-size:19px; margin-bottom:14px;">Aire de repos : le guide complet</h1>
+    <div class="cta-row">
+      <a class="locate-cta" href="../?locate=1">
+        <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
+        Me localiser — trouver l'aire de repos à proximité
+      </a>
+      <a class="cta-link" href="../aires/">
+        <svg viewBox="0 0 24 24"><use href="#i-road"/></svg>
+        Voir toutes les autoroutes
+      </a>
+    </div>
+  </div>
+
+  <p class="lead">
+    Une <strong>aire de repos</strong> est un espace aménagé en bord d'autoroute pour faire une pause :
+    parking, sanitaires, parfois des tables de pique-nique. Dans le langage courant, on appelle souvent
+    « aire de repos » n'importe quelle aire d'autoroute — y compris celles qui ont un restaurant, une
+    station-service ou une boutique, techniquement appelées <strong>aires de service</strong>.
+    Rest'Autoroute référence uniquement les aires avec au moins un restaurant, sur 48 autoroutes
+    françaises.
+  </p>
+
+  <p class="context">
+    Vous cherchez l'aire de repos avec restaurant la plus proche de votre position, ou sur votre
+    trajet ? Utilisez le bouton « Me localiser » ci-dessus, ou choisissez directement votre autoroute :
+  </p>
+
+  <div class="filters" style="margin-top:14px;">{route_chips}</div>
+
+  <div class="faq">
+    <p class="faq-title">QUESTIONS FRÉQUENTES</p>
+    {faq_html}
+  </div>
+
+  <footer class="legal"><a href="../">← Retour à Rest'Autoroute</a></footer>
+</div>
+</body>
+</html>
+"""
+
+
 def build_sitemap(all_routes):
-    urls = [f"{DOMAIN}/", f"{DOMAIN}/aires/"]
+    urls = [f"{DOMAIN}/", f"{DOMAIN}/aires/", f"{DOMAIN}/aire-de-repos/"]
     for r in all_routes:
         slug = r["id"].lower()
         urls.append(f"{DOMAIN}/aires/{slug}/")
@@ -931,6 +1082,10 @@ def main():
     aires_dir.mkdir(exist_ok=True)
 
     (aires_dir / "index.html").write_text(render_hub_page(routes), encoding="utf-8")
+
+    glossary_dir = ROOT / "aire-de-repos"
+    glossary_dir.mkdir(exist_ok=True)
+    (glossary_dir / "index.html").write_text(render_glossary_page(routes), encoding="utf-8")
 
     n_aire_pages = 0
     for route in routes:
