@@ -7470,7 +7470,9 @@
   // ---------------------------------------------------------------------
   // Init: route select
   // ---------------------------------------------------------------------
-  ROUTES.forEach(function (r) {
+  ROUTES.slice().sort(function (a, b) {
+    return parseInt(a.id.replace(/\D/g, ""), 10) - parseInt(b.id.replace(/\D/g, ""), 10);
+  }).forEach(function (r) {
     var opt = document.createElement("option");
     opt.value = r.id;
     opt.textContent = r.name + " (" + r.from + " → " + r.to + ")";

@@ -116,6 +116,10 @@ def maps_link(name, route_id):
     return f"https://www.google.com/maps/search/?api=1&query={q}"
 
 
+def route_sort_key(route):
+    return int(re.sub(r"\D", "", route["id"]) or 0)
+
+
 def cuisine_counts(route):
     counts = {}
     for aire in route["aires"]:
@@ -534,7 +538,7 @@ def render_route_page(route, all_routes):
 
     other_routes_chips = "".join(
         f'<a class="chip" href="../{r["id"].lower()}/">{r["id"]}</a>'
-        for r in sorted(all_routes, key=lambda r: r["id"])
+        for r in sorted(all_routes, key=route_sort_key)
         if r["id"] != route["id"]
     )
 
@@ -662,7 +666,7 @@ def render_hub_page(all_routes):
             <div class="stat"><span class="stat-num">{sum(len(a['restaurants']) for a in r['aires'])}</span><span class="stat-num-label">RESTOS</span></div>
           </div>
         </a>"""
-        for r in sorted(all_routes, key=lambda r: r["id"])
+        for r in sorted(all_routes, key=route_sort_key)
     )
     title = "Restaurant Aire d'Autoroute : toutes les autoroutes couvertes | Rest'Autoroute"
     description = "Trouvez une aire d'autoroute à proximité avec restaurant (aire de repos ou de service), sur toutes les autoroutes françaises couvertes par Rest'Autoroute : A6, A7, A10, A71..."
