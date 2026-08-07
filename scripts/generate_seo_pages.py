@@ -23,6 +23,91 @@ DOMAIN = "https://restautoroute.fr"
 GEOCODE_CACHE_PATH = ROOT / "scripts" / "geocode_cache.json"
 EV_CACHE_PATH = ROOT / "scripts" / "ev_cache.json"
 NOMINATIM_UA = "RestAutorouteBot/1.0 (contact: lacroix.arthur1@gmail.com)"
+FORMSPREE_URL = "https://formspree.io/f/xdenkryr"
+
+WIDGETS_JS = """
+  function reportAireError(btn, ev, aireName, routeId, pageUrl) {
+    if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = 'Envoi...';
+    fetch('""" + FORMSPREE_URL + """', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type: "Signalement d'erreur",
+        _subject: "Signalement Rest'Autoroute : " + aireName,
+        aire: aireName,
+        autoroute: routeId,
+        page: pageUrl
+      })
+    }).then(function (r) {
+      btn.textContent = r.ok ? 'Signalé, merci ✓' : 'Erreur, réessayez';
+      btn.disabled = r.ok;
+    }).catch(function () {
+      btn.textContent = 'Erreur, réessayez';
+      btn.disabled = false;
+    });
+  }
+
+  function sendFeedback(btn) {
+    var wrap = btn.closest('.feedback-widget');
+    wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.disabled = true; });
+    fetch('""" + FORMSPREE_URL + """', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type: 'Sondage : site utile ?',
+        _subject: "Rest'Autoroute — sondage : " + btn.dataset.val,
+        reponse: btn.dataset.val,
+        page: location.href
+      })
+    }).then(function (r) {
+      wrap.querySelector('.feedback-q').style.display = 'none';
+      wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.style.display = 'none'; });
+      var t = wrap.querySelector('.feedback-thanks');
+      t.textContent = r.ok ? 'Merci pour votre retour !' : "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+    }).catch(function () {
+      var t = wrap.querySelector('.feedback-thanks');
+      t.textContent = "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+      wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.style.display = 'none'; });
+    });
+  }
+"""
+
+WIDGETS_CSS = """
+  .report-btn {
+    -webkit-appearance: none; appearance: none; background: none; border: none;
+    font-family: inherit; font-size: 11px; color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; gap: 5px; text-align: left;
+    padding: 0 16px 12px; margin: -4px 0 0;
+  }
+  .report-btn:hover:not(:disabled) { color: var(--sign-blue); }
+  .report-btn:disabled { cursor: default; opacity: 0.75; }
+
+  .feedback-widget {
+    max-width: 1180px; margin: 28px auto 0; padding: 16px 20px; border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--text-dim);
+  }
+  .feedback-btn {
+    -webkit-appearance: none; appearance: none; cursor: pointer; font-family: inherit; font-size: 13px;
+    padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text);
+  }
+  .feedback-btn:hover:not(:disabled) { border-color: var(--sign-blue); color: var(--sign-blue); }
+  .feedback-btn:disabled { opacity: 0.6; cursor: default; }
+  .feedback-thanks { font-weight: 600; color: var(--sign-blue); }
+"""
+
+FEEDBACK_WIDGET_HTML = """
+  <div class="feedback-widget">
+    <span class="feedback-q">Ce site vous a-t-il été utile ?</span>
+    <button class="feedback-btn" type="button" data-val="Oui" onclick="sendFeedback(this)">👍 Oui</button>
+    <button class="feedback-btn" type="button" data-val="Non" onclick="sendFeedback(this)">👎 Non</button>
+    <span class="feedback-thanks" hidden></span>
+  </div>
+"""
 
 CUISINE = {
     "burger": ("Burger", "i-burger"),
@@ -145,6 +230,11 @@ def render_card(aire, route, link=True, official_link=None):
         name_html = f'<a class="aire-link" href="{aire["_slug"]}/">{aire["name"]}</a>'
     else:
         name_html = aire["name"]
+    page_url = f"{DOMAIN}/aires/{route['id'].lower()}/{aire['_slug']}/"
+    report_onclick = (
+        "reportAireError(this, event, "
+        f"{json.dumps(aire['name'])}, {json.dumps(route['id'])}, {json.dumps(page_url)})"
+    )
     return f"""
       <div class="card">
         <div class="card-head">
@@ -158,6 +248,7 @@ def render_card(aire, route, link=True, official_link=None):
           {svc_items}
           <a class="service maps-link" href="{maps_link(aire["name"], route["id"])}" target="_blank" rel="noopener">Avis Google Maps ↗</a>
         </div>
+        <button class="report-btn" type="button" onclick='{report_onclick}'>🚩 Signaler une erreur sur cette aire</button>
       </div>"""
 
 
@@ -382,25 +473,6 @@ def render_aire_page(aire, route, all_routes):
             "<p class=\"ev-detail\">Aucune borne recensée à moins d'1 km dans la base nationale IRVE.</p></div>"
         )
 
-    report_subject = urllib.parse.quote(f"Signalement Rest'Autoroute : {aire['name']}")
-    report_body = urllib.parse.quote(
-        f"Aire : {aire['name']} ({route['id']})\n"
-        f"Page : {DOMAIN}/aires/{route_slug}/{aire_slug}/\n\n"
-        "Type de problème (cochez) :\n"
-        "[ ] Localisation de l'aire incorrecte\n"
-        "[ ] Erreur sur un restaurant / service\n"
-        "[ ] Autre\n\n"
-        "Détails : "
-    )
-    report_html = (
-        '<p class="report-block"><a href="#" class="report-link" '
-        'data-u="lacroix.arthur1" data-d="gmail.com" '
-        f'data-subj="{report_subject}" data-body="{report_body}" '
-        "onclick=\"var u=this.dataset.u+'@'+this.dataset.d;"
-        "location.href='mailto:'+u+'?subject='+this.dataset.subj+'&body='+this.dataset.body;"
-        'return false;">🚩 Signaler une erreur sur cette aire</a></p>'
-    )
-
     ld_json = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -444,6 +516,7 @@ def render_aire_page(aire, route, all_routes):
   gtag('js', new Date());
   gtag('config', 'G-HBTCYGW0FW');
 </script>
+<script>{WIDGETS_JS}</script>
 <script type="application/ld+json">{json.dumps(ld_json, ensure_ascii=False)}</script>
 <script type="application/ld+json">{json.dumps(faq_ld_json, ensure_ascii=False)}</script>
 <style>
@@ -497,8 +570,6 @@ def render_aire_page(aire, route, all_routes):
 
   {ev_html}
 
-  {report_html}
-
   <p class="practical">{practical_html}</p>
 
   <p class="context">{corridor_text}</p>
@@ -516,6 +587,7 @@ def render_aire_page(aire, route, all_routes):
   <footer class="legal">
     Rest'Autoroute — les restaurants et aires listés ici proviennent d'OpenStreetMap et peuvent avoir changé depuis la collecte. Vérifiez sur place. <a href="../../../">Retour à l'accueil</a> · <a href="../">Toutes les aires de l'{route['id']}</a>.
   </footer>
+  {FEEDBACK_WIDGET_HTML}
 </div>
 </body>
 </html>
@@ -591,6 +663,7 @@ def render_route_page(route, all_routes):
   gtag('js', new Date());
   gtag('config', 'G-HBTCYGW0FW');
 </script>
+<script>{WIDGETS_JS}</script>
 <script type="application/ld+json">{json.dumps(ld_json, ensure_ascii=False)}</script>
 <style>
 {PAGE_CSS}
@@ -650,6 +723,7 @@ def render_route_page(route, all_routes):
   <footer class="legal">
     Rest'Autoroute — les restaurants et aires listés ici proviennent d'OpenStreetMap et peuvent avoir changé depuis la collecte. Vérifiez sur place. <a href="../../">Retour à l'accueil</a>.
   </footer>
+  {FEEDBACK_WIDGET_HTML}
 </div>
 </body>
 </html>
@@ -694,6 +768,7 @@ def render_hub_page(all_routes):
   gtag('js', new Date());
   gtag('config', 'G-HBTCYGW0FW');
 </script>
+<script>{WIDGETS_JS}</script>
 <style>
 {PAGE_CSS}
 {HUB_CSS}
@@ -727,6 +802,7 @@ def render_hub_page(all_routes):
   </div>
   <div class="hub-grid">{tiles}</div>
   <footer class="legal"><a href="../">← Retour à Rest'Autoroute</a> · <a href="../aire-de-repos/">Aire de repos ou aire de service : la différence</a></footer>
+  {FEEDBACK_WIDGET_HTML}
 </div>
 </body>
 </html>
@@ -847,9 +923,6 @@ PAGE_CSS = """
   .ev-spec-k { font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; text-transform: uppercase; }
   .ev-spec-v { font-size: 13.5px; font-weight: 600; }
 
-  .report-block { margin: 14px 0 0; }
-  .report-link { font-size: 12.5px; color: var(--text-dim); text-decoration: none; border-bottom: 1px dashed var(--line); }
-  .report-link:hover { color: var(--sign-blue); border-color: var(--sign-blue); }
 
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
@@ -892,7 +965,7 @@ PAGE_CSS = """
     h1 { font-size: 24px; }
     .route-badge { font-size: 26px; }
   }
-"""
+""" + WIDGETS_CSS
 
 
 def render_glossary_page(all_routes):
@@ -980,6 +1053,7 @@ def render_glossary_page(all_routes):
   gtag('js', new Date());
   gtag('config', 'G-HBTCYGW0FW');
 </script>
+<script>{WIDGETS_JS}</script>
 <script type="application/ld+json">{json.dumps(ld_json, ensure_ascii=False)}</script>
 <script type="application/ld+json">{json.dumps(faq_ld_json, ensure_ascii=False)}</script>
 <style>
@@ -1036,6 +1110,7 @@ def render_glossary_page(all_routes):
   </div>
 
   <footer class="legal"><a href="../">← Retour à Rest'Autoroute</a></footer>
+  {FEEDBACK_WIDGET_HTML}
 </div>
 </body>
 </html>

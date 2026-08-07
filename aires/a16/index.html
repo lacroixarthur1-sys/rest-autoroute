@@ -18,6 +18,57 @@
   gtag('js', new Date());
   gtag('config', 'G-HBTCYGW0FW');
 </script>
+<script>
+  function reportAireError(btn, ev, aireName, routeId, pageUrl) {
+    if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = 'Envoi...';
+    fetch('https://formspree.io/f/xdenkryr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type: "Signalement d'erreur",
+        _subject: "Signalement Rest'Autoroute : " + aireName,
+        aire: aireName,
+        autoroute: routeId,
+        page: pageUrl
+      })
+    }).then(function (r) {
+      btn.textContent = r.ok ? 'Signalé, merci ✓' : 'Erreur, réessayez';
+      btn.disabled = r.ok;
+    }).catch(function () {
+      btn.textContent = 'Erreur, réessayez';
+      btn.disabled = false;
+    });
+  }
+
+  function sendFeedback(btn) {
+    var wrap = btn.closest('.feedback-widget');
+    wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.disabled = true; });
+    fetch('https://formspree.io/f/xdenkryr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type: 'Sondage : site utile ?',
+        _subject: "Rest'Autoroute — sondage : " + btn.dataset.val,
+        reponse: btn.dataset.val,
+        page: location.href
+      })
+    }).then(function (r) {
+      wrap.querySelector('.feedback-q').style.display = 'none';
+      wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.style.display = 'none'; });
+      var t = wrap.querySelector('.feedback-thanks');
+      t.textContent = r.ok ? 'Merci pour votre retour !' : "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+    }).catch(function () {
+      var t = wrap.querySelector('.feedback-thanks');
+      t.textContent = "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+      wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.style.display = 'none'; });
+    });
+  }
+</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": "https://restautoroute.fr/"}, {"@type": "ListItem", "position": 2, "name": "Autoroutes", "item": "https://restautoroute.fr/aires/"}, {"@type": "ListItem", "position": 3, "name": "A16", "item": "https://restautoroute.fr/aires/a16/"}]}</script>
 <style>
 
@@ -108,9 +159,6 @@
   .ev-spec-k { font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; text-transform: uppercase; }
   .ev-spec-v { font-size: 13.5px; font-weight: 600; }
 
-  .report-block { margin: 14px 0 0; }
-  .report-link { font-size: 12.5px; color: var(--text-dim); text-decoration: none; border-bottom: 1px dashed var(--line); }
-  .report-link:hover { color: var(--sign-blue); border-color: var(--sign-blue); }
 
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
@@ -153,6 +201,27 @@
     h1 { font-size: 24px; }
     .route-badge { font-size: 26px; }
   }
+
+  .report-btn {
+    -webkit-appearance: none; appearance: none; background: none; border: none;
+    font-family: inherit; font-size: 11px; color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; gap: 5px; text-align: left;
+    padding: 0 16px 12px; margin: -4px 0 0;
+  }
+  .report-btn:hover:not(:disabled) { color: var(--sign-blue); }
+  .report-btn:disabled { cursor: default; opacity: 0.75; }
+
+  .feedback-widget {
+    max-width: 1180px; margin: 28px auto 0; padding: 16px 20px; border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--text-dim);
+  }
+  .feedback-btn {
+    -webkit-appearance: none; appearance: none; cursor: pointer; font-family: inherit; font-size: 13px;
+    padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text);
+  }
+  .feedback-btn:hover:not(:disabled) { border-color: var(--sign-blue); color: var(--sign-blue); }
+  .feedback-btn:disabled { opacity: 0.6; cursor: default; }
+  .feedback-thanks { font-weight: 600; color: var(--sign-blue); }
 
 </style>
 </head>
@@ -235,6 +304,7 @@
           <span class="service"><svg><use href="#i-fuel"/></svg>Carburant</span><span class="service"><svg><use href="#i-shop"/></svg>Boutique</span>
           <a class="service maps-link" href="https://www.google.com/maps/search/?api=1&query=Aire%20de%20La%20Courneuve%20Ouest%20aire%20autoroute%20A16" target="_blank" rel="noopener">Avis Google Maps ↗</a>
         </div>
+        <button class="report-btn" type="button" onclick='reportAireError(this, event, "Aire de La Courneuve Ouest", "A16", "https://restautoroute.fr/aires/a16/aire-de-la-courneuve-ouest/")'>🚩 Signaler une erreur sur cette aire</button>
       </div>
       <div class="card">
         <div class="card-head">
@@ -248,6 +318,7 @@
           <span class="service"><svg><use href="#i-fuel"/></svg>Carburant</span>
           <a class="service maps-link" href="https://www.google.com/maps/search/?api=1&query=Aire%20d%27Attainville%20aire%20autoroute%20A16" target="_blank" rel="noopener">Avis Google Maps ↗</a>
         </div>
+        <button class="report-btn" type="button" onclick='reportAireError(this, event, "Aire d'Attainville", "A16", "https://restautoroute.fr/aires/a16/aire-d-attainville/")'>🚩 Signaler une erreur sur cette aire</button>
       </div>
       <div class="card">
         <div class="card-head">
@@ -261,6 +332,7 @@
           <span class="service"><svg><use href="#i-ev"/></svg>Borne électrique</span><span class="service"><svg><use href="#i-fuel"/></svg>Carburant</span><span class="service"><svg><use href="#i-wc"/></svg>Toilettes</span>
           <a class="service maps-link" href="https://www.google.com/maps/search/?api=1&query=Aire%20d%E2%80%99Hardivillers%20aire%20autoroute%20A16" target="_blank" rel="noopener">Avis Google Maps ↗</a>
         </div>
+        <button class="report-btn" type="button" onclick='reportAireError(this, event, "Aire d\u2019Hardivillers", "A16", "https://restautoroute.fr/aires/a16/aire-dhardivillers/")'>🚩 Signaler une erreur sur cette aire</button>
       </div>
       <div class="card">
         <div class="card-head">
@@ -274,6 +346,7 @@
           <span class="service"><svg><use href="#i-ev"/></svg>Borne électrique</span><span class="service"><svg><use href="#i-fuel"/></svg>Carburant</span><span class="service"><svg><use href="#i-play"/></svg>Aire de jeux</span><span class="service"><svg><use href="#i-shop"/></svg>Boutique</span><span class="service"><svg><use href="#i-wc"/></svg>Toilettes</span>
           <a class="service maps-link" href="https://www.google.com/maps/search/?api=1&query=Aire%20de%20la%20Baie%20de%20Somme%20aire%20autoroute%20A16" target="_blank" rel="noopener">Avis Google Maps ↗</a>
         </div>
+        <button class="report-btn" type="button" onclick='reportAireError(this, event, "Aire de la Baie de Somme", "A16", "https://restautoroute.fr/aires/a16/aire-de-la-baie-de-somme/")'>🚩 Signaler une erreur sur cette aire</button>
       </div>
       </div>
 
@@ -285,6 +358,14 @@
   <footer class="legal">
     Rest'Autoroute — les restaurants et aires listés ici proviennent d'OpenStreetMap et peuvent avoir changé depuis la collecte. Vérifiez sur place. <a href="../../">Retour à l'accueil</a>.
   </footer>
+  
+  <div class="feedback-widget">
+    <span class="feedback-q">Ce site vous a-t-il été utile ?</span>
+    <button class="feedback-btn" type="button" data-val="Oui" onclick="sendFeedback(this)">👍 Oui</button>
+    <button class="feedback-btn" type="button" data-val="Non" onclick="sendFeedback(this)">👎 Non</button>
+    <span class="feedback-thanks" hidden></span>
+  </div>
+
 </div>
 </body>
 </html>

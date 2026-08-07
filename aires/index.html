@@ -18,6 +18,57 @@
   gtag('js', new Date());
   gtag('config', 'G-HBTCYGW0FW');
 </script>
+<script>
+  function reportAireError(btn, ev, aireName, routeId, pageUrl) {
+    if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = 'Envoi...';
+    fetch('https://formspree.io/f/xdenkryr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type: "Signalement d'erreur",
+        _subject: "Signalement Rest'Autoroute : " + aireName,
+        aire: aireName,
+        autoroute: routeId,
+        page: pageUrl
+      })
+    }).then(function (r) {
+      btn.textContent = r.ok ? 'Signalé, merci ✓' : 'Erreur, réessayez';
+      btn.disabled = r.ok;
+    }).catch(function () {
+      btn.textContent = 'Erreur, réessayez';
+      btn.disabled = false;
+    });
+  }
+
+  function sendFeedback(btn) {
+    var wrap = btn.closest('.feedback-widget');
+    wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.disabled = true; });
+    fetch('https://formspree.io/f/xdenkryr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type: 'Sondage : site utile ?',
+        _subject: "Rest'Autoroute — sondage : " + btn.dataset.val,
+        reponse: btn.dataset.val,
+        page: location.href
+      })
+    }).then(function (r) {
+      wrap.querySelector('.feedback-q').style.display = 'none';
+      wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.style.display = 'none'; });
+      var t = wrap.querySelector('.feedback-thanks');
+      t.textContent = r.ok ? 'Merci pour votre retour !' : "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+    }).catch(function () {
+      var t = wrap.querySelector('.feedback-thanks');
+      t.textContent = "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+      wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.style.display = 'none'; });
+    });
+  }
+</script>
 <style>
 
   :root {
@@ -107,9 +158,6 @@
   .ev-spec-k { font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; text-transform: uppercase; }
   .ev-spec-v { font-size: 13.5px; font-weight: 600; }
 
-  .report-block { margin: 14px 0 0; }
-  .report-link { font-size: 12.5px; color: var(--text-dim); text-decoration: none; border-bottom: 1px dashed var(--line); }
-  .report-link:hover { color: var(--sign-blue); border-color: var(--sign-blue); }
 
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
@@ -152,6 +200,27 @@
     h1 { font-size: 24px; }
     .route-badge { font-size: 26px; }
   }
+
+  .report-btn {
+    -webkit-appearance: none; appearance: none; background: none; border: none;
+    font-family: inherit; font-size: 11px; color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; gap: 5px; text-align: left;
+    padding: 0 16px 12px; margin: -4px 0 0;
+  }
+  .report-btn:hover:not(:disabled) { color: var(--sign-blue); }
+  .report-btn:disabled { cursor: default; opacity: 0.75; }
+
+  .feedback-widget {
+    max-width: 1180px; margin: 28px auto 0; padding: 16px 20px; border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--text-dim);
+  }
+  .feedback-btn {
+    -webkit-appearance: none; appearance: none; cursor: pointer; font-family: inherit; font-size: 13px;
+    padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text);
+  }
+  .feedback-btn:hover:not(:disabled) { border-color: var(--sign-blue); color: var(--sign-blue); }
+  .feedback-btn:disabled { opacity: 0.6; cursor: default; }
+  .feedback-thanks { font-weight: 600; color: var(--sign-blue); }
 
 
 .hub-tile { text-decoration: none; color: var(--text); cursor: pointer; transition: transform 0.15s ease; }
@@ -734,6 +803,14 @@
           </div>
         </a></div>
   <footer class="legal"><a href="../">← Retour à Rest'Autoroute</a> · <a href="../aire-de-repos/">Aire de repos ou aire de service : la différence</a></footer>
+  
+  <div class="feedback-widget">
+    <span class="feedback-q">Ce site vous a-t-il été utile ?</span>
+    <button class="feedback-btn" type="button" data-val="Oui" onclick="sendFeedback(this)">👍 Oui</button>
+    <button class="feedback-btn" type="button" data-val="Non" onclick="sendFeedback(this)">👎 Non</button>
+    <span class="feedback-thanks" hidden></span>
+  </div>
+
 </div>
 </body>
 </html>

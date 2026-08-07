@@ -586,6 +586,25 @@
   .r-chip.dim { opacity: 0.35; }
 
   .services { padding: 10px 16px 14px; display: flex; gap: 14px; margin-top: auto; border-top: 1px dashed var(--line); }
+  .report-btn {
+    -webkit-appearance: none; appearance: none; background: none; border: none;
+    font-family: inherit; font-size: 11px; color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; gap: 5px; text-align: left;
+    padding: 0 16px 12px; margin: -4px 0 0;
+  }
+  .report-btn:hover:not(:disabled) { color: var(--sign-blue); }
+  .report-btn:disabled { cursor: default; opacity: 0.75; }
+  .feedback-widget {
+    max-width: 1180px; margin: 28px auto 0; padding: 16px 20px; border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--text-dim);
+  }
+  .feedback-btn {
+    -webkit-appearance: none; appearance: none; cursor: pointer; font-family: inherit; font-size: 13px;
+    padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text);
+  }
+  .feedback-btn:hover:not(:disabled) { border-color: var(--sign-blue); color: var(--sign-blue); }
+  .feedback-btn:disabled { opacity: 0.6; cursor: default; }
+  .feedback-thanks { font-weight: 600; color: var(--sign-blue); }
   .service {
     display: flex; align-items: center; gap: 5px;
     font-size: 11px; color: var(--text-dim);
@@ -741,8 +760,42 @@
   <footer class="legal">
     Rest'Autoroute — prototype v1. Distances et temps de trajet calculés à vol d'oiseau à partir de repères kilométriques approximatifs, à titre indicatif uniquement. Ne remplace pas la signalisation routière ni les applis officielles des sociétés d'autoroutes. Ne consultez pas cette application en conduisant.
   </footer>
+
+  <div class="feedback-widget">
+    <span class="feedback-q">Ce site vous a-t-il été utile ?</span>
+    <button class="feedback-btn" type="button" data-val="Oui" onclick="sendFeedback(this)">👍 Oui</button>
+    <button class="feedback-btn" type="button" data-val="Non" onclick="sendFeedback(this)">👎 Non</button>
+    <span class="feedback-thanks" hidden></span>
+  </div>
 </div>
 
+<script>
+  function sendFeedback(btn) {
+    var wrap = btn.closest(".feedback-widget");
+    wrap.querySelectorAll(".feedback-btn").forEach(function (b) { b.disabled = true; });
+    fetch("https://formspree.io/f/xdenkryr", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        type: "Sondage : site utile ?",
+        _subject: "Rest'Autoroute — sondage : " + btn.dataset.val,
+        reponse: btn.dataset.val,
+        page: location.href
+      })
+    }).then(function (r) {
+      wrap.querySelector(".feedback-q").style.display = "none";
+      wrap.querySelectorAll(".feedback-btn").forEach(function (b) { b.style.display = "none"; });
+      var t = wrap.querySelector(".feedback-thanks");
+      t.textContent = r.ok ? "Merci pour votre retour !" : "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+    }).catch(function () {
+      var t = wrap.querySelector(".feedback-thanks");
+      t.textContent = "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+      wrap.querySelectorAll(".feedback-btn").forEach(function (b) { b.style.display = "none"; });
+    });
+  }
+</script>
 <script>
 (function () {
   "use strict";
@@ -8051,6 +8104,39 @@
       svcWrap.appendChild(svc);
     });
     card.appendChild(svcWrap);
+
+    var reportBtn = document.createElement("button");
+    reportBtn.type = "button";
+    reportBtn.className = "report-btn";
+    reportBtn.textContent = "🚩 Signaler une erreur sur cette aire";
+    reportBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (reportBtn.disabled) return;
+      reportBtn.disabled = true;
+      reportBtn.textContent = "Envoi...";
+      var pageUrl = (a.slug && routeId)
+        ? (location.origin + "/aires/" + routeId.toLowerCase() + "/" + a.slug + "/")
+        : location.href;
+      fetch("https://formspree.io/f/xdenkryr", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          type: "Signalement d'erreur",
+          _subject: "Signalement Rest'Autoroute : " + a.name,
+          aire: a.name,
+          autoroute: routeId || "",
+          page: pageUrl
+        })
+      }).then(function (r) {
+        reportBtn.textContent = r.ok ? "Signalé, merci ✓" : "Erreur, réessayez";
+        reportBtn.disabled = r.ok;
+      }).catch(function () {
+        reportBtn.textContent = "Erreur, réessayez";
+        reportBtn.disabled = false;
+      });
+    });
+    card.appendChild(reportBtn);
 
     return card;
   }

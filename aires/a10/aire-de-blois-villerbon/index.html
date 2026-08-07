@@ -18,6 +18,57 @@
   gtag('js', new Date());
   gtag('config', 'G-HBTCYGW0FW');
 </script>
+<script>
+  function reportAireError(btn, ev, aireName, routeId, pageUrl) {
+    if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+    if (btn.disabled) return;
+    btn.disabled = true;
+    btn.textContent = 'Envoi...';
+    fetch('https://formspree.io/f/xdenkryr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type: "Signalement d'erreur",
+        _subject: "Signalement Rest'Autoroute : " + aireName,
+        aire: aireName,
+        autoroute: routeId,
+        page: pageUrl
+      })
+    }).then(function (r) {
+      btn.textContent = r.ok ? 'Signalé, merci ✓' : 'Erreur, réessayez';
+      btn.disabled = r.ok;
+    }).catch(function () {
+      btn.textContent = 'Erreur, réessayez';
+      btn.disabled = false;
+    });
+  }
+
+  function sendFeedback(btn) {
+    var wrap = btn.closest('.feedback-widget');
+    wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.disabled = true; });
+    fetch('https://formspree.io/f/xdenkryr', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type: 'Sondage : site utile ?',
+        _subject: "Rest'Autoroute — sondage : " + btn.dataset.val,
+        reponse: btn.dataset.val,
+        page: location.href
+      })
+    }).then(function (r) {
+      wrap.querySelector('.feedback-q').style.display = 'none';
+      wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.style.display = 'none'; });
+      var t = wrap.querySelector('.feedback-thanks');
+      t.textContent = r.ok ? 'Merci pour votre retour !' : "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+    }).catch(function () {
+      var t = wrap.querySelector('.feedback-thanks');
+      t.textContent = "Erreur d'envoi, réessayez plus tard.";
+      t.hidden = false;
+      wrap.querySelectorAll('.feedback-btn').forEach(function (b) { b.style.display = 'none'; });
+    });
+  }
+</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": "https://restautoroute.fr/"}, {"@type": "ListItem", "position": 2, "name": "Autoroutes", "item": "https://restautoroute.fr/aires/"}, {"@type": "ListItem", "position": 3, "name": "A10", "item": "https://restautoroute.fr/aires/a10/"}, {"@type": "ListItem", "position": 4, "name": "Aire de Blois-Villerbon", "item": "https://restautoroute.fr/aires/a10/aire-de-blois-villerbon/"}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Combien de restaurants sur Aire de Blois-Villerbon ?", "acceptedAnswer": {"@type": "Answer", "text": "2 restaurants sur Aire de Blois-Villerbon : Burger King (Burger), Territoires de France (Self-service)."}}, {"@type": "Question", "name": "Quels services sont disponibles sur Aire de Blois-Villerbon ?", "acceptedAnswer": {"@type": "Answer", "text": "En plus de la restauration : borne électrique, carburant, aire de jeux, boutique."}}, {"@type": "Question", "name": "Aire de Blois-Villerbon est-elle une aire de repos ou une aire de service ?", "acceptedAnswer": {"@type": "Answer", "text": "Dans le langage courant, Aire de Blois-Villerbon est souvent appelée aire de repos. Elle compte 2 restaurants et propose borne électrique, carburant, aire de jeux, boutique, ce qui en fait techniquement une aire de service."}}, {"@type": "Question", "name": "Y a-t-il une autre aire avec restaurant après Aire de Blois-Villerbon vers Blaye ?", "acceptedAnswer": {"@type": "Answer", "text": "Non, Aire de Blois-Villerbon est la dernière aire avec restaurant sur l'A10 avant d'arriver à Blaye."}}, {"@type": "Question", "name": "Quelle est l'aire avec restaurant précédente, en venant de Blois ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de Tours-La Longue Vue, 36,9 km avant Aire de Blois-Villerbon."}}, {"@type": "Question", "name": "Dans quel sens se trouve Aire de Blois-Villerbon sur l'A10 ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de Blois-Villerbon est au PK 329,7 de l'A10, dans le sens Blois → Blaye."}}, {"@type": "Question", "name": "Où se trouve exactement Aire de Blois-Villerbon ?", "acceptedAnswer": {"@type": "Answer", "text": "Aire de Blois-Villerbon se situe sur la commune de Villerbon, à proximité de Blois (département : Loir-et-Cher)."}}, {"@type": "Question", "name": "Peut-on recharger une voiture électrique près de Aire de Blois-Villerbon ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, 46 points de recharge (26 stations) sont recensés à moins d'1 km, jusqu'à 400 kW (CHAdeMO, Combo CCS, Type 2), accès réservé (badge/abonnement) pour la plupart, 24h/24 7j/7, paiement par carte bancaire possible, accessible PMR. Source : base nationale IRVE."}}]}</script>
 <style>
@@ -109,9 +160,6 @@
   .ev-spec-k { font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; text-transform: uppercase; }
   .ev-spec-v { font-size: 13.5px; font-weight: 600; }
 
-  .report-block { margin: 14px 0 0; }
-  .report-link { font-size: 12.5px; color: var(--text-dim); text-decoration: none; border-bottom: 1px dashed var(--line); }
-  .report-link:hover { color: var(--sign-blue); border-color: var(--sign-blue); }
 
   .faq { margin-top: 28px; }
   .faq-title { font-size: 15px; letter-spacing: 0.04em; color: var(--sign-blue); margin: 0 0 10px; }
@@ -154,6 +202,27 @@
     h1 { font-size: 24px; }
     .route-badge { font-size: 26px; }
   }
+
+  .report-btn {
+    -webkit-appearance: none; appearance: none; background: none; border: none;
+    font-family: inherit; font-size: 11px; color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; gap: 5px; text-align: left;
+    padding: 0 16px 12px; margin: -4px 0 0;
+  }
+  .report-btn:hover:not(:disabled) { color: var(--sign-blue); }
+  .report-btn:disabled { cursor: default; opacity: 0.75; }
+
+  .feedback-widget {
+    max-width: 1180px; margin: 28px auto 0; padding: 16px 20px; border-top: 1px solid var(--line);
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: var(--text-dim);
+  }
+  .feedback-btn {
+    -webkit-appearance: none; appearance: none; cursor: pointer; font-family: inherit; font-size: 13px;
+    padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text);
+  }
+  .feedback-btn:hover:not(:disabled) { border-color: var(--sign-blue); color: var(--sign-blue); }
+  .feedback-btn:disabled { opacity: 0.6; cursor: default; }
+  .feedback-thanks { font-weight: 600; color: var(--sign-blue); }
 
 </style>
 </head>
@@ -230,11 +299,10 @@
           <span class="service"><svg><use href="#i-ev"/></svg>Borne électrique</span><span class="service"><svg><use href="#i-fuel"/></svg>Carburant</span><span class="service"><svg><use href="#i-play"/></svg>Aire de jeux</span><span class="service"><svg><use href="#i-shop"/></svg>Boutique</span>
           <a class="service maps-link" href="https://www.google.com/maps/search/?api=1&query=Aire%20de%20Blois-Villerbon%20aire%20autoroute%20A10" target="_blank" rel="noopener">Avis Google Maps ↗</a>
         </div>
+        <button class="report-btn" type="button" onclick='reportAireError(this, event, "Aire de Blois-Villerbon", "A10", "https://restautoroute.fr/aires/a10/aire-de-blois-villerbon/")'>🚩 Signaler une erreur sur cette aire</button>
       </div></div>
 
   <div class="ev-box"><p class="ev-title">⚡ Recharge électrique à proximité (moins d'1 km)</p><div class="ev-specs"><div class="ev-spec"><span class="ev-spec-k">Points de recharge</span><span class="ev-spec-v">46 (26 stations)</span></div><div class="ev-spec"><span class="ev-spec-k">Puissance max.</span><span class="ev-spec-v">400 kW</span></div><div class="ev-spec"><span class="ev-spec-k">Prises</span><span class="ev-spec-v">CHAdeMO, Combo CCS, Type 2</span></div><div class="ev-spec"><span class="ev-spec-k">Opérateur(s)</span><span class="ev-spec-v">IONITY, Ionity</span></div><div class="ev-spec"><span class="ev-spec-k">Accès</span><span class="ev-spec-v">2 en accès libre · 24 sur badge/abonnement</span></div><div class="ev-spec"><span class="ev-spec-k">Horaires</span><span class="ev-spec-v">24h/24, 7j/7</span></div><div class="ev-spec"><span class="ev-spec-k">Paiement</span><span class="ev-spec-v">carte bancaire (sans abonnement)</span></div><div class="ev-spec"><span class="ev-spec-k">Réservation</span><span class="ev-spec-v">non</span></div><div class="ev-spec"><span class="ev-spec-k">Accessible PMR</span><span class="ev-spec-v">oui</span></div></div><p class="ev-source">Source : base nationale IRVE (data.gouv.fr) — infos statiques déclarées par les opérateurs, pas de disponibilité en temps réel.</p></div>
-
-  <p class="report-block"><a href="#" class="report-link" data-u="lacroix.arthur1" data-d="gmail.com" data-subj="Signalement%20Rest%27Autoroute%20%3A%20Aire%20de%20Blois-Villerbon" data-body="Aire%20%3A%20Aire%20de%20Blois-Villerbon%20%28A10%29%0APage%20%3A%20https%3A//restautoroute.fr/aires/a10/aire-de-blois-villerbon/%0A%0AType%20de%20probl%C3%A8me%20%28cochez%29%20%3A%0A%5B%20%5D%20Localisation%20de%20l%27aire%20incorrecte%0A%5B%20%5D%20Erreur%20sur%20un%20restaurant%20/%20service%0A%5B%20%5D%20Autre%0A%0AD%C3%A9tails%20%3A%20" onclick="var u=this.dataset.u+'@'+this.dataset.d;location.href='mailto:'+u+'?subject='+this.dataset.subj+'&body='+this.dataset.body;return false;">🚩 Signaler une erreur sur cette aire</a></p>
 
   <p class="practical">C'est la dernière aire avec restaurant sur l'A10 avant Blaye. En venant de Blois, l'aire précédente avec restaurant est <a href="../aire-de-tours-la-longue-vue/">Aire de Tours-La Longue Vue</a>, 36,9 km plus tôt.</p>
 
@@ -253,6 +321,14 @@
   <footer class="legal">
     Rest'Autoroute — les restaurants et aires listés ici proviennent d'OpenStreetMap et peuvent avoir changé depuis la collecte. Vérifiez sur place. <a href="../../../">Retour à l'accueil</a> · <a href="../">Toutes les aires de l'A10</a>.
   </footer>
+  
+  <div class="feedback-widget">
+    <span class="feedback-q">Ce site vous a-t-il été utile ?</span>
+    <button class="feedback-btn" type="button" data-val="Oui" onclick="sendFeedback(this)">👍 Oui</button>
+    <button class="feedback-btn" type="button" data-val="Non" onclick="sendFeedback(this)">👎 Non</button>
+    <span class="feedback-thanks" hidden></span>
+  </div>
+
 </div>
 </body>
 </html>
