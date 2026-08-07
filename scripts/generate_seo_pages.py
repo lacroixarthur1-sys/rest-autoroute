@@ -185,6 +185,13 @@ def build_faq(aire, route, prev_a, next_a, destination, origin, sens_label):
          if svc_labels else
          "Aucun service annexe (carburant, borne électrique...) recensé sur cette aire, hors restauration."),
     ))
+    faq.append((
+        f"{aire['name']} est-elle une aire de repos ou une aire de service ?",
+        f"Dans le langage courant, {aire['name']} est souvent appelée aire de repos. Elle compte "
+        f"{n} restaurant{'s' if n > 1 else ''}"
+        + (f" et propose {', '.join(l.lower() for l in svc_labels)}" if svc_labels else "")
+        + ", ce qui en fait techniquement une aire de service.",
+    ))
     if next_a:
         dist = abs(next_a["pk"] - aire["pk"])
         faq.append((
@@ -265,7 +272,8 @@ def render_aire_page(aire, route, all_routes):
         + " | Rest'Autoroute"
     )
     description = (
-        f"{aire['name']} sur l'autoroute {route['id']} (PK {fmt_pk(aire['pk'])}, sens {sens_label}) : "
+        f"{aire['name']}, aire de repos avec restaurant sur l'autoroute {route['id']} "
+        f"(PK {fmt_pk(aire['pk'])}, sens {sens_label}) : "
         f"{resto_names}."
         + (f" Borne de recharge électrique à proximité ({ev['n_points']} points, jusqu'à {ev['max_power_kw']} kW)." if ev else "")
         + " Horaires, avis et services (carburant, boutique, aire de jeux...)."
@@ -283,7 +291,7 @@ def render_aire_page(aire, route, all_routes):
     geo = aire.get("_geo") or {}
     commune, department, town = geo.get("commune"), geo.get("department"), geo.get("town")
     lead_text = (
-        f"{aire['name']} est une aire d'autoroute {route['id']} au PK {fmt_pk(aire['pk'])}, "
+        f"{aire['name']} est une aire de repos (aire d'autoroute {route['id']}) au PK {fmt_pk(aire['pk'])}, "
         f"dans le sens {sens_label}. Elle compte {n_resto} restaurant{'s' if n_resto > 1 else ''}"
         f"{' et propose ' + ', '.join(l.lower() for l in svc_labels) if svc_labels else ''}."
     )
