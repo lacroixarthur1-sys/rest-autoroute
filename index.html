@@ -7550,6 +7550,7 @@
       var idx = state.activeCuisines.indexOf(key);
       if (idx === -1) state.activeCuisines.push(key); else state.activeCuisines.splice(idx, 1);
       render();
+      gtag('event', 'filter_cuisine', { cuisine: key, action: idx === -1 ? 'add' : 'remove' });
     });
     filtersEl.appendChild(chip);
   });
@@ -7560,6 +7561,7 @@
   resetChip.addEventListener("click", function () {
     state.activeCuisines = [];
     render();
+    gtag('event', 'filter_cuisine', { cuisine: 'all', action: 'reset' });
   });
   filtersEl.appendChild(resetChip);
 
@@ -7575,9 +7577,11 @@
   }
   dirForwardBtn.addEventListener("click", function () {
     if (!state.forward) { state.forward = true; state.position = 0; setupSlider(); render(); }
+    gtag('event', 'toggle_direction', { direction: 'forward', route_id: state.routeId });
   });
   dirReverseBtn.addEventListener("click", function () {
     if (state.forward) { state.forward = false; state.position = maxPk(currentRoute()); setupSlider(); render(); }
+    gtag('event', 'toggle_direction', { direction: 'reverse', route_id: state.routeId });
   });
 
   routeSelect.addEventListener("change", function () {
@@ -7586,6 +7590,7 @@
     state.position = 0;
     setupSlider();
     render();
+    gtag('event', 'select_route', { route_id: state.routeId });
   });
 
 
@@ -7745,8 +7750,8 @@
     closeSearchResults();
     destinationGoBtn.style.display = "";
   }
-  modeRouteBtn.addEventListener("click", function () { setMode("route"); });
-  modeTripBtn.addEventListener("click", function () { setMode("trip"); });
+  modeRouteBtn.addEventListener("click", function () { setMode("route"); gtag('event', 'switch_mode', { mode: 'route' }); });
+  modeTripBtn.addEventListener("click", function () { setMode("trip"); gtag('event', 'switch_mode', { mode: 'trip' }); });
 
   // ---------------------------------------------------------------------
   // Real trip routing: geocode two addresses (Nominatim) then route between
@@ -7898,6 +7903,7 @@
       tripStatus.textContent = "Indiquez une ville ou adresse de départ et d'arrivée.";
       return;
     }
+    gtag('event', 'compute_trip', { method: 'address' });
     tripSummary.classList.remove("show");
     tripStatus.textContent = "Recherche des adresses…";
 
@@ -7919,6 +7925,7 @@
     var toQ = (toQuery || "").trim();
     if (!state.myLocation) return;
     if (!toQ) { locateStatus.textContent = "Indiquez une destination."; return; }
+    gtag('event', 'compute_trip', { method: 'geolocation' });
 
     tripFrom.value = state.myLocation.label;
     tripTo.value = toQ;
@@ -8003,6 +8010,7 @@
   });
 
   locateBtn.addEventListener("click", function () {
+    gtag('event', 'locate_me', { action: 'click' });
     if (!navigator.geolocation) {
       locateStatus.textContent = "Géolocalisation non disponible sur cet appareil/navigateur. Utilisez la recherche par ville ci-contre.";
       return;
@@ -8011,6 +8019,7 @@
     navigator.geolocation.getCurrentPosition(function (pos) {
       var lat = pos.coords.latitude, lng = pos.coords.longitude;
       state.myLocation = { lat: lat, lon: lng, label: "Votre position actuelle" };
+      gtag('event', 'locate_me', { action: 'success' });
       enableDestinationMode();
 
       var best = null;
@@ -8040,6 +8049,7 @@
       if (err.code === 1) {
         hint = "La géolocalisation est bloquée par la politique de permissions de cette page (limite de l'environnement d'hébergement, même hors aperçu intégré). Utilisez la recherche par ville/aire ci-contre à la place.";
       }
+      gtag('event', 'locate_me', { action: 'error', error_code: err.code });
       locateStatus.textContent = "Impossible de récupérer votre position (" + err.message + "). " + hint;
     }, { timeout: 8000 });
   });
@@ -8061,6 +8071,9 @@
     card.className = "card" + (isNext ? " next" : "");
     if (a.slug && routeId) {
       card.href = "aires/" + routeId.toLowerCase() + "/" + a.slug + "/";
+      card.addEventListener("click", function () {
+        gtag('event', 'select_aire', { aire: a.name, route_id: routeId });
+      });
     }
 
     var head = document.createElement("div");
