@@ -639,6 +639,11 @@
     "department": "Allier",
     "town": "Montluçon"
   },
+  "46.40766,-0.53699": {
+    "commune": "Villiers-en-Plaine",
+    "department": "Deux-Sèvres",
+    "town": "Niort"
+  },
   "46.41964,4.86639": {
     "commune": "Saint-Albain",
     "department": "Saône-et-Loire",
@@ -683,6 +688,11 @@
     "commune": "Jaunay-Marigny",
     "department": "Vienne",
     "town": "Poitiers"
+  },
+  "46.88694,-1.32132": {
+    "commune": "Les Brouzils",
+    "department": "Vendée",
+    "town": "La Roche-sur-Yon"
   },
   "46.90459,-1.04818": {
     "commune": "Les Herbiers",
