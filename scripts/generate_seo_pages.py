@@ -509,6 +509,7 @@ def render_aire_page(aire, route, all_routes):
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{DOMAIN}/aires/{route_slug}/{aire_slug}/">
 <link rel="icon" href="../../../icons/favicon-32.png" sizes="32x32">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8743184001828384" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HBTCYGW0FW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -656,6 +657,7 @@ def render_route_page(route, all_routes):
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{DOMAIN}/aires/{slug}/">
 <link rel="icon" href="../../icons/favicon-32.png" sizes="32x32">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8743184001828384" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HBTCYGW0FW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -761,6 +763,7 @@ def render_hub_page(all_routes):
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{DOMAIN}/aires/">
 <link rel="icon" href="../icons/favicon-32.png" sizes="32x32">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8743184001828384" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HBTCYGW0FW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -1046,6 +1049,7 @@ def render_glossary_page(all_routes):
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{DOMAIN}/aire-de-repos/">
 <link rel="icon" href="../icons/favicon-32.png" sizes="32x32">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8743184001828384" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HBTCYGW0FW"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
