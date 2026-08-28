@@ -10,11 +10,13 @@ Run from anywhere: python3 scripts/generate_seo_pages.py
 """
 import json
 import re
+import shutil
 import time
 import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -24,6 +26,28 @@ GEOCODE_CACHE_PATH = ROOT / "scripts" / "geocode_cache.json"
 EV_CACHE_PATH = ROOT / "scripts" / "ev_cache.json"
 NOMINATIM_UA = "RestAutorouteBot/1.0 (contact: lacroix.arthur1@gmail.com)"
 FORMSPREE_URL = "https://formspree.io/f/xdenkryr"
+
+# Only enseignes with at least this many aires (after grouping sub-formats
+# into their parent brand) get their own /restaurants/{slug}/ pages — below
+# that, a page would be too thin to be worth indexing.
+MIN_BRAND_AIRES = 3
+
+# Sub-formats of the same enseigne, grouped under the parent brand for the
+# /restaurants/ pages (the aire cards still show the exact original name).
+BRAND_PARENT_ALIASES = {
+    "paul le café": "paul",
+    "l'arche cafétéria": "l'arche",
+    "l'arche comptoir": "l'arche",
+    "cafétéria l'arche": "l'arche",
+    "brioche dorée grill": "brioche dorée",
+}
+# For merged parent brands, use the plain parent name rather than whichever
+# sub-format happens to be the most frequent raw spelling.
+BRAND_CANONICAL_NAMES = {
+    "paul": "Paul",
+    "l'arche": "L'Arche",
+    "brioche dorée": "Brioche Dorée",
+}
 
 WIDGETS_JS = """
   function reportAireError(btn, ev, aireName, routeId, pageUrl) {
@@ -212,6 +236,375 @@ def cuisine_counts(route):
             t = r.get("t")
             counts[t] = counts.get(t, 0) + 1
     return counts
+
+
+def norm_brand_name(n):
+    n = n.strip().replace("’", "'")
+    n = n.rstrip("!").strip()
+    return n.lower()
+
+
+def build_brands(all_routes):
+    """Group restaurants by enseigne across the whole dataset, for the
+    /restaurants/{slug}/ (all routes) and /restaurants/{slug}/{route}/
+    (one route) SEO pages."""
+    entries_by_key = defaultdict(list)  # brand key -> [(route, aire, restaurant)]
+    display_counts = defaultdict(Counter)  # brand key -> Counter of raw names seen
+    for route in all_routes:
+        for aire in route["aires"]:
+            for res in aire["restaurants"]:
+                key = norm_brand_name(res["n"])
+                key = BRAND_PARENT_ALIASES.get(key, key)
+                entries_by_key[key].append((route, aire, res))
+                display_counts[key][res["n"]] += 1
+
+    seen_slugs = {}
+    brands = []
+    for key, entries in entries_by_key.items():
+        if len(entries) < MIN_BRAND_AIRES:
+            continue
+        name = BRAND_CANONICAL_NAMES.get(key) or display_counts[key].most_common(1)[0][0]
+        base_slug = slugify(name)
+        if base_slug in seen_slugs:
+            seen_slugs[base_slug] += 1
+            slug = f"{base_slug}-{seen_slugs[base_slug]}"
+        else:
+            seen_slugs[base_slug] = 1
+            slug = base_slug
+        routes_map = defaultdict(list)
+        for route, aire, res in entries:
+            routes_map[route["id"]].append((route, aire, res))
+        brands.append({
+            "key": key,
+            "name": name,
+            "slug": slug,
+            "entries": entries,
+            "routes_map": routes_map,
+        })
+    brands.sort(key=lambda b: -len(b["entries"]))
+    return brands
+
+
+def brand_page_head(title, description, canonical, depth, ld_jsons):
+    icon_prefix = "../" * depth
+    ld_html = "".join(f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>' for ld in ld_jsons)
+    return f"""<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<link rel="canonical" href="{canonical}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{canonical}">
+<link rel="icon" href="{icon_prefix}icons/favicon-32.png" sizes="32x32">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8743184001828384" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HBTCYGW0FW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-HBTCYGW0FW');
+</script>
+<script>{WIDGETS_JS}</script>
+{ld_html}
+<style>
+{PAGE_CSS}
+{HUB_CSS}
+</style>"""
+
+
+def render_restaurants_hub_page(brands, all_routes):
+    title = "Restaurant Autoroute par Enseigne : McDonald's, Starbucks, Burger King... | Rest'Autoroute"
+    description = (
+        "Trouvez sur quelle autoroute et quelle aire manger dans votre enseigne préférée : "
+        "McDonald's, Burger King, Starbucks, KFC, Paul, Brioche Dorée... Liste par enseigne et par autoroute."
+    )
+    tiles = "".join(
+        f"""<a class="card hub-tile" href="{b['slug']}/">
+          <div class="card-head">
+            <div>
+              <p class="aire-name">{b['name']}</p>
+              <p class="aire-route">{len(b['routes_map'])} autoroute{"s" if len(b['routes_map']) > 1 else ""}</p>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat"><span class="stat-num">{len(b['entries'])}</span><span class="stat-num-label">AIRES</span></div>
+          </div>
+        </a>"""
+        for b in sorted(brands, key=lambda b: b["name"].lower())
+    )
+    ld_json = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": f"{DOMAIN}/"},
+            {"@type": "ListItem", "position": 2, "name": "Restaurants par enseigne", "item": f"{DOMAIN}/restaurants/"},
+        ],
+    }
+    head = brand_page_head(title, description, f"{DOMAIN}/restaurants/", 1, [ld_json])
+    return f"""<!doctype html>
+<html lang="fr">
+<head>
+{head}
+</head>
+<body>
+{SVG_DEFS}
+<div class="hero">
+  <div class="brand">
+    <a href="../" style="text-decoration:none;"><div class="brand-mark"><svg viewBox="0 0 24 24"><use href="#i-road"/></svg></div></a>
+    <div>
+      <p class="brand-name">Rest'<span>Autoroute</span></p>
+      <p class="tagline">Choisissez une enseigne pour voir sur quelles aires et autoroutes la trouver.</p>
+    </div>
+  </div>
+  <div class="theme-note"><a href="../">← Accueil</a></div>
+</div>
+<div class="page">
+  <div class="console route-sign">
+    <h1 class="route-h1" style="font-size:19px; margin-bottom:14px;">Restaurant autoroute par enseigne</h1>
+    <div class="cta-row">
+      <a class="locate-cta" href="../?locate=1">
+        <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
+        Me localiser — trouver un restaurant à proximité
+      </a>
+      <a class="cta-link" href="../aires/">
+        <svg viewBox="0 0 24 24"><use href="#i-road"/></svg>
+        Voir toutes les autoroutes
+      </a>
+    </div>
+  </div>
+  <p class="lead">{len(brands)} enseignes recensées sur les aires d'autoroute françaises couvertes par Rest'Autoroute.</p>
+  <div class="hub-grid">{tiles}</div>
+  <footer class="legal"><a href="../">← Retour à Rest'Autoroute</a></footer>
+  {FEEDBACK_WIDGET_HTML}
+</div>
+</body>
+</html>
+"""
+
+
+def render_brand_page(brand, all_routes):
+    name = brand["name"]
+    slug = brand["slug"]
+    n_aires = len(brand["entries"])
+    n_routes = len(brand["routes_map"])
+    route_by_id = {r["id"]: r for r in all_routes}
+
+    rows = "".join(
+        f"""<a class="card hub-tile" href="{route_id.lower()}/">
+          <div class="card-head">
+            <div>
+              <p class="aire-name">{route_id}</p>
+              <p class="aire-route">{route_by_id[route_id]['from']} → {route_by_id[route_id]['to']}</p>
+            </div>
+          </div>
+          <div class="stat-row">
+            <div class="stat"><span class="stat-num">{len(entries)}</span><span class="stat-num-label">AIRE{"S" if len(entries) > 1 else ""}</span></div>
+          </div>
+        </a>"""
+        for route_id, entries in sorted(brand["routes_map"].items(), key=lambda x: -len(x[1]))
+    )
+
+    title = f"{name} sur Autoroute : sur quelles aires le trouver ? | Rest'Autoroute"
+    description = (
+        f"{n_aires} {name} recensés sur {n_routes} autoroute{'s' if n_routes > 1 else ''} françaises. "
+        f"Retrouvez l'aire {name} la plus proche de votre trajet, autoroute par autoroute."
+    )
+
+    faq = [
+        (
+            f"Combien y a-t-il de {name} sur autoroute en France ?",
+            f"Rest'Autoroute recense {n_aires} aire{'s' if n_aires > 1 else ''} avec un {name} sur "
+            f"{n_routes} autoroute{'s' if n_routes > 1 else ''} françaises.",
+        ),
+        (
+            f"Comment trouver le {name} le plus proche sur mon trajet ?",
+            f"Choisissez votre autoroute ci-dessous pour voir la liste des aires avec {name}, dans les "
+            "deux sens de circulation, ou utilisez « Me localiser » depuis la page d'accueil.",
+        ),
+    ]
+    faq_html = "".join(f'<details class="faq-item"><summary>{q}</summary><p>{a}</p></details>' for q, a in faq)
+    faq_ld_json = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in faq
+        ],
+    }
+    ld_json = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": f"{DOMAIN}/"},
+            {"@type": "ListItem", "position": 2, "name": "Restaurants par enseigne", "item": f"{DOMAIN}/restaurants/"},
+            {"@type": "ListItem", "position": 3, "name": name, "item": f"{DOMAIN}/restaurants/{slug}/"},
+        ],
+    }
+    head = brand_page_head(title, description, f"{DOMAIN}/restaurants/{slug}/", 2, [ld_json, faq_ld_json])
+    return f"""<!doctype html>
+<html lang="fr">
+<head>
+{head}
+</head>
+<body>
+{SVG_DEFS}
+<div class="hero">
+  <div class="brand">
+    <a href="../../" style="text-decoration:none;"><div class="brand-mark"><svg viewBox="0 0 24 24"><use href="#i-road"/></svg></div></a>
+    <div>
+      <p class="brand-name">Rest'<span>Autoroute</span></p>
+      <p class="tagline">{name} sur autoroute — {n_aires} aires sur {n_routes} autoroutes</p>
+    </div>
+  </div>
+  <div class="theme-note"><a href="../">← Toutes les enseignes</a></div>
+</div>
+<div class="page">
+  <div class="console route-sign">
+    <h1 class="route-h1" style="font-size:19px; margin-bottom:14px;">{name} sur autoroute : où le trouver ?</h1>
+    <div class="cta-row">
+      <a class="locate-cta" href="../../?locate=1">
+        <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
+        Me localiser — trouver un {name} à proximité
+      </a>
+    </div>
+  </div>
+  <p class="lead">{n_aires} {name} trouvés sur {n_routes} autoroute{'s' if n_routes > 1 else ''} françaises. Choisissez votre autoroute :</p>
+  <div class="hub-grid">{rows}</div>
+  <div class="faq">
+    <h2 class="faq-title">Questions fréquentes</h2>
+    {faq_html}
+  </div>
+  <footer class="legal">
+    Rest'Autoroute — les restaurants et aires listés ici proviennent d'OpenStreetMap et peuvent avoir changé depuis la collecte. Vérifiez sur place. <a href="../../">Retour à l'accueil</a> · <a href="../">Toutes les enseignes</a>.
+  </footer>
+  {FEEDBACK_WIDGET_HTML}
+</div>
+</body>
+</html>
+"""
+
+
+def render_brand_route_page(brand, route_id, entries, all_routes):
+    route = next(r for r in all_routes if r["id"] == route_id)
+    name = brand["name"]
+    slug = brand["slug"]
+    route_slug = route_id.lower()
+
+    def section(sens_label, dir_key):
+        dir_entries = sorted(
+            [(a, res) for r, a, res in entries if a.get("direction") == dir_key], key=lambda x: x[0]["pk"]
+        )
+        if not dir_entries:
+            return ""
+        items = "".join(
+            f"""<div class="card">
+        <div class="card-head">
+          <div>
+            <p class="aire-name"><a class="aire-link" href="../../../aires/{route_slug}/{a['_slug']}/">{a['name']}</a></p>
+            <p class="aire-route">PK {fmt_pk(a['pk'])} · {route_id} · {res['n']}</p>
+          </div>
+        </div>
+      </div>"""
+            for a, res in dir_entries
+        )
+        return f"""
+      <div class="results-meta">
+        <h2>Sens {sens_label}</h2>
+        <h2 class="dim">{len(dir_entries)} aire{"s" if len(dir_entries) > 1 else ""}</h2>
+      </div>
+      <div class="grid">{items}</div>"""
+
+    forward_section = section(f"{route['from']} → {route['to']}", "forward")
+    reverse_section = section(f"{route['to']} → {route['from']}", "reverse")
+
+    title = f"{name} sur l'Autoroute {route_id} : quelle aire ? | Rest'Autoroute"
+    description = (
+        f"{len(entries)} {name} recensés sur l'autoroute {route_id} ({route['from']} → {route['to']}), "
+        f"dans les deux sens de circulation. Aire, PK et lien vers la fiche complète."
+    )
+
+    faq = [
+        (
+            f"Combien y a-t-il de {name} sur l'{route_id} ?",
+            f"{len(entries)} {name} sont recensés sur l'{route_id}, entre {route['from']} et {route['to']}, "
+            "dans les deux sens de circulation.",
+        ),
+    ]
+    faq_html = "".join(f'<details class="faq-item"><summary>{q}</summary><p>{a}</p></details>' for q, a in faq)
+    faq_ld_json = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in faq
+        ],
+    }
+    ld_json = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Rest'Autoroute", "item": f"{DOMAIN}/"},
+            {"@type": "ListItem", "position": 2, "name": "Restaurants par enseigne", "item": f"{DOMAIN}/restaurants/"},
+            {"@type": "ListItem", "position": 3, "name": name, "item": f"{DOMAIN}/restaurants/{slug}/"},
+            {"@type": "ListItem", "position": 4, "name": route_id, "item": f"{DOMAIN}/restaurants/{slug}/{route_slug}/"},
+        ],
+    }
+    head = brand_page_head(title, description, f"{DOMAIN}/restaurants/{slug}/{route_slug}/", 3, [ld_json, faq_ld_json])
+    return f"""<!doctype html>
+<html lang="fr">
+<head>
+{head}
+</head>
+<body>
+{SVG_DEFS}
+<div class="hero">
+  <div class="brand">
+    <a href="../../../" style="text-decoration:none;"><div class="brand-mark"><svg viewBox="0 0 24 24"><use href="#i-road"/></svg></div></a>
+    <div>
+      <p class="brand-name">Rest'<span>Autoroute</span></p>
+      <p class="tagline">{name} — Autoroute {route_id}</p>
+    </div>
+  </div>
+  <div class="theme-note"><a href="../">← Tous les {name}</a></div>
+</div>
+<div class="page">
+  <div class="console route-sign">
+    <div class="route-sign-row">
+      <div class="route-badge">{route_id}</div>
+      <div class="route-sign-info">
+        <h1 class="route-h1">{name} sur l'autoroute {route_id}</h1>
+        <div class="route-sign-cities">{route['from']} → {route['to']}</div>
+        <div class="route-sign-stats">{len(entries)} aire{"s" if len(entries) > 1 else ""}</div>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a class="locate-cta" href="../../../?locate=1">
+        <svg viewBox="0 0 24 24"><use href="#i-locate"/></svg>
+        Me localiser — trouver un {name} à proximité
+      </a>
+      <a class="cta-link" href="../../../aires/{route_slug}/">
+        <svg viewBox="0 0 24 24"><use href="#i-road"/></svg>
+        Voir toutes les aires de l'{route_id}
+      </a>
+    </div>
+  </div>
+  <p class="lead">{len(entries)} {name} trouvés sur l'{route_id}, dans les deux sens de circulation.</p>
+  {forward_section}
+  {reverse_section}
+  <div class="faq">
+    <h2 class="faq-title">Questions fréquentes</h2>
+    {faq_html}
+  </div>
+  <footer class="legal">
+    Rest'Autoroute — les restaurants et aires listés ici proviennent d'OpenStreetMap et peuvent avoir changé depuis la collecte. Vérifiez sur place. <a href="../../../">Retour à l'accueil</a> · <a href="../">Tous les {name}</a> · <a href="../../../aires/{route_slug}/">Toutes les aires de l'{route_id}</a>.
+  </footer>
+  {FEEDBACK_WIDGET_HTML}
+</div>
+</body>
+</html>
+"""
 
 
 def render_card(aire, route, link=True, official_link=None):
@@ -1121,19 +1514,33 @@ def render_glossary_page(all_routes):
 """
 
 
-def build_sitemap(all_routes):
-    urls = [f"{DOMAIN}/", f"{DOMAIN}/aires/", f"{DOMAIN}/aire-de-repos/"]
+def build_sitemap(all_routes, brands):
+    urls = [f"{DOMAIN}/", f"{DOMAIN}/aires/", f"{DOMAIN}/aire-de-repos/", f"{DOMAIN}/restaurants/"]
     for r in all_routes:
         slug = r["id"].lower()
         urls.append(f"{DOMAIN}/aires/{slug}/")
         for aire in r["aires"]:
             urls.append(f"{DOMAIN}/aires/{slug}/{aire['_slug']}/")
+    for b in brands:
+        urls.append(f"{DOMAIN}/restaurants/{b['slug']}/")
+        for route_id in b["routes_map"]:
+            urls.append(f"{DOMAIN}/restaurants/{b['slug']}/{route_id.lower()}/")
     body = "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
     return f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{body}</urlset>\n'
 
 
 def build_robots():
     return f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n"
+
+
+def cleanup_stale(dir_path, keep_names):
+    """Remove generated subdirectories that no longer correspond to current
+    data (removed/renamed aire, route, or brand), so stale pages don't linger."""
+    if not dir_path.exists():
+        return
+    for child in dir_path.iterdir():
+        if child.is_dir() and child.name not in keep_names:
+            shutil.rmtree(child)
 
 
 def main():
@@ -1179,10 +1586,34 @@ def main():
             (aire_dir / "index.html").write_text(render_aire_page(aire, route, routes), encoding="utf-8")
             n_aire_pages += 1
 
-    (ROOT / "sitemap.xml").write_text(build_sitemap(routes), encoding="utf-8")
+        cleanup_stale(route_dir, {a["_slug"] for a in route["aires"]})
+    cleanup_stale(aires_dir, {r["id"].lower() for r in routes})
+
+    brands = build_brands(routes)
+    restaurants_dir = ROOT / "restaurants"
+    restaurants_dir.mkdir(exist_ok=True)
+    (restaurants_dir / "index.html").write_text(render_restaurants_hub_page(brands, routes), encoding="utf-8")
+
+    n_brand_pages = 0
+    for brand in brands:
+        brand_dir = restaurants_dir / brand["slug"]
+        brand_dir.mkdir(exist_ok=True)
+        (brand_dir / "index.html").write_text(render_brand_page(brand, routes), encoding="utf-8")
+        for route_id, entries in brand["routes_map"].items():
+            route_dir = brand_dir / route_id.lower()
+            route_dir.mkdir(exist_ok=True)
+            (route_dir / "index.html").write_text(render_brand_route_page(brand, route_id, entries, routes), encoding="utf-8")
+            n_brand_pages += 1
+        cleanup_stale(brand_dir, {rid.lower() for rid in brand["routes_map"]})
+    cleanup_stale(restaurants_dir, {b["slug"] for b in brands})
+
+    (ROOT / "sitemap.xml").write_text(build_sitemap(routes, brands), encoding="utf-8")
     (ROOT / "robots.txt").write_text(build_robots(), encoding="utf-8")
 
-    print(f"Generated {len(routes)} route pages + {n_aire_pages} aire pages + hub + sitemap.xml + robots.txt")
+    print(
+        f"Generated {len(routes)} route pages + {n_aire_pages} aire pages + "
+        f"{len(brands)} brand hubs + {n_brand_pages} brand×route pages + hub + sitemap.xml + robots.txt"
+    )
 
 
 if __name__ == "__main__":
